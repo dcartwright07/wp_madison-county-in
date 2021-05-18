@@ -70,7 +70,7 @@
     <v-app-bar
       absolute
       app
-      dark
+      light
       color="transparent"
       style="z-index:2;"
     >

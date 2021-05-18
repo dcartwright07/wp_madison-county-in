@@ -1,5 +1,3 @@
-
-
 /*
 this is where we will eventually hold the data
 */
@@ -21,9 +19,10 @@ export const state = () => ({
     wu247Dest: [],
     wu247Evnt: [],
     wu247Dir: [],
-	tilePosts: [],
-	pageContent: [],
-    
+	  tilePosts: [],
+  	pageContent: [],
+	  Categories: [],
+    featuredImages: [],  
 })
 /*
 this will update the state
@@ -46,6 +45,12 @@ export const mutations = {
 	},
 	setPageContent: (state, array) => {
 		state.pageContent = array;
+	},
+	updateCategories: (state, array) => {
+		state.Categories = array;
+	},
+	updatefeaturedImages: (state, array) => {
+		state.featuredImages = array;
 	}
 }
 /*
@@ -70,14 +75,16 @@ export const actions = {
         'http://localhost/wp-json/wp/v2/pages'
       ).then((res) => res.json())
  
-      landingPages = landingPages.filter((el) => el.status === 'publish')
-      landingPages = landingPages.filter((el) => el.parent === 0)
-      landingPages = landingPages.map(({ ACF, title, slug, yoast_head, content }) => ({
+      landingPages = landingPages.filter((el) => el.status === 'publish' && el.parent === 0);
+      landingPages = landingPages.map(({ ACF, title, slug, yoast_head, content,categories,parent,featured_media}) => ({
         ACF,
         title,
         slug,
         yoast_head,
-        content
+        content,
+        categories,
+        parent,
+        featured_media
       }))
       commit('updatelandingPages', landingPages)
     } catch (err) {
@@ -90,7 +97,6 @@ export const actions = {
       let homeFeatures = await fetch(
         'http://localhost/wp-json/wp/v2/home_features'
         ).then((res) => res.json())
-        // homeFeatures = homeFeatures.filter( function (n){return n.acf.startsWith('hero_image')} )
         homeFeatures = homeFeatures.map(({ acf, title, slug, yoast_head }) => ({
           acf,
           title,
@@ -152,24 +158,54 @@ export const actions = {
        }catch(err) {}
     
   },
-  async gettilePosts({ state, commit}) {
+  async gettilePosts({state, commit}) {
     // if (state.tilePosts.length) return
     try {
       let tilePosts = await fetch(
         'http://localhost/wp-json/wp/v2/tile'
         ).then((res) => res.json())
         console.log(tilePosts)
-        tilePosts = tilePosts.map(({ acf, title, slug, yoast_head, categories, tags }) => ({
+        tilePosts = tilePosts.map(({ acf, slug, yoast_head, categories, tags }) => ({
           acf,
-          title,
           slug,
           yoast_head,
-			categories,
-		  tags,
+			    categories,
+		      tags,
         }))
       commit('updatetilePosts', tilePosts)
     } catch (err) {
         console.log(err);
+    }
+  },
+  async getCategories({ state, commit}){
+    try {
+      let Categories = await fetch(
+        'http://localhost/wp-json/wp/v2/categories'
+      ).then((res) => res.json())
+      
+      console.log('cats: ' + Categories);
+      Categories = Categories.map(({slug, id, name}) => ({
+        slug,
+        id,
+        name,
+      }))
+      commit('updateCategories', Categories)
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async getfeaturedImages({ state, commit}){
+    try {
+      let featuredImages = await fetch(
+        'http://localhost/wp-json/wp/v2/media'
+      ).then((res) => res.json())
+      featuredImages = featuredImages.map(({guid, id}) => ({
+        guid,
+        id,
+      }))
+      commit('updatefeaturedImages', featuredImages)
+    } catch (error) {
+      console.log(error);
     }
   },
 }

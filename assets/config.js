@@ -1,4 +1,4 @@
-"use stict";
+"use strict";
 
 const Config = {
     appTitle: "Madison County",

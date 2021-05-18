@@ -5,4 +5,6 @@ export default async ({store}) =>
     await store.dispatch('gethomeMenus')
     await store.dispatch('gethomeFeatures')
     await store.dispatch('gettilePosts')
+    await store.dispatch('getCategories')
+    await store.dispatch('getfeaturedImages')
 }
