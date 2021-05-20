@@ -6,5 +6,16 @@ export default async ({store}) =>
     await store.dispatch('gethomeFeatures')
     await store.dispatch('gettilePosts')
     await store.dispatch('getCategories')
+    await store.dispatch('getTags')
     await store.dispatch('getfeaturedImages')
+    await store.dispatch('getcountyProfiles', {
+        featuredImages: store.state.featuredImages 
+    })
+    await store.dispatch('getCategoriesWithPosts', {
+        categories: store.state.Categories, 
+        featuredImages: store.state.featuredImages, 
+        landingPages: store.state.landingPages,
+        tilePosts: store.state.tilePosts
+    })
+    
 }

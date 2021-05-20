@@ -10,38 +10,7 @@
       >
  
 
-        <base-heading>
-          Recent Projects
-        </base-heading>
-
-        <base-text class="mb-5">
-          Lorem ipsum dolor sit amet, consectetur adipi<br>
-          scin elit. Etiam vulputate augue vel felis gravida<br>
-          porta. Lorem ipsum dolor sit amet.
-        </base-text>
-
-        {{ pageContent }}
-
-        <v-card color="primary">
-          <v-container class="pa-2">
-            <v-row>
-              <!-- <v-col
-                v-for="tile in tilePosts"
-                :key="tile"
-                cols="12"
-                md="4"
-                sm="12"
-              > -->
-                <!-- <a href="#"> -->
-                   
-                  <!-- <v-img
-                    :src="tilePosts[0].featured_media"
-                  /> -->
-                <!-- </a> -->
-              <!-- </v-col> -->
-            </v-row>
-          </v-container>
-        </v-card>
+       <BaseTeam />
       </v-col>
 
       <v-col

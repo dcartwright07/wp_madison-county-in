@@ -1,4 +1,27 @@
-
+:root {
+    --color: #243746;
+    --color-primary: #158876;
+    --color-secondary: #0e2233;
+    --bg: #f3f5f4;
+    --bg-secondary: #fff;
+    --border-color: #ddd;
+  }
+  
+  .dark-mode {
+    --color: #ebf4f1;
+    --color-primary: #41b38a;
+    --color-secondary: #fdf9f3;
+    --bg: #091a28;
+    --bg-secondary: #071521;
+    --border-color: #0d2538;
+  }
+  .sepia-mode {
+    --color: #433422;
+    --color-secondary: #504231;
+    --bg: #f1e7d0;
+    --bg-secondary: #eae0c9;
+    --border-color: #ded0bf;
+  }
 // Backgrounds
 $color__background-body: #f1f1f1;
 $color__background-img-2-col: #92A7A7;
@@ -22,6 +45,13 @@ $color__link: #f1f1f1;
 $color__link: #92A7A7;
 $color__link-button-hover-alt: #426464;
 $color__link-button-hover: #f1f1f1;
-$color__link-hover: darken( $color__link-atl, 10% );
+// $color__link-hover: darken( $color__link-atl, 10% );
 $color__link-hover-alt: darken( $color__link, 10% );
 
+h2{
+  font-size: 4rem;
+}
+
+.cardpost_h2_title{
+  font-size: 2rem;
+}

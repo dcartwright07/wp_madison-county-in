@@ -1,31 +1,38 @@
 <template>
-  <v-container fluid class="overflow-hidden ma-0 pa-0">
+  <v-container fluid class="overflow-hidden ma-0 mt-n15 pa-0">
     <v-row no-gutter v-for="(category,index) in categoriesWithPosts" :key="category.slug" :class="{'flex-row': index % 2 === 0, 'flex-row-reverse': index % 2 !== 0 }" no-gutters>
-      <v-col class="primary text-center pa-5 white--text" cols="12" md="6" >
+      <v-col :id="category.name" class="lightgrey text-center pa-5 white--text" cols="12" md="6" >
         <v-sheet
+        class="d-flex flex-column justify-space-between pt-13 align-start"
           color="accent"
           elevation="4"
+          min-height="100vh"
           rounded
           shaped>
-          <v-card-title>
-            <nuxt-link :to="'/'+ category.name">
-            {{category.name}} 
-            </nuxt-link>
+          <v-card-title class="align-center">
+            
+            <h2>
+              {{category.name}} 
+            </h2>
+            
           </v-card-title>
           <v-container class="pa-2">
             <v-row>
               <v-col
                 v-for="post in category.posts" :key="post.slug"
-                cols="12"
-                md="6"
+                class="d-inline-flex"
               >
                 <nuxt-link :to="'/'+ category.name +'/' + post.slug">
-                  <v-card
-                    height="200"
-                   color="secondary pa-4">
-                    <span v-html="post.title"/>
-          
-                  </v-card>
+                  <v-hover v-slot:default="{ hover }">
+                    <v-card
+                    hover
+                    ripple
+                    min-height="90"
+                    min-width="320"
+                    v-bind:class="[hover ? 'accent2' : 'secondary']">
+                      <span v-bind:class="[hover ? 'secondary--text' : 'accent2--text']" class="cardpost_h2_title pa-3" v-html="post.title"/>
+                    </v-card>
+                  </v-hover>
                 </nuxt-link>    
               </v-col>
             </v-row>
@@ -38,7 +45,7 @@
       >
       <v-img
           :src="category.featured_media_url"
-          aspect-ratio="1.7"
+          :aspect-ratio="18/6"
           cover
         ></v-img>
       </v-col>
@@ -46,122 +53,40 @@
   </v-container>
 </template>
 <style lang='scss' scoped>
-
+.cardpost_h2_title{
+  font-size: 2rem;
+}
 </style>
 
 <script>
-import { mapState } from 'vuex'
-
-function PageNotFoundException(slug) {
-  this.value = slug;
-  this.message = `Couldn't find page with slug: '${slug}'`;
-  this.toString = function() {
-    return `${this.value}: ${this.message}`
-  };
-}
-
-function FeaturedMediaURLNotFoundException(id) {
-  this.value = id;
-  this.message = `Couldn't find featured media url with id: '${id}'`;
-  this.toString = function() {
-    return `${this.value}: ${this.message}`
-  };
-}
+import { mapState, mapGetters } from 'vuex'
 
 
 export default {
 	data() {
 		return {
-      categoriesWithPosts: [], 
 			tiles: [],
       imageUrl: 'localhost/wp-json/wp/v2/media/?id=',
 		}
 	},
 
-	computed: {...mapState(['tilePosts','Categories','landingPages','featuredImages'])},
+	computed: {
+    ...mapState([
+      'tilePosts',
+      'Categories',
+      'landingPages',
+      'featuredImages', 
+      'categoriesWithPosts'
+    ]), 
+    ... mapGetters([
+      'getProfiles'
+    ])
+  },
 
   pageswithimage: function () {
      return this.landingPages.filter(function (page) {
       return page.featured_media > 0
     })
   }, 
-
-  methods: {
-    categoryFeaturedMedia: function (slug) {
-      try {
-        const page = this.getPageWithSlug(slug); 
-        const id = this.getFeaturedMediaIDFromPage(page); 
-        return this.getFeaturedMediaURLFromID(id); 
-      } catch (error) {
-        console.log(error.message)
-        return ''; 
-      }
-    }, 
-    
-    categoryPosts: function(category_id) {
-      let hasPost = function (p) {
-        return p.categories[0] === category_id;
-      }; 
-      return this.tilePosts.filter(hasPost).map(post => {
-        return {title: post.acf.title_1, slug: post.slug}; 
-      }); 
-    }, 
-
-    getFeaturedMediaIDFromPage: function (page) {
-      /* Returns featured media id from page
-       */ 
-      return page.featured_media
-    }, 
-    
-    getFeaturedMediaURLFromID: function (featured_media_id) {
-      /* Returns featured media url with featured_media_id 
-       * If a url was not found throws FeaturedMediaURLNotFoundException 
-       */ 
-      
-      // if it equals 0, the page was not found
-      if (featured_media_id === 0) {
-        throw new FeaturedMediaURLNotFoundException(featured_media_id) 
-      } else {
-        // featuredImage is array of obj filter  by id
-        console.log(this.featuredImages); 
-        for(let i = 0; i < this.featuredImages.length; i++) {
-          let image = this.featuredImages[i]; 
-          console.log("this is for".image);
-          if (image.id === featured_media_id) {
-            return image.guid.rendered; 
-          }
-        }
-        // return ''; 
-        throw new FeaturedMediaURLNotFoundException(featured_media_id) 
-      }
-    },
-
-    getPageWithSlug: function (slug) {
-      /* Returns page with matching slug if found 
-       * Otherwise raises PageNotFoundException 
-       */ 
-      for(let i = 0; i < this.landingPages.length; i++) {
-        let current_page = this.landingPages[i]; 
-        if (current_page.slug === slug) {
-          return current_page;
-        }
-      }
-      throw new PageNotFoundException(slug); 
-    },   
-  },
-
-	created() {
-		this.categoriesWithPosts = this.Categories.map(c => {
-      let category = Object.assign({}, c); 
-      category.featured_media_url = this.categoryFeaturedMedia(category.slug); 
-      category.posts = this.categoryPosts(category.id);
-      return category; 
-		});
-
-    console.log('Landing Pages'); 
-    this.landingPages.forEach(page => {
-      console.log(`Slug: ${page.slug}`); 
-    }); 
-	},
 }
 </script>

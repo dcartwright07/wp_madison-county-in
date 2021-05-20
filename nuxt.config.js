@@ -47,21 +47,54 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
+      light:true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
+          primary: "#92A7A7",
           accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          lightgrey:"#EFEFEF",
+          secondary:  "#426464",
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        },
+        light: {
+          primary: "#426464",
+          accent: "#C2E0F2",
+          accent2: "#EAD11B",
+          lightgrey:"#F2F2F2",
+          secondary:  "#405F73",
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
         }
+
       }
     }
   },
+        /* Color Theme Swatches in Hex */
+// .Mounds-State-park-1-hex { color: #405F73; }
+// .Mounds-State-park-2-hex { color: #C2E0F2; }
+// .Mounds-State-park-3-hex { color: #260F01; } dark brown
+// .Mounds-State-park-4-hex { color: #A64E1B; } bronze
+// .Mounds-State-park-5-hex { color: #F2F2F2; } light
 
+// /* Color Theme Swatches in RGBA */
+// .Mounds-State-park-1-rgba { color: rgba(64, 95, 115, 1); }
+// .Mounds-State-park-2-rgba { color: rgba(194, 224, 242, 1); }
+// .Mounds-State-park-3-rgba { color: rgba(38, 15, 1, 1); }
+// .Mounds-State-park-4-rgba { color: rgba(166, 78, 27, 1); }
+// .Mounds-State-park-5-rgba { color: rgba(242, 242, 242, 1); }
+
+// /* Color Theme Swatches in HSLA */
+// .Mounds-State-park-1-hsla { color: hsla(203, 28, 35, 1); }
+// .Mounds-State-park-2-hsla { color: hsla(202, 64, 85, 1); }
+// .Mounds-State-park-3-hsla { color: hsla(22, 94, 7, 1); }
+// .Mounds-State-park-4-hsla { color: hsla(22, 72, 37, 1); }
+// .Mounds-State-park-5-hsla { color: hsla(0, 0, 94, 1); }
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },

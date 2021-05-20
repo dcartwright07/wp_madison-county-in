@@ -5,8 +5,9 @@
     
   >
   <v-container fluid class="pa-0">
-    <v-row :align="align" no-gutters class=".flex-sm-column">
+    <v-row no-gutters class=".flex-sm-column">    
       <v-card
+        elevation="0"
         class="col-md-8"
         height="100vh"
       >
@@ -15,7 +16,7 @@
           :opacity="opacity"
           :value="overlay"
           :z-index="1"
-          class=".md-8"
+          class="md-8 r-gradient"
         ></v-overlay>
           <v-carousel
                 class="backgroundhero"
@@ -36,9 +37,7 @@
             </v-carousel-item>
             </v-carousel>
           <v-carousel
-                class="homeHeroHeader"
-
-                cycle
+                class="homeHeroHeader"               
                 hide-delimiters 
                 :show-arrows="false"
                 v-model="model"
@@ -49,12 +48,11 @@
           transition="scroll-y-transition"
           v-for="homeFeature in homeFeatures"
                   :key="homeFeature.id">
-          <h3 gutter class="pl-5 HomeSubHeader">{{homeFeature.acf.subheader}}</h3>
+          <h3 gutter class="pl-4 ml-16 mr-16 HomeSubHeader">{{homeFeature.acf.subheader}}</h3>
           </v-carousel-item>
           </v-carousel>
           <v-carousel
-                class="homeHeroHeader homeHeroTitle"
-                cycle
+                class="homeHeroHeader homeHeroTitle"             
                 hide-delimiters 
                 :show-arrows="false"
                 v-model="model"
@@ -68,7 +66,7 @@
           v-for="homeFeature in homeFeatures"
                   :key="homeFeature.id">
         
-          <h1 class="h1 pl-4 ma-auto" v-html="homeFeature.title.rendered"></h1>
+          <h1 class="h1 ml-16 mr-16 pl-4 ma-auto" v-html="homeFeature.title.rendered"></h1>
           </v-carousel-item>
           </v-carousel> 
 
@@ -77,7 +75,8 @@
       <v-card
         class="pa-5 pt-16 col-md-4 col-sm-12"
         height="100vh"
-        style="background-color:#92A7A7;"
+        
+        style="background-color:transparent; z-index:2;"
       >
               <container 
                 class=" d-inline-flex flex-column fheight justify-space-around pt-5"
@@ -120,13 +119,10 @@
       </v-card>
     </v-row>
   
+
     <v-row>
+      <BaseIntrobar />
       <BaseTwoCol />
-    </v-row>
-    <v-row>
-     <v-btn color="primary" large to="/government">
-							Subscribe
-						</v-btn>
     </v-row>
     </v-container>
   </section>
@@ -136,6 +132,11 @@
 <style scoped>
 .homeHeroHeader{
   z-index: 1;
+
+}
+.r-gradient{
+  background: rgb(255,255,255);
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.4) 100%);
 
 }
 .homeHeroTitle{
@@ -184,22 +185,7 @@ export default {
       absolute: true,
       opacity: 0.35,
       overlay: true,
-      zIndex: 0,
-      // fheight: '100vh',
-      colors: [
-        'indigo',
-        'warning',
-        'pink darken-2',
-        'red lighten-1',
-        'deep-purple accent-4',
-      ],
-      slides: [
-        'First',
-        'Second',
-        'Third',
-        'Fourth',
-        'Fifth',
-      ],
+      zIndex: 0,  
     }
   },
   computed:{
@@ -208,16 +194,17 @@ export default {
       'landingPages',
       'homeFeatures',
       ]),
-    regServices: (state) => {
-      return state.homeFeatures.filter(
-        (project) => project.ACF.service_type === 'Regular'
-      )
-    },
-    protectionServices: (state) => {
-      return state.homeFeatures.filter(
-        (project) => project.ACF.service_type === 'Protection'
-      )
-    },
+
+  regServices: (state) => {
+    return state.homeFeatures.filter(
+      (project) => project.ACF.service_type === 'Regular'
+    )
+  },
+  ry$protectionServices: (state) => {
+    return state.homeFeatures.filter(
+      (project) => project.ACF.service_type === 'Protection'
+    )
+  },
   },
 }
 
