@@ -49,7 +49,7 @@
                   :key="n"
                   name="slide-fade"
                   :to="submenu.url"
-                  
+               f   
                 >
                 <transition name="slide-fade">
                   <v-list-item-title v-text="submenu.title"></v-list-item-title>
