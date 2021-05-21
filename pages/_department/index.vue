@@ -1,6 +1,6 @@
 <template>
 	<v-container>
-		<nuxt-link v-for="post in tilePosts" :key="post.slug" :to="'/government/' + post.tags[0]">{{ post.title.rendered }}</nuxt-link>
+		<nuxt-link v-for="post in offices" :key="post.slug" :to="'/government/' + post.tags[0]">{{ post.title.rendered }}</nuxt-link>
 	</v-container>
 </template>
 
@@ -15,10 +15,10 @@ export default {
 		}
 	},
 
-	computed: mapState(['tilePosts']), 
+	computed: mapState(['offices']), 
 
 	created() {
-		this.tilePosts.forEach(element => {
+		this.offices.forEach(element => {
 			element.categories.forEach(category => {
 				if(category == this.mainCategory) {
 					this.tiles.push(element);

@@ -19,10 +19,11 @@ export const state = () => ({
     wu247Dest: [],
     wu247Evnt: [],
     wu247Dir: [],
-	  tilePosts: [],
+	  offices: [],
   	pageContent: [],
 	  Categories: [],
-	  Tags: [],
+	  tags: null,
+    categoryMap: null, 
     featuredImages: [],  
     countyProfiles: [],  
     categoriesWithPosts: [],
@@ -32,6 +33,9 @@ export const state = () => ({
 this will update the state
 */
 export const mutations = {
+    updateCategoryMap: (state, obj) => {
+      state.categoryMap = obj; 
+    }, 
     updateCategoriesWithPosts: (state, payload) => {
       state.categoriesWithPosts = payload; 
     }, 
@@ -47,8 +51,8 @@ export const mutations = {
     updatehomeFeatures:( state, payload) => {
       state.homeFeatures = payload
     },
-    updatetilePosts:( state, payload) => {
-      state.tilePosts = payload
+    updateOffices:( state, payload) => {
+      state.offices = payload
     },
     setPageContent: (state, array) => {
       state.pageContent = array;
@@ -56,8 +60,8 @@ export const mutations = {
     updateCategories: (state, array) => {
       state.Categories = array;
     },
-    updateTag: (state, array) => {
-      state.Categories = array;
+    updateTags: (state, obj) => {
+      state.tags = obj;
     },
     updatefeaturedImages: (state, array) => {
       state.featuredImages = array;
@@ -194,6 +198,7 @@ export const actions = {
         ).then((res) => res.json())
       } catch(err) {}
   },
+
   async wu247Dir({ state, commit}){
     try{
       const wu247Dir = await fetch(
@@ -203,93 +208,116 @@ export const actions = {
     
   },
 
-  async gettilePosts({commit}) {
+  async getOffices({commit}) {
     try {
-      let tilePosts = await fetch(
-        'http://localhost/wp-json/wp/v2/tile'
+      let offices = await fetch(
+        'http://localhost/wp-json/wp/v2/office'
         ).then((res) => res.json())
-        // console.log(tilePosts)
-        tilePosts = tilePosts.map(({ acf, slug, yoast_head, categories, tags }) => ({
+        offices = offices.map(({ acf, slug, yoast_head, categories, tags }) => ({
           acf,
           slug,
           yoast_head,
 			    categories,
 		      tags,
         }))
-      commit('updatetilePosts', tilePosts)
+      commit('updateOffices', offices)
     } catch (err) {
         console.log(err);
     }
   },
 
   async getCategories({commit}){
+    const fields = [
+      'id', 'name', 'slug'
+    ]
+    const parameters = fields.join(',')
+    const url = `http://localhost/wp-json/wp/v2/categories?_fields=${parameters}`
     try {
-      let Categories = await fetch(
-        'http://localhost/wp-json/wp/v2/categories'
-      ).then((res) => res.json())
-      
-      Categories = Categories.map(({slug, id, name}) => ({
-        slug,
-        id,
-        name,
-      }))
-      commit('updateCategories', Categories)
+      let categories = await fetch(url).then((res) => res.json())
+      let map = {}
+      categories.forEach(({slug, id}) => {
+        map[slug] = id
+      })
+      commit('updateCategories', categories)
+      commit('updateCategoryMap', map)
     } catch (error) {
       console.log(error);
     }
   },
 
   async getTags({ state, commit}){
+    const fields = [
+      'id', 'slug'
+    ]
+    const parameters = fields.join(',')
+    const url = `http://localhost/wp-json/wp/v2/tags?_fields=${parameters}`; 
+ 
     try {
-      let Tags = await fetch(
-        'http://localhost/wp-json/wp/v2/Tags'
-      ).then((res) => res.json())
-      
-      // console.log('Tags: ' + Tags);
-      Tags = Tags.map(({slug, id, name}) => ({
-        slug,
-        id,
-        name,
-      }))
-      commit('updateTags', Tags)
+      const tags = await fetch(url).then((res) => res.json())
+      let tagMap = {} 
+      tags.forEach(({id, slug}) => {
+        tagMap[slug] = id 
+      })
+      commit('updateTags', tagMap)
     } catch (error) {
       console.log(error);
     }
   },
 
   async getfeaturedImages({ state, commit}){
+    const fields = [
+      'id', 'guid'
+    ]
+    const parameters = fields.join(',')
+    const url = `http://localhost/wp-json/wp/v2/media?_fields=${parameters}`
     try {
-      let featuredImages = await fetch(
-        'http://localhost/wp-json/wp/v2/media'
-        ).then((res) => res.json())
-        featuredImages = featuredImages.map(({guid, id}) => ({
-          guid,
-          id,
-        }))
-        commit('updatefeaturedImages', featuredImages)
+      let featuredImages = await fetch(url).then(res => res.json())
+      commit('updatefeaturedImages', featuredImages)
       } catch (error) {
         console.log(error);
       }
     },
 
   async getcountyProfiles({commit}, {featuredImages}){
+    const fields = [
+      'id', 
+      'title.rendered', 
+      'content.rendered', 
+      'acf.titlerole', 
+      'acf.email', 
+      'acf.phone',
+      'featured_media', 
+      'tags', 
+      'categories', 
+    ]
+
+    const fieldParameter = fields.join(',')
+    const url = `http://localhost/wp-json/wp/v2/profile?per_page=100&_fields=${fieldParameter}`
     try {
-      let countyProfiles = await fetch('http://localhost/wp-json/wp/v2/profile').then((res) => res.json())
-      // console.log(countyProfiles)
-      countyProfiles = countyProfiles.map(({title, content, id, acf}) => ({
-        title, 
-        content,
-        id,
-        acf,
-      }))
-      countyProfiles.featured_media_url = getFeaturedMediaURL(featuredImages, countyProfiles.id); 
-      commit("updatecountyProfiles", countyProfiles);
+      let profiles = await fetch(url).then((res) => res.json())
+      profiles = profiles.map(({id, title, content, acf, featured_media, tags, categories}) => {
+        return {
+          id, 
+          acf, 
+          categories, 
+          content: content.rendered,
+          email: acf ? acf.email : '',
+          media_url: getFeaturedMediaURL(featuredImages, featured_media), 
+          phone: acf ? acf.phone : '', 
+          tags, 
+          title: title.rendered,
+          titlerole: acf ? acf.titlerole : '' 
+        }
+      })
+      commit("updatecountyProfiles", profiles);
+      console.log(profiles) 
     } catch (err) {
       console.log(err);
 		}
   },
 
-  async getCategoriesWithPosts({commit, dispatch, state}, {categories, featuredImages, landingPages, tilePosts}){ 
+
+  async getCategoriesWithPosts({commit, dispatch, state}, {categories, featuredImages, landingPages, offices}){ 
     const result = categories.map(c => {
       let category = Object.assign({}, c); 
       try {
@@ -313,7 +341,7 @@ export const actions = {
         let hasPost = function (p) {
           return p.categories[0] === category_id;
         }; 
-        return tilePosts.filter(hasPost).map(post => {
+        return offices.filter(hasPost).map(post => {
           return {title: post.acf.title_1, slug: post.slug}; 
         }); 
     }

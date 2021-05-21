@@ -4,7 +4,7 @@ export default async ({store}) =>
     await store.dispatch('getHome')
     await store.dispatch('gethomeMenus')
     await store.dispatch('gethomeFeatures')
-    await store.dispatch('gettilePosts')
+    await store.dispatch('getOffices')
     await store.dispatch('getCategories')
     await store.dispatch('getTags')
     await store.dispatch('getfeaturedImages')
@@ -15,7 +15,7 @@ export default async ({store}) =>
         categories: store.state.Categories, 
         featuredImages: store.state.featuredImages, 
         landingPages: store.state.landingPages,
-        tilePosts: store.state.tilePosts
+        offices: store.state.offices
     })
     
 }

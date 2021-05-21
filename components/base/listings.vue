@@ -11,7 +11,7 @@
           <v-container class="pa-2">
             <v-row>
               <v-col
-                v-for="project in tilePosts"
+                v-for="project in offices"
                 :key="project"
                 cols="12"
                 md="6"
@@ -45,10 +45,10 @@ export default {
 		}
 	},
 
-	computed: mapState(['tilePosts']), 
+	computed: mapState(['offices']), 
 
 	created() {
-		this.tilePosts.forEach(element => {
+		this.offices.forEach(element => {
 		// console.log(element.tags);
 			element.categories.forEach(category => {
 				if(category == this.mainCategory) {

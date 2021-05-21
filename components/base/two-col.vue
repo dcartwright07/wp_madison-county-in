@@ -22,7 +22,7 @@
                 v-for="post in category.posts" :key="post.slug"
                 class="d-inline-flex"
               >
-                <nuxt-link :to="'/'+ category.name +'/' + post.slug">
+                <nuxt-link :to="'/'+ category.slug +'/' + post.slug">
                   <v-hover v-slot:default="{ hover }">
                     <v-card
                     hover
@@ -72,7 +72,7 @@ export default {
 
 	computed: {
     ...mapState([
-      'tilePosts',
+      'offices',
       'Categories',
       'landingPages',
       'featuredImages', 

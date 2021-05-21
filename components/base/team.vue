@@ -1,138 +1,82 @@
 <template>
   <v-container>
       <v-row>
-          <!-- picture with hover affect will be -->
           <v-col>
-              {{$nuxt.$route.path}}<br>
-              {{countyProfiles[0]}}<br>
-              {{profile}}
-              {{categoriesWithPosts}}
-              <!-- {{post}} -->
+              <h2>Our Team</h2>
           </v-col>
+      </v-row>
+      <v-row justify='center' v-for="profile in profiles" :key='profile.id'>
+          <!-- picture with hover affect will be -->
+          
+        <v-col  sm="3">
+            <v-dialog v-model="dialog" width="500">
+                    <template v-slot:activator="{ on, attrs }">
+                <v-avatar
+                v-bind="attrs"
+                v-on="on"
+                size="128">
+                    <v-img cover
+                    
+                        max-height="250"
+                        max-width="250"
+                        :src="profile.media_url">
+                    </v-img>
+                </v-avatar>
+                </template>
+                <v-card>
+                    <v-card-title v-html="profile.title" class="headline grey lighten-2"></v-card-title>
+                    <v-card-text v-html="profile.content"></v-card-text>
+                    <v-divider></v-divider>
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="primary"
+                        text
+                        @click="dialog = false"
+                    >
+                        Close
+                    </v-btn>
+                    </v-card-actions>
+            </v-card>
+            </v-dialog>
+            <h3 v-html="profile.title"></h3>
+            <span v-html="profile.titlerole"></span>
+        </v-col>          
+              <!-- {{post}} -->
           <!-- about or mission statment department -->
-          <v-col></v-col>
       </v-row>
   </v-container>
 </template>
 <style lang="scss" scoped>
-
+.sectionHeader{
+    &::after{
+        content: "";
+        width: 100%;
+        height:2px;
+        background:'primary';
+    }
+}
 </style>
 <script>
 import { mapState } from 'vuex'
 
-function PageNotFoundException(slug) {
-  this.value = slug;
-  this.message = `Couldn't find page with slug: '${slug}'`;
-  this.toString = function() {
-    return `${this.value}: ${this.message}`
-  };
-}
-
-function FeaturedMediaURLNotFoundException(id) {
-  this.value = id;
-  this.message = `Couldn't find featured media url with id: '${id}'`;
-  this.toString = function() {
-    return `${this.value}: ${this.message}`
-  };
-}
-
-
 export default {
 	data() {
 		return {
-      categoriesWithPosts: [], 
-			tiles: [],
-      imageUrl: 'localhost/wp-json/wp/v2/media/?id=',
+      profiles: [], 
 		}
 	},
 
-	computed: {...mapState(['tilePosts','Categories','countyProfiles','featuredImages','Tags'])},
-
-  pageswithimage: function () {
-     return this.countyProfiles.filter(function (profile) {
-      return profile
-    })
-  }, 
-
-  methods: {
-    categoryFeaturedMedia: function (slug) {
-      try {
-        const page = this.getPageWithSlug(slug); 
-        const id = this.getFeaturedMediaIDFromPage(page); 
-        return this.getFeaturedMediaURLFromID(id); 
-      } catch (error) {
-        console.log(error.message)
-        return ''; 
-      }
-    }, 
-    
-    categoryProfile: function(category_id) {
-      let hasPost = function (p) {
-        return p.categories[0] === category_id;
-      }; 
-      return this.countyProfiles.filter(hasPost).map(profile => {
-        return {title: profile.title.rendered, slug: profile.slug, content: profile.content.rendered}; 
-      }); 
-    }, 
-
-    getFeaturedMediaIDFromPage: function (page) {
-      /* Returns featured media id from page
-       */ 
-      return page.featured_media
-    }, 
-    
-    getFeaturedMediaURLFromID: function (featured_media_id) {
-      /* Returns featured media url with featured_media_id 
-       * If a url was not found throws FeaturedMediaURLNotFoundException 
-       */ 
-      
-      // if it equals 0, the page was not found
-      if (featured_media_id === 0) {
-        throw new FeaturedMediaURLNotFoundException(featured_media_id) 
-      } else {
-        // featuredImage is array of obj filter  by id
-    
-        for(let i = 0; i < this.featuredImages.length; i++) {
-          let image = this.featuredImages[i]; 
-      
-          if (image.id === featured_media_id) {
-            return image.guid.rendered; 
-          }
-        }
-        // return ''; 
-        throw new FeaturedMediaURLNotFoundException(featured_media_id) 
-      }
-    },
-
-    getPageWithSlug: function (slug) {
-      /* Returns page with matching slug if found 
-       * Otherwise raises PageNotFoundException 
-       */ 
-      for(let i = 0; i < this.countyProfiles.length; i++) {
-        let current_page = this.countyProfiles[i]; 
-        if (current_page.slug === slug) {
-          return current_page;
-        }
-      }
-      throw new PageNotFoundException(slug); 
-    },   
-  },
+	computed: {...mapState(['offices','Categories', 'categoryMap', 'countyProfiles','featuredImages','tags'])},
 
 	created() {
-		this.categoriesWithPosts = this.Tags.map(c => {
-            let category = Object.assign({}, c); 
-            category.featured_media_url = this.categoryFeaturedMedia(category.slug); 
-            category.posts = this.categoryPosts(category.id);
-            return category; 
-		});
-		this.tagsWithProfile = this.Tags.map(c => {
-      let tag = Object.assign({}, c); 
-      tag.featured_media_url = this.categoryFeaturedMedia(tag.slug); 
-      tag.profiles = this.categoryPosts(category.id);
-      return category; 
-		});
-	},
-
-    
+    const category_slug = this.$route.params.department
+    const slug = this.$route.params.office
+    const category_id = this.categoryMap[category_slug]
+    const tag_id = this.tags[slug]
+    this.profiles = this.countyProfiles.filter(({categories, tags}) => 
+      categories.includes(category_id) && tags.includes(tag_id)
+    ) 
+	},   
 }
 </script>
