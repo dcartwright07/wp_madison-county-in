@@ -51,7 +51,4 @@ $color__link-hover-alt: darken( $color__link, 10% );
 h2{
   font-size: 4rem;
 }
-
-.cardpost_h2_title{
-  font-size: 2rem;
-}
+body,html{font-size: calc(.15vw + .15vh + 16px);}

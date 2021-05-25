@@ -5,10 +5,11 @@
               <h2>Our Team</h2>
           </v-col>
       </v-row>
-      <v-row justify='center' v-for="profile in profiles" :key='profile.id'>
+
+      <v-row justify='center' >
           <!-- picture with hover affect will be -->
           
-        <v-col  sm="3">
+        <v-col v-for="profile in profiles" :key='profile.id' sm="3">
             <v-dialog v-model="dialog" width="500">
                     <template v-slot:activator="{ on, attrs }">
                 <v-avatar
@@ -19,12 +20,13 @@
                     
                         max-height="250"
                         max-width="250"
-                        :src="profile.media_url">
+                        :src="profile.media_url ? profile.media_url : logo ">
                     </v-img>
                 </v-avatar>
                 </template>
                 <v-card>
                     <v-card-title v-html="profile.title" class="headline grey lighten-2"></v-card-title>
+                    <v-card-subtitle v-html="profile.titlerole"></v-card-subtitle>
                     <v-card-text v-html="profile.content"></v-card-text>
                     <v-divider></v-divider>
                     <v-card-actions>
@@ -35,6 +37,13 @@
                         @click="dialog = false"
                     >
                         Close
+                    </v-btn>
+                    <v-btn
+                        color="primary"
+                        text
+                        @click="dialog = false"
+                    >
+                        email
                     </v-btn>
                     </v-card-actions>
             </v-card>
@@ -64,10 +73,16 @@ export default {
 	data() {
 		return {
       profiles: [], 
+      logo: 'https://madisoncounty.in.gov/images/recoloredlogo.png',
 		}
 	},
 
-	computed: {...mapState(['offices','Categories', 'categoryMap', 'countyProfiles','featuredImages','tags'])},
+	computed: {
+        ...mapState([
+            'offices',
+            'categories',
+             'categoryMap',
+              'countyProfiles','featuredImages','tags'])},
 
 	created() {
     const category_slug = this.$route.params.department

@@ -9,13 +9,14 @@
       color="primary"
     >
     <v-list-item>
+      <nuxt-link to='/'>
         <v-list-item-content>
-          
-          <v-list-item-title class="title" v-text="location.county" >
+          <v-list-item-title class="white--text title" v-text="location.county" >
           </v-list-item-title>
-          <v-list-item-subtitle v-text="location.state.name">
+          <v-list-item-subtitle class="white--text" v-text="location.state.name">
           </v-list-item-subtitle>
         </v-list-item-content>
+        </nuxt-link>
       </v-list-item>
 
       <v-divider></v-divider>
@@ -71,5 +72,8 @@
 </script>
 
 <style>
+.title{
+  color:#fff !important;
+}
 
 </style>

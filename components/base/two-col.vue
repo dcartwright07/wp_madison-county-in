@@ -1,65 +1,96 @@
 <template>
-  <v-container fluid class="overflow-hidden ma-0 mt-n15 pa-0">
-    <v-row no-gutter v-for="(category,index) in categoriesWithPosts" :key="category.slug" :class="{'flex-row': index % 2 === 0, 'flex-row-reverse': index % 2 !== 0 }" no-gutters>
-      <v-col :id="category.name" class="lightgrey text-center pa-5 white--text" cols="12" md="6" >
-        <v-sheet
-        class="d-flex flex-column justify-space-between pt-13 align-start"
-          color="accent"
-          elevation="4"
-          min-height="100vh"
-          rounded
-          shaped>
-          <v-card-title class="align-center">
-            
-            <h2>
-              {{category.name}} 
-            </h2>
-            
-          </v-card-title>
-          <v-container class="pa-2">
-            <v-row>
-              <v-col
-                v-for="post in category.posts" :key="post.slug"
-                class="d-inline-flex"
-              >
-                <nuxt-link :to="'/'+ category.slug +'/' + post.slug">
-                  <v-hover v-slot:default="{ hover }">
-                    <v-card
-                    hover
-                    ripple
-                    min-height="90"
-                    min-width="320"
-                    v-bind:class="[hover ? 'accent2' : 'secondary']">
-                      <span v-bind:class="[hover ? 'secondary--text' : 'accent2--text']" class="cardpost_h2_title pa-3" v-html="post.title"/>
-                    </v-card>
-                  </v-hover>
-                </nuxt-link>    
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-sheet>
-      </v-col>
-      <v-col
-        class="hidden-sm-and-down"
-        md="6"
-      >
-      <v-img
-          :src="category.featured_media_url"
-          :aspect-ratio="18/6"
-          cover
-        ></v-img>
-      </v-col>
+  <v-container fluid class="overflow-hidden ma-0 pa-0 pt-15 primary ">
+    <v-row class="two_col_section" no-gutter  v-for="(category,index) in categoriesWithPosts" :key="category.slug " 
+     :class="{'flex-row': index % 2 === 0, 'flex-row-reverse': index % 2 !== 0, 'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2}" 
+     no-gutters>
+        <v-container fluid class="d-flex">
+        <v-col :id="category.name" class="text-center white--text" cols="12" md="4"
+        :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2}"
+        >
+          <v-sheet
+            class="d-flex flex-column justify-start pt-md-2 align-start"
+            color="accent"
+            height="100vh"
+            rounded
+            shaped>
+            <v-card-title class="align-center">
+              
+              <h2 class="section-name">
+                {{category.name}} 
+              </h2>
+              
+            </v-card-title>
+            <v-container class="pa-2 mt-5">
+              <v-row>
+                <v-col
+                  v-for="post in category.posts" :key="post.slug"
+                  class="d-inline-flex mt-5"
+                >
+                  <nuxt-link :to="'/'+ category.slug +'/' + post.slug">
+                     <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                          v-bind="attrs"
+                          v-on="on"
+
+                          width='128'
+                          height='128'
+                          elevation="2"
+                          fab
+                          icon
+                          v-bind:class="[hover ? 'accent2' : 'secondary']">
+                            <!-- <span style="color:white;" class="cardpost_h2_title pa-3" v-html="post.name"/> -->
+                            MC
+                          </v-btn>
+                        </template>
+                        <span class="white--text cardpost_h2_title pa-3" v-html="post.name"/>
+                    </v-tooltip>
+                  </nuxt-link>    
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-sheet>
+        </v-col>
+        <v-col
+          class="col-xs-12 col-md-8 hidden-sm-and-down"
+          md="6"
+        >
+          <v-sheet
+          class=" full-height ma-6"
+            elevation="4"
+          >
+            <v-img
+                height='100%'
+                elevation="4"
+                :src="category.featured_media_url"
+                :aspect-ratio="961/762"
+                cover
+              ></v-img>
+
+          </v-sheet>
+        </v-col>
+      </v-container>
     </v-row>
   </v-container>
 </template>
 <style lang='scss' scoped>
-.cardpost_h2_title{
-  font-size: 2rem;
+.two_col_section{
+  padding-left: 6.25vw;
+  padding-right: 6.25vw;
+  &:not(:first-of-type){
+    padding: 100px 6.25vw ;
+  }
+}
+.section-name{
+  font-size: 3.125rem;
+ 
 }
 </style>
 
 <script>
+
 import { mapState, mapGetters } from 'vuex'
+
 
 
 export default {
@@ -67,13 +98,14 @@ export default {
 		return {
 			tiles: [],
       imageUrl: 'localhost/wp-json/wp/v2/media/?id=',
+      rowColor: ["primary", "accent", "secondary"]
 		}
 	},
 
 	computed: {
     ...mapState([
       'offices',
-      'Categories',
+      'categories',
       'landingPages',
       'featuredImages', 
       'categoriesWithPosts'

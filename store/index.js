@@ -21,7 +21,7 @@ export const state = () => ({
     wu247Dir: [],
 	  offices: [],
   	pageContent: [],
-	  Categories: [],
+	  categories: [],
 	  tags: null,
     categoryMap: null, 
     featuredImages: [],  
@@ -36,7 +36,7 @@ export const mutations = {
     updateCategoryMap: (state, obj) => {
       state.categoryMap = obj; 
     }, 
-    updateCategoriesWithPosts: (state, payload) => {
+    updatecategoriesWithPosts: (state, payload) => {
       state.categoriesWithPosts = payload; 
     }, 
     updatelandingPages: (state, payload) => {
@@ -57,8 +57,8 @@ export const mutations = {
     setPageContent: (state, array) => {
       state.pageContent = array;
     },
-    updateCategories: (state, array) => {
-      state.Categories = array;
+    updatecategories: (state, array) => {
+      state.categories = array;
     },
     updateTags: (state, obj) => {
       state.tags = obj;
@@ -213,12 +213,13 @@ export const actions = {
       let offices = await fetch(
         'http://localhost/wp-json/wp/v2/office'
         ).then((res) => res.json())
-        offices = offices.map(({ acf, slug, yoast_head, categories, tags }) => ({
+        offices = offices.map(({ acf, slug, yoast_head, categories, tags, title }) => ({
           acf,
           slug,
           yoast_head,
 			    categories,
 		      tags,
+          name: title.rendered
         }))
       commit('updateOffices', offices)
     } catch (err) {
@@ -226,7 +227,7 @@ export const actions = {
     }
   },
 
-  async getCategories({commit}){
+  async getcategories({commit}){
     const fields = [
       'id', 'name', 'slug'
     ]
@@ -238,7 +239,7 @@ export const actions = {
       categories.forEach(({slug, id}) => {
         map[slug] = id
       })
-      commit('updateCategories', categories)
+      commit('updatecategories', categories)
       commit('updateCategoryMap', map)
     } catch (error) {
       console.log(error);
@@ -317,7 +318,7 @@ export const actions = {
   },
 
 
-  async getCategoriesWithPosts({commit, dispatch, state}, {categories, featuredImages, landingPages, offices}){ 
+  async getcategoriesWithPosts({commit, dispatch, state}, {categories, featuredImages, landingPages, offices}){ 
     const result = categories.map(c => {
       let category = Object.assign({}, c); 
       try {
@@ -327,22 +328,18 @@ export const actions = {
       } catch {
         category.featured_media_url = ''; 
       }
-      category.posts = categoryPosts(category.id);
+      category.posts = categoryOffices(category.id);
       return category; 
 		});
 
-    categories.forEach(({name, featured_media_url}) => {
-      console.log(`Category: ${name} => ${featured_media_url}`)
-    })
+    commit('updatecategoriesWithPosts', result); 
 
-    commit('updateCategoriesWithPosts', result); 
-
-    function categoryPosts(category_id){
-        let hasPost = function (p) {
-          return p.categories[0] === category_id;
-        }; 
-        return offices.filter(hasPost).map(post => {
-          return {title: post.acf.title_1, slug: post.slug}; 
+    function categoryOffices(category_id){
+        let hasCategory = function (office) {
+          return office.categories.includes(category_id)
+        } 
+        return offices.filter(hasCategory).map(({name, slug}) => {
+          return {name, slug} ; 
         }); 
     }
 

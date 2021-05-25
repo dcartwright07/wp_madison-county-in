@@ -74,6 +74,8 @@
       color="transparent"
       style="z-index:2;"
     >
+      <nuxt-link to='/'>
+
       
         <v-img
           class="mr-3"
@@ -82,6 +84,7 @@
           src="https://madisoncounty.in.gov/images/recoloredlogo.png"
           lazy-src="https://madisoncounty.in.gov/images/recoloredlogo.png"
         ></v-img>
+        </nuxt-link>
    
 
         <v-toolbar-title class="mr-16" v-text="location.county +', '+ location.state.abbrv" />

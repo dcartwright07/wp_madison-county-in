@@ -1,13 +1,21 @@
 <template>
-    <v-container >
+    <v-container fluid class="ma-0" >
         <v-row>
             <v-banner
-  icon="$mdiVuetify"
+  icon="i"
   sticky
   elevation="2"
-  class="accent2 mt-n9 col-12"
+  class="lightgrey col-12"
   
->This is for quick information</v-banner>
+>This is for quick information
+    <v-btn
+        elevation="2"
+        color="primary"
+        class="ml-5"
+    >
+        See More
+    </v-btn>
+</v-banner>
         </v-row>
     </v-container>
 </template>

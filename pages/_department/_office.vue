@@ -1,9 +1,11 @@
 <template>
   <section>
+	<BaseSubpageheader />
     <v-row no-gutters>
       <v-col
         class="primary text-center pa-5 white--text"
         cols="12">
+		{ { pageContent } }
        <BaseTeam />
       </v-col>
     </v-row>
