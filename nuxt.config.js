@@ -1,6 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
@@ -19,6 +23,14 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
+  },
+
+  proxy: {
+    "/api/": {
+      target: "http://localhost/wp-json/wp/v2/",
+      pathRewrite: { "^/api": "" },
+      changeOrigin: true
+    }
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -40,8 +52,8 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-  ],
+  modules: ["@nuxtjs/axios", "@nuxtjs/proxy"]
+  ,
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

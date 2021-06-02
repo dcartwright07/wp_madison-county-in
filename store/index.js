@@ -10,7 +10,8 @@ this is where we will eventually hold the data
 //       port: 8443,
 //   },
 // }
-
+var production = 'http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/'
+var local = "http://localhost/wp-json/wp/v2/"
 export const state = () => ({
     homePage: [],
     landingPages: [],

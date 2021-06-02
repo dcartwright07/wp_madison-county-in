@@ -1,9 +1,9 @@
 <template>
-  <v-container fluid class="overflow-hidden ma-0 pa-0 pt-15 primary ">
+  <v-container fluid flex class="overflow-hidden ma-0 pa-0 pt-15 primary ">
     <v-row class="two_col_section" no-gutter  v-for="(category,index) in categoriesWithPosts" :key="category.slug " 
-     :class="{'flex-row': index % 2 === 0, 'flex-row-reverse': index % 2 !== 0, 'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2}" 
+     :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2}" 
      no-gutters>
-        <v-container fluid class="d-flex">
+        <v-container fluid class="d-flex" :class="{'flex-row': index % 2 === 0, 'flex-row-reverse': index % 2 !== 0}">
         <v-col :id="category.name" class="text-center white--text" cols="12" md="4"
         :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2}"
         >
