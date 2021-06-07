@@ -106,7 +106,7 @@ and then commits the mutation to update it
 export const actions = {
 	async fetchDepartment({ commit }, value) {
 		try {
-			let array = await fetch('http://localhost/wp-json/wp/v2/pages').then((res) => res.json());
+			let array = await fetch(production + 'pages').then((res) => res.json());
 			console.log(array);
 			commit("setPageContent", array);
 	  	} catch (err) {
@@ -118,7 +118,7 @@ export const actions = {
     if (state.landingPages.length) return
     try {
       let landingPages = await fetch(
-        'http://localhost/wp-json/wp/v2/pages'
+        production + 'pages'
       ).then((res) => res.json())
  
       landingPages = landingPages.filter((el) => el.status === 'publish' && el.parent === 0);
@@ -142,7 +142,7 @@ export const actions = {
     if (state.homeFeatures.length) return
     try {
       let homeFeatures = await fetch(
-        'http://localhost/wp-json/wp/v2/home_features'
+        production + 'home_features'
         ).then((res) => res.json())
         homeFeatures = homeFeatures.map(({ acf, title, slug, yoast_head }) => ({
           acf,
@@ -161,7 +161,7 @@ export const actions = {
 
     try {
       const homePage = await fetch(
-        'http://localhost/wp-json/wp/v2/pages/11?dbi-ajaxx'
+        production + 'pages/11?dbi-ajaxx'
       ).then((res) => res.json())
       commit('updateHome', homePage)
     } catch (err) {
@@ -212,7 +212,7 @@ export const actions = {
   async getOffices({commit}) {
     try {
       let offices = await fetch(
-        'http://localhost/wp-json/wp/v2/office'
+        production + 'office'
         ).then((res) => res.json())
         offices = offices.map(({ acf, slug, yoast_head, categories, tags, title }) => ({
           acf,
