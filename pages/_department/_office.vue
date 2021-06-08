@@ -2,7 +2,7 @@
   <section>
 	<BaseSubpageheader />
 	<v-container>
-		<v-row>
+		<v-row v-if="office[0].acf">
 			<v-col  v-html="office[0].acf.content">
 			</v-col>
 		</v-row>
