@@ -11,6 +11,7 @@ this is where we will eventually hold the data
 //   },
 // }
 var production = 'http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/'
+var strpro = `http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/`
 var local = "http://localhost/wp-json/wp/v2/"
 export const state = () => ({
     homePage: [],
@@ -214,13 +215,14 @@ export const actions = {
       let offices = await fetch(
         production + 'office'
         ).then((res) => res.json())
-        offices = offices.map(({ acf, slug, yoast_head, categories, tags, title }) => ({
+        offices = offices.map(({ acf, slug, yoast_head, categories, tags, title , content}) => ({
           acf,
           slug,
           yoast_head,
 			    categories,
 		      tags,
-          name: title.rendered
+          name: title.rendered,
+          content: acf.content
         }))
       commit('updateOffices', offices)
     } catch (err) {
@@ -233,7 +235,7 @@ export const actions = {
       'id', 'name', 'slug'
     ]
     const parameters = fields.join(',')
-    const url = `http://localhost/wp-json/wp/v2/categories?_fields=${parameters}`
+    const url = strpro + `categories?_fields=${parameters}`
     try {
       let categories = await fetch(url).then((res) => res.json())
       let map = {}
@@ -252,7 +254,7 @@ export const actions = {
       'id', 'slug'
     ]
     const parameters = fields.join(',')
-    const url = `http://localhost/wp-json/wp/v2/tags?_fields=${parameters}`; 
+    const url = strpro + `tags?_fields=${parameters}`; 
  
     try {
       const tags = await fetch(url).then((res) => res.json())
@@ -271,7 +273,7 @@ export const actions = {
       'id', 'guid'
     ]
     const parameters = fields.join(',')
-    const url = `http://localhost/wp-json/wp/v2/media?_fields=${parameters}`
+    const url = strpro + `media?_fields=${parameters}`
     try {
       let featuredImages = await fetch(url).then(res => res.json())
       commit('updatefeaturedImages', featuredImages)
@@ -294,7 +296,7 @@ export const actions = {
     ]
 
     const fieldParameter = fields.join(',')
-    const url = `http://localhost/wp-json/wp/v2/profile?per_page=100&_fields=${fieldParameter}`
+    const url = strpro + `profile?per_page=100&_fields=${fieldParameter}`
     try {
       let profiles = await fetch(url).then((res) => res.json())
       profiles = profiles.map(({id, title, content, acf, featured_media, tags, categories}) => {
@@ -339,8 +341,8 @@ export const actions = {
         let hasCategory = function (office) {
           return office.categories.includes(category_id)
         } 
-        return offices.filter(hasCategory).map(({name, slug}) => {
-          return {name, slug} ; 
+        return offices.filter(hasCategory).map(({name, slug, content}) => {
+          return {name, slug, content} ; 
         }); 
     }
 
