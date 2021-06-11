@@ -9,7 +9,7 @@
             width="100vw"
             min-width="320"
             height="100vh"
-            interval=2000
+            interval=6000
             v-model="carouselIndex"
             >
                 <!-- carousel that transition each item -->
