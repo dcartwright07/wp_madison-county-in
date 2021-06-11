@@ -1,13 +1,14 @@
 <template>
   <section
     id="welcome"
-    class="overflow-hidden" 
+    class="overflow-hidden"
   >
-  
+
       <BaseHeroslider />
-      <BaseIntrobar />
+      
+      <!-- <BaseIntrobar /> -->
       <BaseTwoCol />
-  
+
 
   </section>
 </template>
@@ -20,7 +21,7 @@
 }
 .r-gradient{
   background: rgb(255,255,255);
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.4) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.4) 100%);
 
 }
 .homeHeroTitle{
@@ -69,7 +70,7 @@ export default {
       absolute: true,
       opacity: 0.35,
       overlay: true,
-      zIndex: 0,  
+      zIndex: 0,
     }
   },
   computed:{

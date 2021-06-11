@@ -2,7 +2,8 @@
   <section>
 	<BaseSubpageheader />
 	<v-container>
-		<v-row v-if="office[0].acf">
+		<v-row >
+			<!-- {{office[0].length == 0}} -->
 			<v-col  v-html="office[0].acf.content">
 			</v-col>
 		</v-row>

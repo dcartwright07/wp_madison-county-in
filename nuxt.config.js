@@ -5,7 +5,6 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
-  // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -24,14 +23,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
-  proxy: {
-    "/api/": {
-      target: "http://localhost/wp-json/wp/v2/",
-      pathRewrite: { "^/api": "" },
-      changeOrigin: true
-    }
-  },
+  
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
@@ -52,8 +44,30 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/axios", "@nuxtjs/proxy"]
-  ,
+  modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
+  axios: {
+    baseURL: "http://madisoncounty.signaturewebcreations.com/", // Used as fallback if no runtime config is provided
+    proxy: true
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL
+    }
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL
+    }
+  },
+  proxy: {
+    "/api/": {
+      target: "http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/",
+      pathRewrite: { "^/api": "" },
+      changeOrigin: true
+    }
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -78,6 +92,7 @@ export default {
           accent2: "#EAD11B",
           lightgrey:"#F2F2F2",
           secondary:  "#405F73",
+          dark:"#393939",
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,

@@ -1,15 +1,17 @@
 <template>
-  <v-container fluid flex class="overflow-hidden ma-0 pa-0 pt-15 primary ">
-    <v-row class="two_col_section" no-gutter  v-for="(category,index) in categoriesWithPosts" :key="category.slug " 
-     :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2}" 
+  <v-container fluid flex class="overflow-hidden ma-0 pa-0   ">
+    <v-row class="two_col_section pb-12" no-gutter  v-for="(category,index) in categoriesWithPosts" :key="category.slug " 
+     :class="{'pt-15': index == 0}"
      no-gutters>
-        <v-container fluid class="d-flex" :class="{'flex-row': index % 2 === 0, 'flex-row-reverse': index % 2 !== 0}">
+     
+     <!-- :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2, 'pt-15': index == 0}"  -->
+        <v-container v-if="!category.posts.length < 1" fluid class="d-flex" :class="{'flex-row': index % 2 === 0, 'flex-row-reverse': index % 2 !== 0}">
         <v-col :id="category.name" class="text-center white--text" cols="12" md="4"
         :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2}"
         >
           <v-sheet
             class="d-flex flex-column justify-start pt-md-2 align-start"
-            color="accent"
+            
             height="100vh"
             rounded
             shaped>
@@ -30,17 +32,22 @@
                      <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                           <v-btn
+                          :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2}"
                           v-bind="attrs"
                           v-on="on"
-
+                          class="circular-reveal"
                           width='128'
                           height='128'
                           elevation="2"
                           fab
                           icon
-                          v-bind:class="[hover ? 'accent2' : 'secondary']">
+                          :style="{content: 'post.slug'}"
+                          >
                             <!-- <span style="color:white;" class="cardpost_h2_title pa-3" v-html="post.name"/> -->
-                            MC
+                            <v-icon>
+                              {{ post.icon }}
+                            </v-icon>
+
                           </v-btn>
                         </template>
                         <span class="white--text cardpost_h2_title pa-3" v-html="post.name"/>
@@ -85,6 +92,44 @@
   font-size: 3.125rem;
  
 }
+
+.circular-reveal {
+  width: 256px;
+  height: 256px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.circular-reveal img {
+  width: 100%;
+}
+
+.circular-reveal::after {
+  // content: '';
+  position: absolute;
+  background: rgba(149, 116, 215, 0.509);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  font-size: 60px;
+  transition: transform 0.2s cubic-bezier(0, 0, 0.3, 1),
+      opacity 0.2s cubic-bezier(0, 0, 0.3, 1);
+  transform: rotate(10deg);
+  opacity: 0;
+  
+}
+
+
+.circular-reveal:hover::after {
+  transform: rotate(0deg);
+  opacity: 1;
+}
 </style>
 
 <script>
@@ -121,4 +166,36 @@ export default {
     })
   }, 
 }
+
+// (function() {
+//   const element = document.querySelector(".circular-reveal");
+//   const inner = document.querySelector(".circular-reveal__content");
+
+//   const easing = 0.3;
+//   const outScale = 0.6;
+//   const inScale = 1;
+//   let targetScale = outScale;
+//   let elementScale = targetScale;
+//   let innerScale = 1 / elementScale;
+
+//   element.addEventListener("pointerover", () => {
+//     targetScale = inScale;
+//   });
+
+//   element.addEventListener("pointerout", () => {
+//     targetScale = outScale;
+//   });
+
+//   const update = () => {
+//     elementScale += (targetScale - elementScale) * easing;
+//     innerScale = 1 / elementScale;
+
+//     element.style.transform = `scale(${elementScale})`;
+//     inner.style.transform = `scale(${innerScale})`;
+
+//     requestAnimationFrame(update);
+//   };
+
+//   requestAnimationFrame(update);
+// })();
 </script>

@@ -215,14 +215,15 @@ export const actions = {
       let offices = await fetch(
         production + 'office'
         ).then((res) => res.json())
-        offices = offices.map(({ acf, slug, yoast_head, categories, tags, title , content}) => ({
+        offices = offices.map(({ acf, slug, yoast_head, categories, tags, title , content, icon}) => ({
           acf,
           slug,
           yoast_head,
 			    categories,
 		      tags,
           name: title.rendered,
-          content: acf.content
+          content: acf.content,
+          icon: acf.icon
         }))
       commit('updateOffices', offices)
     } catch (err) {
@@ -341,8 +342,8 @@ export const actions = {
         let hasCategory = function (office) {
           return office.categories.includes(category_id)
         } 
-        return offices.filter(hasCategory).map(({name, slug, content}) => {
-          return {name, slug, content} ; 
+        return offices.filter(hasCategory).map(({name, slug, content, icon}) => {
+          return {name, slug, content,icon} ; 
         }); 
     }
 

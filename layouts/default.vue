@@ -20,47 +20,18 @@
       </v-list-item>
 
       <v-divider></v-divider>
-      <v-list>
+      <v-list dense>
         <v-list-item
-          v-for="(item, i) in homeMenus.items"
-          :key="i"
-          router
-          exact
+          v-for="item in categories"
+          :key="item.name"
+          href
         >
-          <v-list-item-action>
-            
-          </v-list-item-action>
+          <v-list-item-icon>
+            <v-icon>{{ cat_icon.government }}</v-icon>
+          </v-list-item-icon>
+
           <v-list-item-content>
-              
-              <v-list-item-title v-if="!item.child_items" v-text="item.title" />
-
-
-              <v-list-group v-else transition="slide-x-transition">
-                <template v-slot:activator
-                slide-x
-                >
-                  <v-list-item-content>
-                    <v-list-item-title @click="show = !show" v-text="item.title"/>
-                    
-                  </v-list-item-content>
-                </template>
-                <v-list-item
-                  v-for="(submenu, n) in item.child_items"
-                  :key="n"
-                  name="slide-fade"
-                  :to="submenu.url"
-               f   
-                >
-                <transition name="slide-fade">
-                  <v-list-item-title v-text="submenu.title"></v-list-item-title>
-                    </transition>
-
-                  <!-- <v-list-item-icon>
-                    <v-icon v-text="icon"></v-icon>
-                  </v-list-item-icon> -->
-                </v-list-item>
-              </v-list-group>
-            
+            <v-list-item-title>{{ item.name }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -68,13 +39,14 @@
     </v-navigation-drawer>
     
     <v-app-bar
-      absolute
+      elevate-on-scroll
       app
-      light
-      color="transparent"
+      tile
+      color="white"
+      class="dark--text"
       style="z-index:2;"
     >
-      <nuxt-link to='/'>
+      <nuxt-link class='d-flex text-decoration-none justify-center align-center flex-nowrap' to='/'>
 
       
         <v-img
@@ -84,17 +56,17 @@
           src="https://madisoncounty.in.gov/images/recoloredlogo.png"
           lazy-src="https://madisoncounty.in.gov/images/recoloredlogo.png"
         ></v-img>
-        </nuxt-link>
    
 
-        <v-toolbar-title class="mr-16" v-text="location.county +', '+ location.state.abbrv" />
+        <v-toolbar-title class="mr-16 dark--text text-decoration-none" v-text="location.county +', '+ location.state.abbrv" />
+      </nuxt-link>
         <v-spacer/>
         <v-btn class="ml-16" icon>
-          <v-icon>mdi-magnify</v-icon>
+          <v-icon class="dark--text">mdi-magnify</v-icon>
         </v-btn>
   
 
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon class="dark--text" @click.stop="drawer = !drawer" />
   
  
 
@@ -146,11 +118,17 @@ export default {
           name:'Indiana',
           abbrv:'IN'
           }
-      }
+      },
+      cat_icon:{
+        government: 'mdi-bank' ,
+        business: 'mdi-handshake' ,
+        residents: 'mdi-homegroup ' ,
+        visitors: 'mdi-mapsearch',
+      },
     }
   },
   computed:{
-    ...mapState(['homeMenus', 'homePage']),
+    ...mapState(['categories', 'homePage']),
   }
 }
 </script>
