@@ -3,7 +3,7 @@
         <!-- background & overlay -->
 
          <v-carousel
-           
+           cycle
             hide-delimiters
             :show-arrows="false"
             width="100vw"
