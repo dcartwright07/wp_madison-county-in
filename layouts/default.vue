@@ -10,6 +10,7 @@
       app
       color="#426464"
     >
+    <!-- color="#426464" -->
     <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title" v-text="location.county" >
@@ -26,14 +27,30 @@
           :key="item.name"
           href
         >
+            <v-list-item-icon>
+              <v-icon>{{ cat_icon.government }}</v-icon>
+            </v-list-item-icon>
+            
+          <NuxtLink :to="{ path: '/', hash:item.slug}">
+            <v-list-item-content>
+              <v-list-item-title>{{ item.name }}</v-list-item-title>
+            </v-list-item-content>
+          </NuxtLink>
+        </v-list-item>
+      </v-list>
+      <v-list>
+        <NuxtLink to="/directory">
+        <v-list-item>
           <v-list-item-icon>
-            <v-icon>{{ cat_icon.government }}</v-icon>
-          </v-list-item-icon>
 
+          </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>{{ item.name }}</v-list-item-title>
+            <v-list-item-title>
+              Directory
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        </NuxtLink>
       </v-list>
 
     </v-navigation-drawer>
@@ -42,13 +59,15 @@
       elevate-on-scroll
       app
       tile
-      color="white"
-      class="dark--text"
+      color="transparent"
+      class="lightgrey--text"
       style="z-index:2;"
+      dark
     >
+    <div class="blur-container">
+     <div class="blur-content" style=""></div>
+    </div>
       <nuxt-link class='d-flex text-decoration-none justify-center align-center flex-nowrap' to='/'>
-
-      
         <v-img
           class="mr-3"
           max-height="45"
@@ -58,15 +77,15 @@
         ></v-img>
    
 
-        <v-toolbar-title class="mr-16 dark--text text-decoration-none" v-text="location.county +', '+ location.state.abbrv" />
+        <v-toolbar-title class="mr-16 lightgrey--text text-decoration-none" v-text="location.county +', '+ location.state.abbrv" />
       </nuxt-link>
         <v-spacer/>
         <v-btn class="ml-16" icon>
-          <v-icon class="dark--text">mdi-magnify</v-icon>
+          <v-icon class="lightgrey--text">mdi-magnify</v-icon>
         </v-btn>
   
 
-      <v-app-bar-nav-icon class="dark--text" @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon class="lightgrey--text" @click.stop="drawer = !drawer" />
   
  
 
@@ -77,15 +96,43 @@
         <nuxt />
       </v-container>
     </v-main>
-    <v-footer
+    <!-- <v-footer
       :absolute="!fixed"
       app
+      black
     >
+    this is a test
       <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
-<style scoped>
+<style lang="scss" scoped>
+.v-app-bar.v-app-bar--is-scrolled{
+	/* background-image: url('http://madisoncounty.signaturewebcreations.com/wp-content/uploads/2021/06/navbg.png');
+   */
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  
+  /* background-repeat: no-repeat;
+	background-size: 100%;
+	background-attachment: fixed; */
+  .blur-container{
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    transform: translate3d(0,0,0);
+    
+  }
+  .blur-content{
+    filter: blur(1rem);
+    left: 0px; 
+    top: 0px; 
+    transform: translateY(-447px);
+    position: absolute;
+    width: 100vw;
+  }
+}
   /* Enter and leave animations can use different */
 /* durations and timing functions.              */
 .slide-fade-enter-active {

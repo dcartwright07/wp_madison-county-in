@@ -255,7 +255,7 @@ export const actions = {
       'id', 'slug'
     ]
     const parameters = fields.join(',')
-    const url = strpro + `tags?_fields=${parameters}`; 
+    const url = strpro + `tags?_fields=${parameters}&per_page=100`; 
  
     try {
       const tags = await fetch(url).then((res) => res.json())

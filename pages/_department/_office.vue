@@ -1,25 +1,35 @@
 <template>
   <section>
+
 	<BaseSubpageheader />
+
+    
+  
+    
 	<v-container>
-		<v-row >
-			<!-- {{office[0].length == 0}} -->
-			<v-col  v-html="office[0].acf.content">
+		<v-row class="d-flex flex-column">
+      <v-col class="section__content" tag='p' v-html="office[0].acf.description">
+      </v-col>
+			<v-col class="section__content" v-html="office[0].acf.content">
 			</v-col>
 		</v-row>
 	</v-container>
     <v-row no-gutters>
       <v-col
-        class="primary text-center pa-5 white--text"
+        class="secondary text-center pa-5 white--text"
         cols="12">
        <BaseTeam />
       </v-col>
     </v-row>
+
   </section>
 </template>
 <script>
 import { mapState } from 'vuex'
 export default {
+   data: () => ({
+      collapseOnScroll: true,
+    }),
 	async fetch({ store, error, params }) {
 		try {
 			await store.dispatch("fetchDepartment", params.department);
@@ -35,22 +45,29 @@ export default {
             'offices',
             'categories',
             'categoryMap',
-            'countyProfiles','featuredImages','tags'])},
+            'countyProfiles',
+            'featuredImages',
+            'tags'])},
 
 	created() {
     const category_slug = this.$route.params.department
     const slug = this.$route.params.office
     const category_id = this.categoryMap[category_slug]
-	const content = this.offices[0].acf.content
     const tag_id = this.tags[slug]
-	this.office = this.offices.filter(({categories, tags, slug}) => categories.includes(category_id) && tags.includes(tag_id) && slug ),
-    this.profiles = this.countyProfiles.filter(({categories, tags}) => 
-      categories.includes(category_id) && tags.includes(tag_id)
-    ) 
+	  this.office = this.offices.filter(({categories, tags, slug}) => categories.includes(category_id) && tags.includes(tag_id) && slug ),
+    this.profiles = this.countyProfiles.filter(({categories, tags}) => categories.includes(category_id) && tags.includes(tag_id)) 
 	},
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+     .intro_bar{
+        padding-top:130px;
+        .section__title{
+            font-size:40px;
+        }
+        .section__content{
+            font-size:28px;
+        }
+    }
 </style>

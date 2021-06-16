@@ -7,7 +7,7 @@
      <!-- :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2, 'pt-15': index == 0}"  -->
         <v-container v-if="!category.posts.length < 1" fluid class="d-flex" :class="{'flex-row': index % 2 === 0, 'flex-row-reverse': index % 2 !== 0}">
         <v-col :id="category.name" class="text-center white--text" cols="12" md="4"
-        :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2}"
+        
         >
           <v-sheet
             class="d-flex flex-column justify-start pt-md-2 align-start"
@@ -17,7 +17,7 @@
             shaped>
             <v-card-title class="align-center">
               
-              <h2 class="section-name">
+              <h2 :id="category.slug" class="section-name">
                 {{category.name}} 
               </h2>
               
@@ -28,23 +28,23 @@
                   v-for="post in category.posts" :key="post.slug"
                   class="d-inline-flex mt-5"
                 >
-                  <nuxt-link :to="'/'+ category.slug +'/' + post.slug">
+                  <nuxt-link style="text-decoration: none;" :to="'/'+ category.slug +'/' + post.slug">
                      <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                           <v-btn
-                          :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2}"
+                          :class="{'primary': index % 5 === 0, 'secondary': index % 5 === 1, 'hyperlink': index % 5 === 2, 'accent': index % 5 === 3}"
                           v-bind="attrs"
                           v-on="on"
                           class="circular-reveal"
-                          width='128'
-                          height='128'
+                          width='100'
+                          height='100'
                           elevation="2"
                           fab
                           icon
                           :style="{content: 'post.slug'}"
                           >
                             <!-- <span style="color:white;" class="cardpost_h2_title pa-3" v-html="post.name"/> -->
-                            <v-icon>
+                            <v-icon size='40'>
                               {{ post.icon }}
                             </v-icon>
 
@@ -59,9 +59,10 @@
           </v-sheet>
         </v-col>
         <v-col
-          class="col-xs-12 col-md-8 hidden-sm-and-down"
+          class="col-xs-12 col-md-8 "
           md="6"
         >
+        <!-- hidden-sm-and-down -->
           <v-sheet
           class=" full-height ma-6"
             elevation="4"
@@ -88,10 +89,14 @@
     padding: 100px 6.25vw ;
   }
 }
+.v-icon{
+  font-size:40px;
+}
 .section-name{
   font-size: 3.125rem;
  
 }
+
 
 .circular-reveal {
   width: 256px;

@@ -8,7 +8,6 @@
 
       <v-row justify='center' >
           <!-- picture with hover affect will be -->
-          
         <v-col v-for="profile in profiles" :key='profile.id' sm="3">
             <v-dialog v-model="dialog" width="500">
                     <template v-slot:activator="{ on, attrs }">
@@ -16,12 +15,9 @@
                 v-bind="attrs"
                 v-on="on"
                 size="128">
-                    <v-img cover
-                    
-                        max-height="250"
-                        max-width="250"
-                        :src="profile.media_url ? profile.media_url : logo ">
-                    </v-img>
+                    <v-img v-if="profile.media_url" cover max-height="250" max-width="250" :src="profile.media_url" />
+                    <v-img v-else cover max-height="250" max-width="250" :src="require('~/assets/madison_silhouettes_1.png')" />
+                       <!-- <v-img :src="profile.media_url ? profile.media_url : require('~/assets/madison_silhouettes_1.jpg') "/> -->
                 </v-avatar>
                 </template>
                 <v-card>
@@ -58,11 +54,11 @@
 </template>
 <style lang="scss" scoped>
 .sectionHeader{
-    &::after{
+    &::before{
         content: "";
         width: 100%;
         height:2px;
-        background:'primary';
+        background:'secondary';
     }
 }
 </style>

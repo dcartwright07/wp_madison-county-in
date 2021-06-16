@@ -6,7 +6,7 @@
 
       <BaseHeroslider />
       
-      <!-- <BaseIntrobar /> -->
+      <BaseIntrobar />
       <BaseTwoCol />
 
 

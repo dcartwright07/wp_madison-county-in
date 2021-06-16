@@ -1,4 +1,5 @@
 <template>
+
 <v-item-group class="absolute event-bar" active-class="primary ">
     <v-container >
       <v-row>
@@ -18,7 +19,7 @@
               @click="toggle"
             >
             <v-scroll-y-transition hide-on-leave>
-            <div v-if="!active" class="text-h4 flex-grow-1 animate-center text-center" > Event name</div>
+            <div v-if="!active" class="flex-grow-1 animate-center text-center" > Event name</div>
             </v-scroll-y-transition>
               <v-scroll-y-transition hide-on-leave>
                 <div
@@ -66,4 +67,6 @@
     width: 100%;
     bottom: 15px;
 }
+
+
 </style>

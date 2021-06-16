@@ -19,19 +19,19 @@
                     <!-- -->
 
 
-            <v-carousel-item  transition="slide-x-reverse-transition" class="accent" v-for="homepost in homeFeatures" :key="homepost.id" width="100%" min-height="320" @change="show">
+            <v-carousel-item hide-on-leave transition="slide-x-reverse-transition" class="accent" v-for="homepost in homeFeatures" :key="homepost.id" width="100%" min-height="320" @change="show">
                     <v-img class="fill-height" :src='homepost.acf.hero_image.url'></v-img>
             </v-carousel-item>
         </v-carousel>
         <v-sheet elevation="3" class="fill-height gradient absolute hero-content-sheet ">
                 <v-row class=" header-wrap pl-md-16 pr-md-16 absolute z-1 " v-for="(post, index) in homeFeatures" :key="post.id">
-                    <v-slide-x-transition> 
-                        <h2 color='primary' class="accent--text h2 ma-0 pa-0 " v-show="carouselIndex === index"  v-html="post.acf.subheader"></h2>
+                    <v-slide-x-transition hide-on-leave> 
+                        <h2 color='primary' class="lightgrey--text h2 ma-0 pa-0 " v-show="carouselIndex === index"  v-html="post.acf.subheader"></h2>
                     </v-slide-x-transition>
-                    <v-slide-x-reverse-transition >
+                    <v-slide-x-reverse-transition hide-on-leave>
                         <h1 color='primary' class="lightgrey--text h1 ma-0 pa-0" v-show="carouselIndex === index" v-html="post.title.rendered"></h1>
                     </v-slide-x-reverse-transition> 
-                    <v-slide-x-transition> 
+                    <v-slide-x-transition hide-on-leave> 
                         <div class="lightgrey--text postcontent mr-10" v-show="carouselIndex === index" v-html="homeFeatures[carouselIndex].acf.hero_short_description"></div>
                     </v-slide-x-transition>
                 </v-row>      
@@ -100,7 +100,7 @@ export default {
             flex-direction: column;
 
             .h1,.h2{
-                font-size: 4.0vw;
+                font-size:62px;
             }
             .h2{
                 font-weight: 200;
