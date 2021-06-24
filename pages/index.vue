@@ -1,116 +1,104 @@
 <template>
-  <section
-    id="welcome"
-    class="overflow-hidden"
-  >
+  <section id="welcome" class="overflow-hidden">
+    <BaseHeroslider />
 
-      <BaseHeroslider />
-      
-      <BaseIntrobar />
-      <BaseTwoCol />
-
-
+    <BaseIntrobar />
+    <BaseTwoCol />
   </section>
 </template>
 
-
 <style scoped>
-.homeHeroHeader{
+.homeHeroHeader {
   z-index: 1;
-
 }
-.r-gradient{
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.4) 100%);
-
+.r-gradient {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
 }
-.homeHeroTitle{
+.homeHeroTitle {
   position: absolute;
-  top:0;
+  top: 0;
 }
 .homeHeroHeader .v-window-item {
-    /* top: 20%; */
-    position: relative;
+  /* top: 20%; */
+  position: relative;
 }
-.backgroundhero{
+.backgroundhero {
   position: absolute;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-  .h1{
-    font-size:4rem;
-    z-index: 6;
-    position: absolute;
-    top: 30%;
-  }
-  .HomeSubHeader{
-    font-size:2.4rem;
-    font-weight: 300;
-    z-index: 6;
-    position: absolute;
-    top: 23.5%;
-  }
-  .fheight{
-    height:100vh;
-  }
+.h1 {
+  font-size: 4rem;
+  z-index: 6;
+  position: absolute;
+  top: 30%;
+}
+.HomeSubHeader {
+  font-size: 2.4rem;
+  font-weight: 300;
+  z-index: 6;
+  position: absolute;
+  top: 23.5%;
+}
+.fheight {
+  height: 100vh;
+}
 /*********************/
 </style>
 <script>
-import { mapState } from 'vuex'
-import Header from '../components/nav.vue'
+import { mapState } from "vuex";
+import Header from "../components/nav.vue";
 export default {
-
-  data () {
+  data() {
     return {
       absolute: true,
       opacity: 0.35,
       overlay: true,
-      zIndex: 0,
-    }
+      zIndex: 0
+    };
   },
-  computed:{
-    ...mapState([
-      'homePage',
-      'landingPages',
-      'homeFeatures',
-      ]),
-  
+  computed: {
+    regServices: state => {
+      return state.homeFeatures.filter(
+        project => project.ACF.service_type === "Regular"
+      );
+    },
+    ry$protectionServices: state => {
+      return state.homeFeatures.filter(
+        project => project.ACF.service_type === "Protection"
+      );
+    },
+    ...mapState(["homePage", "landingPages"])
+  },
+
   async created() {
-    await this.$store.dispatch('getlandingPages')
-    await this.$store.dispatch('getHome')
+    await this.$store.dispatch("getlandingPages");
+    await this.$store.dispatch("getHome");
     // await this.$store.dispatch('gethomeMenus')
-    await this.$store.dispatch('gethomeFeatures')
-    await this.$store.dispatch('getOffices')
-    await this.$store.dispatch('getcategories')
-    await this.$store.dispatch('getTags')
-    await this.$store.dispatch('getfeaturedImages')
-    await this.$store.dispatch('getcountyProfiles', {
-        featuredImages: this.$store.state.featuredImages 
-    })
-    await this.$store.dispatch('getcategoriesWithPosts', {
-        categories: this.$store.state.categories, 
-        featuredImages: this.$store.state.featuredImages, 
-        landingPages: this.$store.state.landingPages,
-        offices: this.$store.state.offices
-    })
-  },
-
-  regServices: (state) => {
-    return state.homeFeatures.filter(
-      (project) => project.ACF.service_type === 'Regular'
-    )
-  },
-  ry$protectionServices: (state) => {
-    return state.homeFeatures.filter(
-      (project) => project.ACF.service_type === 'Protection'
-    )
-  },
-  },
-}
-
+    await this.$store.dispatch("getOffices");
+    await this.$store.dispatch("getcategories");
+    await this.$store.dispatch("getTags");
+    await this.$store.dispatch("getfeaturedImages");
+    await this.$store.dispatch("getcountyProfiles", {
+      featuredImages: this.$store.state.featuredImages
+    });
+    await this.$store.dispatch("getcategoriesWithPosts", {
+      categories: this.$store.state.categories,
+      featuredImages: this.$store.state.featuredImages,
+      landingPages: this.$store.state.landingPages,
+      offices: this.$store.state.offices
+    });
+  }
+};
 </script>
