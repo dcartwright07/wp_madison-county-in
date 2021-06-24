@@ -151,7 +151,7 @@
 </style>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
@@ -163,7 +163,7 @@ export default {
   },
 
   async fetch() {
-    this.getcategoriesWithPosts();
+    await this.getcategoriesWithPosts();
   },
 
   computed: mapState(["categoriesWithPosts"]),
