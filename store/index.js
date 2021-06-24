@@ -111,48 +111,61 @@ export const actions = {
     }
   },
 
-  // async getlandingPages({ state, commit }) {
-  //   if (state.landingPages.length) return
-  //   try {
-  //     let landingPages = await fetch(
-  //       production + 'pages'
-  //     ).then((res) => res.json())
-
-  //     landingPages = landingPages.filter((el) => el.status === 'publish' && el.parent === 0);
-  //     landingPages = landingPages.map(({ ACF, title, slug, yoast_head, content,categories,parent,featured_media}) => ({
-  //       ACF,
-  //       title,
-  //       slug,
-  //       yoast_head,
-  //       content,
-  //       categories,
-  //       parent,
-  //       featured_media
-  //     }))
-  //     commit('updatelandingPages', landingPages)
-  //   } catch (err) {
-  //       console.log(err);
-  //   }
-  // },
-
-  async gethomeFeatures({ state, commit }) {
-    if (state.homeFeatures.length) return;
+  async getlandingPages({ state, commit }) {
+    if (state.landingPages.length) return;
     try {
-      let homeFeatures = await fetch(production + "home_features").then(res =>
+      let landingPages = await fetch(production + "pages").then(res =>
         res.json()
       );
-      homeFeatures = homeFeatures.map(({ acf, title, slug, yoast_head }) => ({
-        acf,
-        title,
-        slug,
-        yoast_head
-      }));
 
-      commit("updatehomeFeatures", homeFeatures);
+      landingPages = landingPages.filter(
+        el => el.status === "publish" && el.parent === 0
+      );
+      landingPages = landingPages.map(
+        ({
+          ACF,
+          title,
+          slug,
+          yoast_head,
+          content,
+          categories,
+          parent,
+          featured_media
+        }) => ({
+          ACF,
+          title,
+          slug,
+          yoast_head,
+          content,
+          categories,
+          parent,
+          featured_media
+        })
+      );
+      commit("updatelandingPages", landingPages);
     } catch (err) {
       console.log(err);
     }
   },
+
+  // async gethomeFeatures({ state, commit }) {
+  //   if (state.homeFeatures.length) return;
+  //   try {
+  //     let homeFeatures = await fetch(production + "home_features").then(res =>
+  //       res.json()
+  //     );
+  //     homeFeatures = homeFeatures.map(({ acf, title, slug, yoast_head }) => ({
+  //       acf,
+  //       title,
+  //       slug,
+  //       yoast_head
+  //     }));
+
+  //     commit("updatehomeFeatures", homeFeatures);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // },
 
   async getHome({ state, commit }) {
     try {

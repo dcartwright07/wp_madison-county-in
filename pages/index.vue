@@ -69,16 +69,16 @@ export default {
     };
   },
   computed: {
-    regServices: state => {
-      return state.homeFeatures.filter(
-        project => project.ACF.service_type === "Regular"
-      );
-    },
-    ry$protectionServices: state => {
-      return state.homeFeatures.filter(
-        project => project.ACF.service_type === "Protection"
-      );
-    },
+    // regServices: state => {
+    //   return this.homeFeatures.filter(
+    //     project => project.ACF.service_type === "Regular"
+    //   );
+    // },
+    // ry$protectionServices: state => {
+    //   return this.homeFeatures.filter(
+    //     project => project.ACF.service_type === "Protection"
+    //   );
+    // },
     ...mapState(["homePage", "landingPages"])
   },
 
