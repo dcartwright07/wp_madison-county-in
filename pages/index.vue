@@ -93,12 +93,6 @@ export default {
     await this.$store.dispatch("getcountyProfiles", {
       featuredImages: this.$store.state.featuredImages
     });
-    await this.$store.dispatch("getcategoriesWithPosts", {
-      categories: this.$store.state.categories,
-      featuredImages: this.$store.state.featuredImages,
-      landingPages: this.$store.state.landingPages,
-      offices: this.$store.state.offices
-    });
   }
 };
 </script>

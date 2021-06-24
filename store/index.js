@@ -339,30 +339,12 @@ export const actions = {
     }
   },
 
-  async getcategoriesWithPosts(
-    { commit, dispatch, state },
-    { categories, featuredImages, landingPages, offices }
-  ) {
-    const result = categories.map(c => {
-      let category = Object.assign({}, c);
-      try {
-        const page = getPageWithSlug(category.slug);
-        const id = page.featured_media;
-        category.featured_media_url = getFeaturedMediaURL(featuredImages, id);
-      } catch {
-        category.featured_media_url = "";
-      }
-      category.posts = categoryOffices(category.id);
-      return category;
-    });
-
-    commit("updatecategoriesWithPosts", result);
-
+  getcategoriesWithPosts({ commit, state }) {
     function categoryOffices(category_id) {
       let hasCategory = function(office) {
         return office.categories.includes(category_id);
       };
-      return offices
+      return state.offices
         .filter(hasCategory)
         .map(({ name, slug, content, icon }) => {
           return { name, slug, content, icon };
@@ -371,13 +353,31 @@ export const actions = {
 
     function getPageWithSlug(slug) {
       /* Returns page with matching slug if found */
-      for (let i = 0; i < landingPages.length; i++) {
-        let current_page = landingPages[i];
+      for (let i = 0; i < state.landingPages.length; i++) {
+        let current_page = state.landingPages[i];
         if (current_page.slug === slug) {
           return current_page;
         }
       }
       throw new `Couldn't find page for slug ${slug}`();
     }
+
+    const result = state.categories.map(c => {
+      let category = Object.assign({}, c);
+      try {
+        const page = getPageWithSlug(category.slug);
+        const id = page.featured_media;
+        category.featured_media_url = getFeaturedMediaURL(
+          state.featuredImages,
+          id
+        );
+      } catch {
+        category.featured_media_url = "";
+      }
+      category.posts = categoryOffices(category.id);
+      return category;
+    });
+
+    commit("updatecategoriesWithPosts", result);
   }
 };
