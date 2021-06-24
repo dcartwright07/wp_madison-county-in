@@ -79,6 +79,26 @@ export default {
       'landingPages',
       'homeFeatures',
       ]),
+  
+  async created() {
+    await this.$store.dispatch('getlandingPages')
+    await this.$store.dispatch('getHome')
+    // await this.$store.dispatch('gethomeMenus')
+    await this.$store.dispatch('gethomeFeatures')
+    await this.$store.dispatch('getOffices')
+    await this.$store.dispatch('getcategories')
+    await this.$store.dispatch('getTags')
+    await this.$store.dispatch('getfeaturedImages')
+    await this.$store.dispatch('getcountyProfiles', {
+        featuredImages: this.$store.state.featuredImages 
+    })
+    await this.$store.dispatch('getcategoriesWithPosts', {
+        categories: this.$store.state.categories, 
+        featuredImages: this.$store.state.featuredImages, 
+        landingPages: this.$store.state.landingPages,
+        offices: this.$store.state.offices
+    })
+  },
 
   regServices: (state) => {
     return state.homeFeatures.filter(

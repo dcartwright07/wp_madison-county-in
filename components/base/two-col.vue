@@ -5,7 +5,7 @@
      no-gutters>
      
      <!-- :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2, 'pt-15': index == 0}"  -->
-        <v-container v-if="!category.posts.length < 1" fluid class="d-flex" :class="{'flex-row': index % 2 === 0, 'flex-row-reverse': index % 2 !== 0}">
+        <v-container v-if="!category.posts.length < 1" fluid class="d-flex flex-sm-column-reverse" :class="{'flex-row': index % 2 === 0, 'flex-row-reverse': index % 2 !== 0}">
         <v-col :id="category.name" class="text-center white--text" cols="12" md="4"
         
         >

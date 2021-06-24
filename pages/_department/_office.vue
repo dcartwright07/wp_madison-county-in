@@ -7,7 +7,7 @@
   
     
 	<v-container>
-		<v-row class="d-flex flex-column">
+		<v-row class=" pa-5 d-flex flex-column">
       <v-col class="section__content" tag='p' v-html="office[0].acf.description">
       </v-col>
 			<v-col class="section__content" v-html="office[0].acf.content">

@@ -1,11 +1,14 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-
-  env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
-  },
-  target: 'static',
+  // env: {
+  //   baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+  //   API_CLIENT: "0ecd0add360dac608301678189b3c614",
+  //   API_SECRET: "3738877c2b5d766209b3a528c86af893",
+  //   BASE_URL: "http://madisoncounty.signaturewebcreations.com/",
+  //   WP_API_URL: "http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/",
+  //   WU247_API_URL: "https://api.whatsup247.com"
+  // },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -23,7 +26,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  
+
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
@@ -45,28 +48,45 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
-  axios: {
-    baseURL: "http://madisoncounty.signaturewebcreations.com/", // Used as fallback if no runtime config is provided
-    proxy: true
-  },
+
+  // axios: {
+  //   baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
+  //   proxy: true
+  // },
 
   publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL
-    }
+    apiUrl: "http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/",
+    wuApiUrl: "https://api.whatsup247.com",
+    // axios: {
+    //   browserBaseURL: process.env.BROWSER_BASE_URL
+    // }
   },
 
   privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.BASE_URL
-    }
+    // axios: {
+    //   baseURL: process.env.BASE_URL
+    // },
+    apiClientId: "0ecd0add360dac608301678189b3c614",
+    apiClientSecret: "3738877c2b5d766209b3a528c86af893",
+    orgId:"5600aaf5d9ab987a5935c1af3ba840a2"
   },
-  proxy: {
-    "/api/": {
-      target: "http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/",
-      pathRewrite: { "^/api": "" },
-      changeOrigin: true
-    }
+
+  // proxy: {
+  //   "/api/": {
+  //     target: process.env.WP_API_URL,
+  //     pathRewrite: { "^/api": "" },
+  //     changeOrigin: true
+  //   },
+  //   "/wuapi/": {
+  //     target: process.env.WU247_API_URL,
+  //     pathRewrite: { "^/wuapi": "" },
+  //     changeOrigin: true
+  //   }
+  // },
+  router: {
+      middleware: [
+          'bearer-token'
+      ],
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

@@ -26,14 +26,14 @@
                   v-if="active"
                   class=" primary fill-height flex-grow-1 animate-center text-center"
                 >
-                  <p>Event date</p>
-                  
+                  <p>{{token}}</p>
+
                   <v-btn>
                   Learn more
                   </v-btn>
-                  
+
                 </div>
-                
+
               </v-scroll-y-transition>
             </v-card>
           </v-item>
@@ -44,11 +44,30 @@
 </template>
 
 <script>
+  import { mapState, mapActions } from "vuex"
   export default {
     data: () => ({
       expand: false,
+      info:null,
+      posts: [],
+      errors: []
+    }),
+    
+
+    methods: mapActions(["getEvents"]),
+
+    async created() {
+        // console.log(token),
+      await this.getEvents();
+    },
+
+    computed: mapState({
+      token: (state) => state.token,
+      landingPages: (state) => state.landingPages
     }),
   }
+
+
 </script>
 <style lang="scss" scoped>
 .v-card--reveal {
