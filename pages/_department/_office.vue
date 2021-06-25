@@ -1,73 +1,89 @@
 <template>
   <section>
+    <BaseSubpageheader :office="office" />
 
-	<BaseSubpageheader />
-
-    
-  
-    
-	<v-container>
-		<v-row class=" pa-5 d-flex flex-column">
-      <v-col class="section__content" tag='p' v-html="office[0].acf.description">
-      </v-col>
-			<v-col class="section__content" v-html="office[0].acf.content">
-			</v-col>
-		</v-row>
-	</v-container>
+    <v-container>
+      <v-row class=" pa-5 d-flex flex-column">
+        <v-col class="section__content" tag="p" v-html="office.acf.description">
+        </v-col>
+        <v-col class="section__content" v-html="office.acf.content"> </v-col>
+      </v-row>
+    </v-container>
     <v-row no-gutters>
-      <v-col
-        class="secondary text-center pa-5 white--text"
-        cols="12">
-       <BaseTeam />
+      <v-col class="secondary text-center pa-5 white--text" cols="12">
+        <BaseTeam :team="profiles" />
       </v-col>
     </v-row>
-
   </section>
 </template>
 <script>
-import { mapState } from 'vuex'
-export default {
-   data: () => ({
-      collapseOnScroll: true,
-    }),
-	async fetch({ store, error, params }) {
-		try {
-			await store.dispatch("fetchDepartment", params.department);
-		} catch (e) {
-			error({
-				statusCode: 503,
-				message: "Unable to fetch event #" + params.department
-			});
-		}
-	},
-    computed: {
-        ...mapState([
-            'offices',
-            'categories',
-            'categoryMap',
-            'countyProfiles',
-            'featuredImages',
-            'tags'])},
+import { mapState } from "vuex";
 
-	created() {
-    const category_slug = this.$route.params.department
-    const slug = this.$route.params.office
-    const category_id = this.categoryMap[category_slug]
-    const tag_id = this.tags[slug]
-	  this.office = this.offices.filter(({categories, tags, slug}) => categories.includes(category_id) && tags.includes(tag_id) && slug ),
-    this.profiles = this.countyProfiles.filter(({categories, tags}) => categories.includes(category_id) && tags.includes(tag_id)) 
-	},
-}
+export default {
+  data: () => ({
+    collapseOnScroll: true,
+    category_id: "",
+    tag_id: ""
+  }),
+
+  async fetch({ store, params }) {
+    await store.dispatch("getOffices");
+    await store.dispatch("getCategories");
+    await store.dispatch("getTags");
+    await store.dispatch("getCountyProfiles");
+    // try {
+    // 	await store.dispatch("fetchDepartment", params.department);
+    // } catch (e) {
+    // 	error({
+    // 		statusCode: 503,
+    // 		message: "Unable to fetch event #" + params.department
+    // 	});
+    // }
+  },
+
+  computed: {
+    office() {
+      let array = this.offices.filter(
+        ({ categories, tags, slug }) =>
+          categories.includes(this.category_id) &&
+          tags.includes(this.tag_id) &&
+          slug
+      );
+
+      return array[0];
+    },
+
+    profiles() {
+      return this.countyProfiles.filter(
+        ({ categories, tags }) =>
+          categories.includes(this.category_id) && tags.includes(this.tag_id)
+      );
+    },
+
+    ...mapState([
+      "offices",
+      "categories",
+      "categoryMap",
+      "countyProfiles",
+      "tags"
+    ])
+  },
+
+  created() {
+    this.category_id = this.categoryMap[this.$route.params.department];
+    this.tag_id = this.tags[this.$route.params.office];
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-     .intro_bar{
-        padding-top:130px;
-        .section__title{
-            font-size:40px;
-        }
-        .section__content{
-            font-size:28px;
-        }
-    }
+.intro_bar {
+  padding-top: 130px;
+  .section__title {
+    font-size: 40px;
+  }
+  .section__content {
+    font-size: 28px;
+  }
+}
 </style>

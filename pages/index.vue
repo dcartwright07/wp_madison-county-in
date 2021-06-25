@@ -78,8 +78,6 @@ export default {
     // await this.getTags();
     await this.getFeaturedImages();
     // await this.getCountyProfiles();
-    //   featuredImages: this.$store.state.featuredImages
-    // });
   },
 
   methods: mapActions([

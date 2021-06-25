@@ -298,7 +298,7 @@ export const actions = {
     }
   },
 
-  async getCountyProfiles({ commit }, { featuredImages }) {
+  async getCountyProfiles({ state, commit }) {
     const fields = [
       "id",
       "title.rendered",
@@ -324,7 +324,10 @@ export const actions = {
             categories,
             content: content.rendered,
             email: acf ? acf.email : "",
-            media_url: getFeaturedMediaURL(featuredImages, featured_media),
+            media_url: getFeaturedMediaURL(
+              state.featuredImages,
+              featured_media
+            ),
             phone: acf ? acf.phone : "",
             tags,
             title: title.rendered,
