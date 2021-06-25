@@ -367,11 +367,11 @@ export const actions = {
       try {
         const page = getPageWithSlug(category.slug);
         const id = page.featured_media;
+
         category.featured_media_url = getFeaturedMediaURL(
           state.featuredImages,
           id
         );
-        console.log(category.featured_media_url);
       } catch {
         category.featured_media_url = "";
       }
