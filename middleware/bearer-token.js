@@ -18,42 +18,42 @@ export default function({ store, $config, $axios }) {
   // only perform this at the server level.
   if (process.server) {
     // set parameters needed.
-    const fileName = "./.apiToken",
-      timestamp = Date.now(),
-      fs = require("fs"),
-      promise = new Promise(async (resolve, reject) => {
-        try {
-          // get our stored files timestamps.
-          const data = fs.statSync(fileName);
+    const fileName = "./.apiToken";
+    const timestamp = Date.now();
+    const fs = require("fs");
+    const promise = new Promise(async (resolve, reject) => {
+      try {
+        // get our stored files timestamps.
+        const data = fs.statSync(fileName);
 
-          // is our file timestamp in the future?
-          if (Date.now() < data.mtimeMs) {
-            // resolve our token from our file.
-            resolve(fs.readFileSync(fileName).toString());
-            return;
-          }
-        } catch (err) {
-          // ignore this error (file not found)
+        // is our file timestamp in the future?
+        if (timestamp < data.mtimeMs) {
+          // resolve our token from our file.
+          resolve(fs.readFileSync(fileName).toString());
+          return;
         }
+      } catch (err) {
+        // ignore this error (file not found)
+      }
 
-        try {
-          // grab our token from the oAuth server,
-          // we'll reduce the expiry timestamp by 10 mins
-          // to reduce near expiring tokens.
-          const res = await getToken($config, $axios),
-            expiryTime = timestamp + (res.data.expires_in - 60 * 10);
+      try {
+        // grab our token from the oAuth server,
+        // we'll reduce the expiry timestamp by 10 mins
+        // to reduce near expiring tokens.
+        const res = await getToken($config, $axios);
+        const expiryTime = timestamp + (res.data.expires_in - 60 * 10);
 
-          // write our file and sync the times.
-          fs.writeFileSync(fileName, res.data.access_token);
-          fs.utimesSync(fileName, new Date(expiryTime), new Date(expiryTime));
+        // write our file and sync the times.
+        fs.writeFileSync(fileName, res.data.access_token);
+        fs.utimesSync(fileName, new Date(expiryTime), new Date(expiryTime));
 
-          // resolve our promise with our generated token.
-          resolve(res.data.access_token);
-        } catch (err) {
-          // ToDo: handle token retrieval failure...
-          console.log(err);
-        }
-      });
+        // resolve our promise with our generated token.
+        resolve(res.data.access_token);
+      } catch (err) {
+        // ToDo: handle token retrieval failure...
+        console.log(err);
+      }
+    });
 
     // once our promise is resolved, set it against our store.
     promise.then(
