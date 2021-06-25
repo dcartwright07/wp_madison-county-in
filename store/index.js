@@ -2,17 +2,11 @@
 this is where we will eventually hold the data
 */
 
-var production =
-  "http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/";
-var strpro = `http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/`;
-var local = "http://localhost/wp-json/wp/v2/";
-
 export const state = () => ({
   token: null,
   homePage: [],
   landingPages: [],
   homeMenus: [],
-  // homeFeatures: [],
   wu247Dest: [],
   wu247Dir: [],
   offices: [],
@@ -51,9 +45,6 @@ export const mutations = {
   updatehomeMenus: (state, payload) => {
     state.homeMenus = payload;
   },
-  // updatehomeFeatures:( state, payload) => {
-  //   state.homeFeatures = payload
-  // },
   updateOffices: (state, payload) => {
     state.offices = payload;
   },
@@ -64,7 +55,7 @@ export const mutations = {
   updateTags: (state, obj) => {
     state.tags = obj;
   },
-  updatefeaturedImages: (state, array) => {
+  UPDATE_FEATURED_IMAGES: (state, array) => {
     state.featuredImages = array;
   },
   updatecountyProfiles: (state, array) => {
@@ -101,36 +92,11 @@ actions is where we will make an API call that gathers the posts,
 and then commits the mutation to update it
 */
 export const actions = {
-  // setApiToken({ commit }) {
-  //   const fileName = "./.apiToken";
-  //   const reader = new FileReader();
-  //   const promise = new Promise(async (resolve, reject) => {
-  //     try {
-  //       // get our stored files timestamps.
-  //       const data = fs.statSync(fileName);
-
-  //       // is our file timestamp in the future?
-  //       if (Date.now() < data.mtimeMs) {
-  //         // resolve our token from our file.
-  //         resolve(fs.readFileSync(fileName).toString());
-  //         return;
-  //       }
-  //     } catch (err) {
-  //       // ignore this error (file not found)
-  //     }
-  //   });
-
-  //   promise.then(
-  //     // (token) => console.log(context.store.commit('main/updateToken', token)),
-  //     token => commit("UPDATE_TOKEN", token),
-  //     // ToDo: better handling of errors...
-  //     err => console.log(err)
-  //   );
-  // },
-
   async fetchDepartment({ commit }, value) {
     try {
-      let array = await fetch(production + "pages").then(res => res.json());
+      let array = await fetch(this.$config.apiUrl + "pages").then(res =>
+        res.json()
+      );
       commit("setPageContent", array);
     } catch (err) {
       console.log(err);
@@ -140,7 +106,7 @@ export const actions = {
   async getLandingPages({ state, commit }) {
     if (state.landingPages.length) return;
     try {
-      let landingPages = await fetch(production + "pages").then(res =>
+      let landingPages = await fetch(this.$config.apiUrl + "pages").then(res =>
         res.json()
       );
 
@@ -177,7 +143,7 @@ export const actions = {
   // async gethomeFeatures({ state, commit }) {
   //   if (state.homeFeatures.length) return;
   //   try {
-  //     let homeFeatures = await fetch(production + "home_features").then(res =>
+  //     let homeFeatures = await fetch(this.$config.apiUrl + "home_features").then(res =>
   //       res.json()
   //     );
   //     homeFeatures = homeFeatures.map(({ acf, title, slug, yoast_head }) => ({
@@ -196,7 +162,7 @@ export const actions = {
   async getHome({ state, commit }) {
     try {
       const homePage = await fetch(
-        production + "pages/11?dbi-ajaxx"
+        this.$config.apiUrl + "pages/11?dbi-ajaxx"
       ).then(res => res.json());
       commit("updateHome", homePage);
     } catch (err) {
@@ -253,7 +219,9 @@ export const actions = {
 
   async getOffices({ commit }) {
     try {
-      let offices = await fetch(production + "office").then(res => res.json());
+      let offices = await fetch(this.$config.apiUrl + "office").then(res =>
+        res.json()
+      );
       offices = offices.map(
         ({
           acf,
@@ -304,7 +272,7 @@ export const actions = {
   async getTags({ state, commit }) {
     const fields = ["id", "slug"];
     const parameters = fields.join(",");
-    const url = strpro + `tags?_fields=${parameters}&per_page=100`;
+    const url = this.$config.apiUrl + `tags?_fields=${parameters}&per_page=100`;
 
     try {
       const tags = await fetch(url).then(res => res.json());
@@ -321,10 +289,10 @@ export const actions = {
   async getFeaturedImages({ state, commit }) {
     const fields = ["id", "guid"];
     const parameters = fields.join(",");
-    const url = strpro + `media?_fields=${parameters}`;
+    const url = this.$config.apiUrl + `media?_fields=${parameters}`;
     try {
       let featuredImages = await fetch(url).then(res => res.json());
-      commit("updatefeaturedImages", featuredImages);
+      commit("UPDATE_FEATURED_IMAGES", featuredImages);
     } catch (error) {
       console.log(error);
     }
@@ -344,7 +312,8 @@ export const actions = {
     ];
 
     const fieldParameter = fields.join(",");
-    const url = strpro + `profile?per_page=100&_fields=${fieldParameter}`;
+    const url =
+      this.$config.apiUrl + `profile?per_page=100&_fields=${fieldParameter}`;
     try {
       let profiles = await fetch(url).then(res => res.json());
       profiles = profiles.map(
@@ -402,6 +371,7 @@ export const actions = {
           state.featuredImages,
           id
         );
+        console.log(category.featured_media_url);
       } catch {
         category.featured_media_url = "";
       }
