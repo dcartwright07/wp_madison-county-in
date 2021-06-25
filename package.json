@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt --hostname 'localhost' --port '0'",
+    "dev": "nuxt --hostname 'localhost' --port '8080'",
     "dev:remote": "nuxt --hostname 'madisoncounty.signaturewebcreations.com' --port '8080'",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "nuxt start --hostname 'localhost' --port '8080'",
     "generate": "nuxt generate",
     "test:e2e": "wdio wdio.conf.js"
   },
