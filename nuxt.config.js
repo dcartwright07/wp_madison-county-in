@@ -49,7 +49,7 @@ export default {
   },
 
   publicRuntimeConfig: {
-    apiUrl: "http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/",
+    apiUrl: "http://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
     wuApiUrl: "https://api.whatsup247.com"
   },
 
@@ -61,7 +61,7 @@ export default {
 
   proxy: {
     "/api/": {
-      target: "http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/",
+      target: "http://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
       pathRewrite: { "^/api": "" },
       changeOrigin: true
     },
