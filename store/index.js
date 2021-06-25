@@ -7,10 +7,10 @@ export const state = () => ({
   homePage: [],
   landingPages: [],
   homeMenus: [],
-  wu247Dest: [],
-  wu247Dir: [],
+  // wu247Dest: [],
+  // wu247Dir: [],
   offices: [],
-  pageContent: [],
+  // pageContent: [],
   categories: [],
   tags: null,
   categoryMap: null,
@@ -33,10 +33,10 @@ export const mutations = {
   UPDATE_CATEGORIES: (state, array) => {
     state.categories = array;
   },
-  updatecategoriesWithPosts: (state, payload) => {
+  UPDATE_CATEGORIES_WITH_POSTS: (state, payload) => {
     state.categoriesWithPosts = payload;
   },
-  updatelandingPages: (state, payload) => {
+  UPDATE_LANDING_PAGES: (state, payload) => {
     state.landingPages = payload;
   },
   updateHome: (state, payload) => {
@@ -45,25 +45,24 @@ export const mutations = {
   updatehomeMenus: (state, payload) => {
     state.homeMenus = payload;
   },
-  updateOffices: (state, payload) => {
+  UPDATE_OFFICES: (state, payload) => {
     state.offices = payload;
   },
-  setPageContent: (state, array) => {
-    state.pageContent = array;
-  },
-
-  updateTags: (state, obj) => {
+  // setPageContent: (state, array) => {
+  //   state.pageContent = array;
+  // },
+  UPDATE_TAGS: (state, obj) => {
     state.tags = obj;
   },
   UPDATE_FEATURED_IMAGES: (state, array) => {
     state.featuredImages = array;
   },
-  updatecountyProfiles: (state, array) => {
+  UPDATE_COUNTY_PROFILES: (state, array) => {
     state.countyProfiles = array;
-  },
-  updateCategory: (state, profileData) => {
-    state.profileData = profileData;
   }
+  // updateCategory: (state, profileData) => {
+  //   state.profileData = profileData;
+  // }
 };
 
 function getFeaturedMediaURL(featuredImages, featured_media_id) {
@@ -80,28 +79,22 @@ function getFeaturedMediaURL(featuredImages, featured_media_id) {
   }
 }
 
-export const getters = {
-  getProfiles: function(state) {
-    // filter profiles that have a given category and a tag.
-    return [];
-  }
-};
 /*
 
 actions is where we will make an API call that gathers the posts,
 and then commits the mutation to update it
 */
 export const actions = {
-  async fetchDepartment({ commit }, value) {
-    try {
-      let array = await fetch(this.$config.apiUrl + "pages").then(res =>
-        res.json()
-      );
-      commit("setPageContent", array);
-    } catch (err) {
-      console.log(err);
-    }
-  },
+  // async fetchDepartment({ commit }, value) {
+  //   try {
+  //     let array = await fetch(this.$config.apiUrl + "pages").then(res =>
+  //       res.json()
+  //     );
+  //     commit("setPageContent", array);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // },
 
   async getLandingPages({ state, commit }) {
     if (state.landingPages.length) return;
@@ -134,30 +127,11 @@ export const actions = {
           featured_media
         })
       );
-      commit("updatelandingPages", landingPages);
+      commit("UPDATE_LANDING_PAGES", landingPages);
     } catch (err) {
       console.log(err);
     }
   },
-
-  // async gethomeFeatures({ state, commit }) {
-  //   if (state.homeFeatures.length) return;
-  //   try {
-  //     let homeFeatures = await fetch(this.$config.apiUrl + "home_features").then(res =>
-  //       res.json()
-  //     );
-  //     homeFeatures = homeFeatures.map(({ acf, title, slug, yoast_head }) => ({
-  //       acf,
-  //       title,
-  //       slug,
-  //       yoast_head
-  //     }));
-
-  //     commit("updatehomeFeatures", homeFeatures);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // },
 
   async getHome({ state, commit }) {
     try {
@@ -183,39 +157,6 @@ export const actions = {
   //       console.log(err);
   //   }
   // },
-
-  async wu247Dest({ state, commit }) {
-    try {
-      const wu247Dest = await fetch("").then(res => res.json());
-    } catch (err) {}
-  },
-
-  // async getEvents({ state, commit }) {
-  //   await setApiToken();
-
-  //   if (state.token == null) {
-  //     console.log("API token not set");
-  //   } else {
-  //     fetch(
-  //       this.$config.wuApiUrl +
-  //         "/event?organization_id=5600aaf5d9ab987a5935c1af3ba840a2",
-  //       {
-  //         headers: {
-  //           Authorization: "Bearer 31f6bbda2f30ab7d78019522f5a4734e269e8ea6",
-  //           "Content-Type": "application/json",
-  //           "Access-Control-Allow-Origin": "*"
-  //         },
-  //         method: "GET"
-  //       }
-  //     ).then(res => console.log(res));
-  //   }
-  // },
-
-  async wu247Dir({ state, commit }) {
-    try {
-      const wu247Dir = await fetch("").then(res => res.json());
-    } catch (err) {}
-  },
 
   async getOffices({ commit }) {
     try {
@@ -243,7 +184,7 @@ export const actions = {
           icon: acf.icon
         })
       );
-      commit("updateOffices", offices);
+      commit("UPDATE_OFFICES", offices);
     } catch (err) {
       console.log(err);
     }
@@ -280,7 +221,7 @@ export const actions = {
       tags.forEach(({ id, slug }) => {
         tagMap[slug] = id;
       });
-      commit("updateTags", tagMap);
+      commit("UPDATE_TAGS", tagMap);
     } catch (error) {
       console.log(error);
     }
@@ -335,7 +276,7 @@ export const actions = {
           };
         }
       );
-      commit("updatecountyProfiles", profiles);
+      commit("UPDATE_COUNTY_PROFILES", profiles);
     } catch (err) {
       console.log(err);
     }
@@ -382,6 +323,6 @@ export const actions = {
       return category;
     });
 
-    commit("updatecategoriesWithPosts", result);
+    commit("UPDATE_CATEGORIES_WITH_POSTS", result);
   }
 };

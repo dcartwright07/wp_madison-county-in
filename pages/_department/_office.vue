@@ -9,6 +9,7 @@
         <v-col class="section__content" v-html="office.acf.content"> </v-col>
       </v-row>
     </v-container>
+
     <v-row no-gutters>
       <v-col class="secondary text-center pa-5 white--text" cols="12">
         <BaseTeam :team="profiles" />
@@ -16,6 +17,7 @@
     </v-row>
   </section>
 </template>
+
 <script>
 import { mapState } from "vuex";
 
@@ -26,19 +28,11 @@ export default {
     tag_id: ""
   }),
 
-  async fetch({ store, params }) {
+  async fetch({ store }) {
     await store.dispatch("getOffices");
     await store.dispatch("getCategories");
     await store.dispatch("getTags");
     await store.dispatch("getCountyProfiles");
-    // try {
-    // 	await store.dispatch("fetchDepartment", params.department);
-    // } catch (e) {
-    // 	error({
-    // 		statusCode: 503,
-    // 		message: "Unable to fetch event #" + params.department
-    // 	});
-    // }
   },
 
   computed: {

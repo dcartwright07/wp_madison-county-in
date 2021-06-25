@@ -59,7 +59,6 @@
 
 <script>
 import { mapActions } from "vuex";
-// import Header from "../components/nav.vue";
 
 export default {
   data() {
@@ -75,32 +74,14 @@ export default {
     await this.getLandingPages();
     await this.getOffices();
     await this.getCategories();
-    // await this.getTags();
     await this.getFeaturedImages();
-    // await this.getCountyProfiles();
   },
 
   methods: mapActions([
     "getLandingPages",
     "getOffices",
     "getCategories",
-    // "getTags",
     "getFeaturedImages"
-    // "getCountyProfiles"
-  ]),
-
-  computed: {
-    // regServices: state => {
-    //   return this.homeFeatures.filter(
-    //     project => project.ACF.service_type === "Regular"
-    //   );
-    // },
-    // ry$protectionServices: state => {
-    //   return this.homeFeatures.filter(
-    //     project => project.ACF.service_type === "Protection"
-    //   );
-    // },
-    // ...mapState(["homePage", "landingPages"])
-  }
+  ])
 };
 </script>
