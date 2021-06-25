@@ -154,22 +154,22 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
-  data() {
-    return {
-      tiles: [],
-      imageUrl: "localhost/wp-json/wp/v2/media/?id=",
-      rowColor: ["primary", "accent", "secondary"]
-    };
-  },
+  // data() {
+  //   return {
+  //     tiles: []
+  //     imageUrl: "localhost/wp-json/wp/v2/media/?id=",
+  //     rowColor: ["primary", "accent", "secondary"]
+  //   };
+  // },
 
   async fetch() {
-    await this.getcategoriesWithPosts();
+    await this.getCategoriesWithPosts();
   },
 
   computed: mapState(["categoriesWithPosts"]),
 
   methods: {
-    ...mapActions(["getcategoriesWithPosts"])
+    ...mapActions(["getCategoriesWithPosts"])
 
     // pageswithimage() {
     //   return this.landingPages.filter(function(page) {

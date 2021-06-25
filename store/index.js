@@ -7,6 +7,8 @@ var production =
 var strpro = `http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/`;
 var local = "http://localhost/wp-json/wp/v2/";
 
+const fs = require("fs");
+
 export const state = () => ({
   token: null,
   homePage: [],
@@ -35,8 +37,11 @@ export const mutations = {
     state.token = string;
     // console.log(state.token + '> index.js > ' + string);
   },
-  updateCategoryMap: (state, obj) => {
+  UPDATE_CATEGORY_MAP: (state, obj) => {
     state.categoryMap = obj;
+  },
+  UPDATE_CATEGORIES: (state, array) => {
+    state.categories = array;
   },
   updatecategoriesWithPosts: (state, payload) => {
     state.categoriesWithPosts = payload;
@@ -59,9 +64,7 @@ export const mutations = {
   setPageContent: (state, array) => {
     state.pageContent = array;
   },
-  updatecategories: (state, array) => {
-    state.categories = array;
-  },
+
   updateTags: (state, obj) => {
     state.tags = obj;
   },
@@ -102,6 +105,33 @@ actions is where we will make an API call that gathers the posts,
 and then commits the mutation to update it
 */
 export const actions = {
+  // setApiToken({ commit }) {
+  //   const fileName = "./.apiToken";
+  //   const reader = new FileReader();
+  //   const promise = new Promise(async (resolve, reject) => {
+  //     try {
+  //       // get our stored files timestamps.
+  //       const data = fs.statSync(fileName);
+
+  //       // is our file timestamp in the future?
+  //       if (Date.now() < data.mtimeMs) {
+  //         // resolve our token from our file.
+  //         resolve(fs.readFileSync(fileName).toString());
+  //         return;
+  //       }
+  //     } catch (err) {
+  //       // ignore this error (file not found)
+  //     }
+  //   });
+
+  //   promise.then(
+  //     // (token) => console.log(context.store.commit('main/updateToken', token)),
+  //     token => commit("UPDATE_TOKEN", token),
+  //     // ToDo: better handling of errors...
+  //     err => console.log(err)
+  //   );
+  // },
+
   async fetchDepartment({ commit }, value) {
     try {
       let array = await fetch(production + "pages").then(res => res.json());
@@ -111,7 +141,7 @@ export const actions = {
     }
   },
 
-  async getlandingPages({ state, commit }) {
+  async getLandingPages({ state, commit }) {
     if (state.landingPages.length) return;
     try {
       let landingPages = await fetch(production + "pages").then(res =>
@@ -198,25 +228,26 @@ export const actions = {
     } catch (err) {}
   },
 
-  async getEvents({ state, commit }) {
-    try {
-      const events = await fetch(
-        this.$config.wuApiUrl +
-          "/event?organization_id=5600aaf5d9ab987a5935c1af3ba840a2",
-        {
-          headers: {
-            Authorization: "Bearer 31f6bbda2f30ab7d78019522f5a4734e269e8ea6",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          },
-          method: "GET"
-        }
-      ).then(res => console.log(JSON.stringify(res)));
-      console.log(events);
-    } catch (err) {
-      console.log(err);
-    }
-  },
+  // async getEvents({ state, commit }) {
+  //   await setApiToken();
+
+  //   if (state.token == null) {
+  //     console.log("API token not set");
+  //   } else {
+  //     fetch(
+  //       this.$config.wuApiUrl +
+  //         "/event?organization_id=5600aaf5d9ab987a5935c1af3ba840a2",
+  //       {
+  //         headers: {
+  //           Authorization: "Bearer 31f6bbda2f30ab7d78019522f5a4734e269e8ea6",
+  //           "Content-Type": "application/json",
+  //           "Access-Control-Allow-Origin": "*"
+  //         },
+  //         method: "GET"
+  //       }
+  //     ).then(res => console.log(res));
+  //   }
+  // },
 
   async wu247Dir({ state, commit }) {
     try {
@@ -254,18 +285,21 @@ export const actions = {
     }
   },
 
-  async getcategories({ commit }) {
+  async getCategories({ commit }) {
     const fields = ["id", "name", "slug"];
     const parameters = fields.join(",");
-    const url = strpro + `categories?_fields=${parameters}`;
+    const url = this.$config.apiUrl + `categories?_fields=${parameters}`;
+
     try {
       let categories = await fetch(url).then(res => res.json());
       let map = {};
+
       categories.forEach(({ slug, id }) => {
         map[slug] = id;
       });
-      commit("updatecategories", categories);
-      commit("updateCategoryMap", map);
+
+      commit("UPDATE_CATEGORIES", categories);
+      commit("UPDATE_CATEGORY_MAP", map);
     } catch (error) {
       console.log(error);
     }
@@ -288,7 +322,7 @@ export const actions = {
     }
   },
 
-  async getfeaturedImages({ state, commit }) {
+  async getFeaturedImages({ state, commit }) {
     const fields = ["id", "guid"];
     const parameters = fields.join(",");
     const url = strpro + `media?_fields=${parameters}`;
@@ -300,7 +334,7 @@ export const actions = {
     }
   },
 
-  async getcountyProfiles({ commit }, { featuredImages }) {
+  async getCountyProfiles({ commit }, { featuredImages }) {
     const fields = [
       "id",
       "title.rendered",
@@ -339,9 +373,10 @@ export const actions = {
     }
   },
 
-  getcategoriesWithPosts({ commit, state }) {
+  getCategoriesWithPosts({ commit, state }) {
     function categoryOffices(category_id) {
       let hasCategory = function(office) {
+        // console.log(office.categories.includes(category_id));
         return office.categories.includes(category_id);
       };
       return state.offices

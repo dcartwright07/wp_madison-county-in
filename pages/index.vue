@@ -56,9 +56,11 @@
 }
 /*********************/
 </style>
+
 <script>
-import { mapState } from "vuex";
-import Header from "../components/nav.vue";
+import { mapActions } from "vuex";
+// import Header from "../components/nav.vue";
+
 export default {
   data() {
     return {
@@ -68,6 +70,27 @@ export default {
       zIndex: 0
     };
   },
+
+  async fetch() {
+    await this.getLandingPages();
+    await this.getOffices();
+    await this.getCategories();
+    // await this.getTags();
+    await this.getFeaturedImages();
+    // await this.getCountyProfiles();
+    //   featuredImages: this.$store.state.featuredImages
+    // });
+  },
+
+  methods: mapActions([
+    "getLandingPages",
+    "getOffices",
+    "getCategories",
+    // "getTags",
+    "getFeaturedImages"
+    // "getCountyProfiles"
+  ]),
+
   computed: {
     // regServices: state => {
     //   return this.homeFeatures.filter(
@@ -79,20 +102,7 @@ export default {
     //     project => project.ACF.service_type === "Protection"
     //   );
     // },
-    ...mapState(["homePage", "landingPages"])
-  },
-
-  async created() {
-    await this.$store.dispatch("getlandingPages");
-    await this.$store.dispatch("getHome");
-    // await this.$store.dispatch('gethomeMenus')
-    await this.$store.dispatch("getOffices");
-    await this.$store.dispatch("getcategories");
-    await this.$store.dispatch("getTags");
-    await this.$store.dispatch("getfeaturedImages");
-    await this.$store.dispatch("getcountyProfiles", {
-      featuredImages: this.$store.state.featuredImages
-    });
+    // ...mapState(["homePage", "landingPages"])
   }
 };
 </script>
