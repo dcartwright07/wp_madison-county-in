@@ -7,8 +7,6 @@ var production =
 var strpro = `http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/`;
 var local = "http://localhost/wp-json/wp/v2/";
 
-const fs = require("fs");
-
 export const state = () => ({
   token: null,
   homePage: [],
@@ -16,7 +14,6 @@ export const state = () => ({
   homeMenus: [],
   // homeFeatures: [],
   wu247Dest: [],
-  wu247Evnt: [],
   wu247Dir: [],
   offices: [],
   pageContent: [],
@@ -35,7 +32,6 @@ this will update the state
 export const mutations = {
   UPDATE_TOKEN: (state, string) => {
     state.token = string;
-    // console.log(state.token + '> index.js > ' + string);
   },
   UPDATE_CATEGORY_MAP: (state, obj) => {
     state.categoryMap = obj;

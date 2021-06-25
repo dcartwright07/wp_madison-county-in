@@ -1,11 +1,10 @@
 <template>
-
-<v-item-group class="absolute event-bar" active-class="primary ">
-    <v-container >
+  <v-item-group class="absolute event-bar" active-class="primary ">
+    <v-container>
       <v-row>
         <v-col
-          v-for="n in 3"
-          :key="n"
+          v-for="event in events.slice(0, 3)"
+          :key="event.id"
           cols="12"
           md="2"
         >
@@ -18,22 +17,25 @@
               height="100"
               @click="toggle"
             >
-            <v-scroll-y-transition hide-on-leave>
-            <div v-if="!active" class="flex-grow-1 animate-center text-center" > Event name</div>
-            </v-scroll-y-transition>
+              <v-scroll-y-transition hide-on-leave>
+                <div
+                  v-if="!active"
+                  class="flex-grow-1 animate-center text-center"
+                >
+                  {{ event.name }}
+                </div>
+              </v-scroll-y-transition>
               <v-scroll-y-transition hide-on-leave>
                 <div
                   v-if="active"
                   class=" primary fill-height flex-grow-1 animate-center text-center"
                 >
-                  <p>{{token}}</p>
+                  <!-- <p>{{ token }}</p> -->
 
                   <v-btn>
-                  Learn more
+                    Learn more
                   </v-btn>
-
                 </div>
-
               </v-scroll-y-transition>
             </v-card>
           </v-item>
@@ -44,31 +46,42 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex"
-  export default {
-    data: () => ({
-      expand: false,
-      info:null,
-      posts: [],
-      errors: []
-    }),
-    
+import { mapState } from "vuex";
 
-    methods: mapActions(["getEvents"]),
+export default {
+  data() {
+    return {
+      events: null
+    };
+  },
 
-    async created() {
-        // console.log(token),
-      await this.getEvents();
-    },
+  async fetch() {
+    if (this.token == null) {
+      console.log("API token not set");
+    } else {
+      this.events = await this.$axios
+        .get(
+          this.$config.wuApiUrl +
+            "/event?organization_id=" +
+            this.$config.orgId,
+          {
+            headers: {
+              Authorization: "Bearer " + this.token,
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        )
+        .then(response => {
+          return response.data;
+        });
+    }
+  },
 
-    computed: mapState({
-      token: (state) => state.token,
-      landingPages: (state) => state.landingPages
-    }),
-  }
-
-
+  computed: mapState(["token"])
+};
 </script>
+
 <style lang="scss" scoped>
 .v-card--reveal {
   bottom: 0;
@@ -76,16 +89,14 @@
   position: absolute;
   width: 100%;
 }
-.z-top{
-    z-index:5;
+.z-top {
+  z-index: 5;
 }
-.animate-center{
-    left:19%
+.animate-center {
+  left: 19%;
 }
-.event-bar{
-    width: 100%;
-    bottom: 15px;
+.event-bar {
+  width: 100%;
+  bottom: 15px;
 }
-
-
 </style>
