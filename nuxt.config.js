@@ -10,6 +10,12 @@ export default {
   //   WU247_API_URL: "https://api.whatsup247.com"
   // },
 
+  target: "static",
+
+  router: {
+    base: "/wp_madison-county-in/"
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: "%s - nuxt-madison",
