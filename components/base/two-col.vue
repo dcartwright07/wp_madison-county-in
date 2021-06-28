@@ -1,110 +1,95 @@
 <template>
-  <v-container fluid flex class="overflow-hidden ma-0 pa-0   ">
+  <v-container fluid>
     <v-row
-      class="two_col_section pb-12"
-      no-gutter
       v-for="(category, index) in categoriesWithPosts"
       :key="category.slug"
-      :class="{ 'pt-15': index == 0 }"
-      no-gutters
+      :id="category.slug"
+      class="flex-sm-column-reverse ma-0"
+      :class="{
+        'flex-md-row': index % 2 === 0,
+        'flex-md-row-reverse': index % 2 !== 0
+      }"
+      justify="center"
     >
-      <!-- :class="{'primary': index % 5 === 0, 'accent': index % 5 === 1, 'secondary': index % 5 === 2, 'pt-15': index == 0}"  -->
-      <v-container
-        v-if="!category.posts.length < 1"
-        fluid
-        class="d-flex flex-sm-column-reverse"
-        :class="{
-          'flex-md-row': index % 2 === 0,
-          'flex-md-row-reverse': index % 2 !== 0
-        }"
-      >
-        <v-col
-          :id="category.name"
-          class="text-center white--text"
-          cols="12"
-          md="4"
-        >
-          <v-sheet
-            class="d-flex flex-column justify-start pt-md-2 align-start"
-            height="100vh"
-            rounded
-            shaped
+      <v-col v-if="!category.posts.length < 1" cols="12" md="4">
+        <v-sheet rounded shaped>
+          <div class="mb-5">
+            <h2 class="section-name">
+              {{ category.name }}
+            </h2>
+          </div>
+          <nuxt-link
+            v-for="post in category.posts"
+            :key="post.slug"
+            style="text-decoration: none;"
+            :to="'/' + category.slug + '/' + post.slug"
+            class="d-inline-flex ma-4"
           >
-            <v-card-title class="align-center">
-              <h2 :id="category.slug" class="section-name">
-                {{ category.name }}
-              </h2>
-            </v-card-title>
-            <v-container class="pa-2 mt-5">
-              <v-row>
-                <v-col
-                  v-for="post in category.posts"
-                  :key="post.slug"
-                  class="d-inline-flex mt-5"
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  :class="{
+                    primary: index % 5 === 0,
+                    secondary: index % 5 === 1,
+                    hyperlink: index % 5 === 2,
+                    accent: index % 5 === 3
+                  }"
+                  v-bind="attrs"
+                  v-on="on"
+                  class="circular-reveal"
+                  width="100"
+                  height="100"
+                  elevation="2"
+                  fab
+                  icon
+                  :style="{ content: 'post.slug' }"
                 >
-                  <nuxt-link
-                    style="text-decoration: none;"
-                    :to="'/' + category.slug + '/' + post.slug"
-                  >
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                          :class="{
-                            primary: index % 5 === 0,
-                            secondary: index % 5 === 1,
-                            hyperlink: index % 5 === 2,
-                            accent: index % 5 === 3
-                          }"
-                          v-bind="attrs"
-                          v-on="on"
-                          class="circular-reveal"
-                          width="100"
-                          height="100"
-                          elevation="2"
-                          fab
-                          icon
-                          :style="{ content: 'post.slug' }"
-                        >
-                          <!-- <span style="color:white;" class="cardpost_h2_title pa-3" v-html="post.name"/> -->
-                          <v-icon size="40">
-                            {{ post.icon }}
-                          </v-icon>
-                        </v-btn>
-                      </template>
-                      <span
-                        class="white--text cardpost_h2_title pa-3"
-                        v-html="post.name"
-                      />
-                    </v-tooltip>
-                  </nuxt-link>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-sheet>
-        </v-col>
-        <v-col class="col-xs-12 col-md-8 " md="6">
-          <!-- hidden-sm-and-down -->
-          <v-sheet class=" full-height ma-6" elevation="4">
-            <v-img
-              height="100%"
-              elevation="4"
-              :src="category.featured_media_url"
-              :aspect-ratio="961 / 762"
-              cover
-            ></v-img>
-          </v-sheet>
-        </v-col>
-      </v-container>
+                  <v-icon size="40">
+                    {{ post.icon }}
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span
+                class="white--text cardpost_h2_title pa-3"
+                v-html="post.name"
+              />
+            </v-tooltip>
+          </nuxt-link>
+        </v-sheet>
+      </v-col>
+
+      <v-col v-if="!category.posts.length < 1" cols="12" md="6">
+        <v-sheet class="full-height" elevation="4">
+          <v-img
+            height="100%"
+            elevation="4"
+            :src="category.featured_media_url"
+            :aspect-ratio="961 / 762"
+            cover
+          ></v-img>
+        </v-sheet>
+      </v-col>
     </v-row>
   </v-container>
 </template>
+
+<script>
+import { mapState, mapActions } from "vuex";
+
+export default {
+  async fetch() {
+    await this.getCategoriesWithPosts();
+  },
+
+  computed: mapState(["categoriesWithPosts"]),
+
+  methods: mapActions(["getCategoriesWithPosts"])
+};
+</script>
+
 <style lang="scss" scoped>
-.two_col_section {
-  padding-left: 6.25vw;
-  padding-right: 6.25vw;
-  &:not(:first-of-type) {
-    padding: 100px 6.25vw;
-  }
+.row {
+  padding: 100px 0;
 }
 .v-icon {
   font-size: 40px;
@@ -149,65 +134,3 @@
   opacity: 1;
 }
 </style>
-
-<script>
-import { mapState, mapActions } from "vuex";
-
-export default {
-  // data() {
-  //   return {
-  //     tiles: []
-  //     imageUrl: "localhost/wp-json/wp/v2/media/?id=",
-  //     rowColor: ["primary", "accent", "secondary"]
-  //   };
-  // },
-
-  async fetch() {
-    await this.getCategoriesWithPosts();
-  },
-
-  computed: mapState(["categoriesWithPosts"]),
-
-  methods: {
-    ...mapActions(["getCategoriesWithPosts"])
-
-    // pageswithimage() {
-    //   return this.landingPages.filter(function(page) {
-    //     return page.featured_media > 0;
-    //   });
-    // }
-  }
-};
-
-// (function() {
-//   const element = document.querySelector(".circular-reveal");
-//   const inner = document.querySelector(".circular-reveal__content");
-
-//   const easing = 0.3;
-//   const outScale = 0.6;
-//   const inScale = 1;
-//   let targetScale = outScale;
-//   let elementScale = targetScale;
-//   let innerScale = 1 / elementScale;
-
-//   element.addEventListener("pointerover", () => {
-//     targetScale = inScale;
-//   });
-
-//   element.addEventListener("pointerout", () => {
-//     targetScale = outScale;
-//   });
-
-//   const update = () => {
-//     elementScale += (targetScale - elementScale) * easing;
-//     innerScale = 1 / elementScale;
-
-//     element.style.transform = `scale(${elementScale})`;
-//     inner.style.transform = `scale(${innerScale})`;
-
-//     requestAnimationFrame(update);
-//   };
-
-//   requestAnimationFrame(update);
-// })();
-</script>

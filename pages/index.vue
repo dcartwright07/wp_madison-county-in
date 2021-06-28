@@ -1,14 +1,13 @@
 <template>
   <section id="welcome" class="overflow-hidden">
     <BaseHeroslider />
-
     <BaseIntrobar />
     <BaseTwoCol />
   </section>
 </template>
 
 <style scoped>
-.homeHeroHeader {
+/* .homeHeroHeader {
   z-index: 1;
 }
 .r-gradient {
@@ -22,9 +21,8 @@
 .homeHeroTitle {
   position: absolute;
   top: 0;
-}
-.homeHeroHeader .v-window-item {
-  /* top: 20%; */
+} */
+/* .homeHeroHeader .v-window-item {
   position: relative;
 }
 .backgroundhero {
@@ -34,8 +32,8 @@
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+} */
+/* .fade-enter, .fade-leave-to {
   opacity: 0;
 }
 .h1 {
@@ -53,7 +51,7 @@
 }
 .fheight {
   height: 100vh;
-}
+}*/
 /*********************/
 </style>
 

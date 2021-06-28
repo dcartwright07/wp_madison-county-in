@@ -4,9 +4,7 @@
     <NavigationBar :location="location" />
 
     <v-main class="pt-0">
-      <v-container fluid class="ma-0 pl-0 pt-0 pr-0">
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-main>
     <!-- <v-footer
       :absolute="!fixed"
@@ -70,13 +68,6 @@ export default {
 
   data() {
     return {
-      // zIndex: 2,
-      // clipped: false,
-      // drawer: false,
-      // fixed: false,
-      // miniVariant: false,
-      // right: true,
-      // rightDrawer: false,
       location: {
         county: "Madison County",
         state: {
