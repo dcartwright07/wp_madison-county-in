@@ -56,21 +56,21 @@ export default {
   },
 
   async fetch() {
-    if (this.token == null) {
-      console.log("API token not set");
-    } else {
-      this.events = await this.$axios
-        .get("/wuapi/event?organization_id=" + this.$config.orgId, {
-          headers: {
-            Authorization: "Bearer " + this.token,
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
-        })
-        .then(response => {
-          return response.data;
-        });
-    }
+    // if (this.token == null) {
+    //   console.log("API token not set");
+    // } else {
+    //   this.events = await this.$axios
+    //     .get("/wuapi/event?organization_id=" + this.$config.orgId, {
+    //       headers: {
+    //         Authorization: "Bearer " + this.token,
+    //         "Content-Type": "application/json",
+    //         "Access-Control-Allow-Origin": "*"
+    //       }
+    //     })
+    //     .then(response => {
+    //       return response.data;
+    //     });
+    // }
   },
 
   computed: mapState(["token"])
