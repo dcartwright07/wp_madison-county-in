@@ -13,7 +13,8 @@ export default {
   target: "static",
 
   router: {
-    base: "/wp_madison-county-in/"
+    base: "/wp_madison-county-in/",
+    middleware: ["bearer-token"]
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -55,7 +56,7 @@ export default {
   },
 
   publicRuntimeConfig: {
-    apiUrl: "http://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
+    apiUrl: "https://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
     wuApiUrl: "https://api.whatsup247.com"
   },
 
@@ -67,7 +68,7 @@ export default {
 
   proxy: {
     "/api/": {
-      target: "http://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
+      target: "https://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
       pathRewrite: { "^/api": "" },
       changeOrigin: true
     },
@@ -76,10 +77,6 @@ export default {
       pathRewrite: { "^/wuapi": "" },
       changeOrigin: true
     }
-  },
-
-  router: {
-    middleware: ["bearer-token"]
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
