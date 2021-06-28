@@ -75,7 +75,6 @@ export default {
 
   methods: {
     categoryIcon(item) {
-      console.log(item);
       return this.cat_icon[item];
     },
     ...mapActions("navigation", ["updateDrawer"])
