@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="pa-0">
     <v-row
       v-for="(category, index) in categoriesWithPosts"
       :key="category.slug"
@@ -7,12 +7,12 @@
       class="flex-sm-column-reverse ma-0"
       :class="{
         'flex-md-row': index % 2 === 0,
-        'flex-md-row-reverse': index % 2 !== 0
+        'flex-md-row-reverse gray-background': index % 2 !== 0
       }"
       justify="center"
     >
       <v-col v-if="!category.posts.length < 1" cols="12" md="4">
-        <v-sheet rounded shaped>
+        <v-sheet rounded shaped class="icon-section">
           <div class="mb-5">
             <h2 class="section-name">
               {{ category.name }}
@@ -90,6 +90,12 @@ export default {
 <style lang="scss" scoped>
 .row {
   padding: 100px 0;
+}
+.gray-background {
+  background-color: #f2f2f2;
+  .icon-section {
+    background-color: #f2f2f2;
+  }
 }
 .v-icon {
   font-size: 40px;
