@@ -1,92 +1,8 @@
 <template>
   <v-app>
-    <v-spacer />
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      fixed
-      temporary
-      right
-      app
-      color="#426464"
-    >
-      <!-- color="#426464" -->
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title" v-text="location.county">
-          </v-list-item-title>
-          <v-list-item-subtitle v-text="location.state.name">
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
+    <NavigationDrawer :location="location" />
+    <NavigationBar :location="location" />
 
-      <v-divider></v-divider>
-      <v-list dense>
-        <v-list-item v-for="item in categories" :key="item.name" href>
-          <v-list-item-icon>
-            <v-icon>{{ cat_icon.government }}</v-icon>
-          </v-list-item-icon>
-
-          <NuxtLink :to="{ path: '/', hash: item.slug }">
-            <v-list-item-content>
-              <v-list-item-title>{{ item.name }}</v-list-item-title>
-            </v-list-item-content>
-          </NuxtLink>
-        </v-list-item>
-      </v-list>
-      <v-list>
-        <NuxtLink to="/directory">
-          <v-list-item>
-            <v-list-item-icon> </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>
-                Directory
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </NuxtLink>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-app-bar
-      elevate-on-scroll
-      app
-      tile
-      color="transparent"
-      class="lightgrey--text"
-      style="z-index:2;"
-      dark
-    >
-      <div class="blur-container">
-        <div class="blur-content" style=""></div>
-      </div>
-      <nuxt-link
-        class="d-flex text-decoration-none justify-center align-center flex-nowrap"
-        to="/"
-      >
-        <v-img
-          class="mr-3"
-          max-height="45"
-          max-width="45"
-          src="https://madisoncounty.in.gov/images/recoloredlogo.png"
-          lazy-src="https://madisoncounty.in.gov/images/recoloredlogo.png"
-        ></v-img>
-
-        <v-toolbar-title
-          class="mr-16 lightgrey--text text-decoration-none"
-          v-text="location.county + ', ' + location.state.abbrv"
-        />
-      </nuxt-link>
-      <v-spacer />
-      <v-btn class="ml-16" icon>
-        <v-icon class="lightgrey--text">mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-app-bar-nav-icon
-        class="lightgrey--text"
-        @click.stop="drawer = !drawer"
-      />
-    </v-app-bar>
     <v-main class="pt-0">
       <v-container fluid class="ma-0 pl-0 pt-0 pr-0">
         <nuxt />
@@ -146,29 +62,27 @@
 
 <script>
 import { mapState } from "vuex";
+import NavigationDrawer from "~/layouts/partials/NavigationDrawer";
+import NavigationBar from "~/layouts/partials/NavigationBar";
 
 export default {
+  components: { NavigationDrawer, NavigationBar },
+
   data() {
     return {
-      zIndex: 2,
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
+      // zIndex: 2,
+      // clipped: false,
+      // drawer: false,
+      // fixed: false,
+      // miniVariant: false,
+      // right: true,
+      // rightDrawer: false,
       location: {
         county: "Madison County",
         state: {
           name: "Indiana",
           abbrv: "IN"
         }
-      },
-      cat_icon: {
-        government: "mdi-bank",
-        business: "mdi-handshake",
-        residents: "mdi-homegroup ",
-        visitors: "mdi-mapsearch"
       }
     };
   },
