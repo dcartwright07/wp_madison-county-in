@@ -14,8 +14,8 @@
         fluid
         class="d-flex flex-sm-column-reverse"
         :class="{
-          'flex-row': index % 2 === 0,
-          'flex-row-reverse': index % 2 !== 0
+          'flex-md-row': index % 2 === 0,
+          'flex-md-row-reverse': index % 2 !== 0
         }"
       >
         <v-col
