@@ -9,7 +9,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "test:e2e": "wdio wdio.conf.js",
-    "deploy": "push-dir --dir=/ --branch=main --cleanup"
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
