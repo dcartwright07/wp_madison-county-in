@@ -51,18 +51,30 @@ export default {
     }
   },
 
+  data() {
+    return {
+      drawer: false
+    };
+  },
+
   watch: {
     drawer(value) {
-      console.log(value);
       this.updateDrawer(value);
+    },
+    stateDrawer(value) {
+      this.drawer = value;
     }
   },
 
   computed: mapState({
-    drawer: state => state.navigation.drawer
+    stateDrawer: state => state.navigation.drawer
   }),
 
-  methods: mapActions(["updateDrawer"])
+  methods: mapActions("navigation", ["updateDrawer"]),
+
+  created() {
+    this.drawer = this.stateDrawer;
+  }
 };
 </script>
 

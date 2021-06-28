@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     v-model="drawer"
-    :mini-variant="miniVariant"
+    @input="updateDrawer"
     fixed
     temporary
     right
@@ -22,7 +22,7 @@
     <v-list dense>
       <v-list-item v-for="item in categories" :key="item.name" href>
         <v-list-item-icon>
-          <v-icon>{{ categoryIcon(item.slug) }}</v-icon>
+          <!-- <v-icon>{{ categoryIcon(item.slug) }}</v-icon> -->
         </v-list-item-icon>
 
         <NuxtLink :to="{ path: '/', hash: item.slug }">
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   props: {
@@ -75,9 +75,11 @@ export default {
     },
     ...mapState({
       drawer: state => state.navigation.drawer,
-      miniVariant: state => state.navigation.miniVariant
+      categories: state => state.categories
     })
-  }
+  },
+
+  methods: mapActions("navigation", ["updateDrawer"])
 };
 </script>
 
