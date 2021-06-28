@@ -4,9 +4,12 @@
 
     <v-container>
       <v-row class=" pa-5 d-flex flex-column">
-        <v-col class="section__content" tag="p" v-html="office.acf.description">
-        </v-col>
-        <v-col class="section__content" v-html="office.acf.content"> </v-col>
+        <v-col
+          class="section__content"
+          tag="p"
+          v-html="office.acf.description"
+        ></v-col>
+        <v-col class="section__content" v-html="office.acf.content"></v-col>
       </v-row>
     </v-container>
 
@@ -37,6 +40,7 @@ export default {
 
   computed: {
     office() {
+      console.log(this.tag_id);
       let array = this.offices.filter(
         ({ categories, tags, slug }) =>
           categories.includes(this.category_id) &&
