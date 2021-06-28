@@ -8,7 +8,6 @@
     app
     color="#426464"
   >
-    <!-- color="#426464" -->
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="title" v-text="location.county">
@@ -22,7 +21,7 @@
     <v-list dense>
       <v-list-item v-for="item in categories" :key="item.name" href>
         <v-list-item-icon>
-          <!-- <v-icon>{{ categoryIcon(item.slug) }}</v-icon> -->
+          <v-icon>{{ categoryIcon(item.slug) }}</v-icon>
         </v-list-item-icon>
 
         <NuxtLink :to="{ path: '/', hash: item.slug }">
@@ -69,17 +68,18 @@ export default {
     };
   },
 
-  computed: {
-    categoryIcon(item) {
-      return cat_icon[item];
-    },
-    ...mapState({
-      drawer: state => state.navigation.drawer,
-      categories: state => state.categories
-    })
-  },
+  computed: mapState({
+    drawer: state => state.navigation.drawer,
+    categories: state => state.categories
+  }),
 
-  methods: mapActions("navigation", ["updateDrawer"])
+  methods: {
+    categoryIcon(item) {
+      console.log(item);
+      return this.cat_icon[item];
+    },
+    ...mapActions("navigation", ["updateDrawer"])
+  }
 };
 </script>
 
