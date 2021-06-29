@@ -8,8 +8,8 @@
 
     <v-row justify="center">
       <!-- picture with hover affect will be -->
-      <v-col v-for="profile in team" :key="profile.id" sm="3">
-        <v-dialog v-model="dialog" width="500">
+      <v-col v-for="(profile, index) in team" :key="profile.id" sm="3">
+        <v-dialog v-model="dialog[index]" width="500">
           <template v-slot:activator="{ on, attrs }">
             <v-avatar v-bind="attrs" v-on="on" size="128">
               <v-img
@@ -39,10 +39,10 @@
             <v-divider></v-divider>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" text @click="dialog = false">
+              <v-btn color="primary" text @click="$set(dialog, index, false)">
                 Close
               </v-btn>
-              <v-btn color="primary" text @click="dialog = false">
+              <v-btn color="primary" text>
                 email
               </v-btn>
             </v-card-actions>
@@ -71,12 +71,15 @@
 <script>
 export default {
   props: {
-    team: Array
+    team: {
+      type: Array,
+      required: true
+    }
   },
 
   data() {
     return {
-      dialog: false,
+      dialog: [],
       logo: "https://madisoncounty.in.gov/images/recoloredlogo.png"
     };
   }
