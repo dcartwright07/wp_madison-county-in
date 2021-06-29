@@ -4,7 +4,7 @@
     app
     tile
     color="transparent"
-    class="lightgrey--text"
+    class="blur-primary-color lightgrey--text"
     style="z-index:2;"
     dark
   >
@@ -78,4 +78,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-app-bar{
+&.v-app-bar--is-scrolled.blur-primary-color{
+  background-color:rgba(68,100,100,.5) !important;
+  backdrop-filter: blur(10px);
+  }
+}
+</style>
