@@ -40,7 +40,6 @@ export default {
 
   computed: {
     office() {
-      console.log(this.tag_id);
       let array = this.offices.filter(
         ({ categories, tags, slug }) =>
           categories.includes(this.category_id) &&
