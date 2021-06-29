@@ -3,7 +3,6 @@ this is where we will eventually hold the data
 */
 
 export const state = () => ({
-  token: null,
   homePage: [],
   landingPages: [],
   homeMenus: [],
@@ -24,9 +23,6 @@ this will update the state
 */
 
 export const mutations = {
-  UPDATE_TOKEN: (state, string) => {
-    state.token = string;
-  },
   UPDATE_CATEGORY_MAP: (state, obj) => {
     state.categoryMap = obj;
   },

@@ -30,7 +30,7 @@
                   v-if="active"
                   class=" primary fill-height flex-grow-1 animate-center text-center"
                 >
-                  <!-- <p>{{ token }}</p> -->
+                  <p>{{ token }}</p>
 
                   <v-btn>
                     Learn more
@@ -46,34 +46,18 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
-  data() {
-    return {
-      events: null
-    };
-  },
-
   async fetch() {
-    // if (this.token == null) {
-    //   console.log("API token not set");
-    // } else {
-    //   this.events = await this.$axios
-    //     .get("/wuapi/event?organization_id=" + this.$config.orgId, {
-    //       headers: {
-    //         Authorization: "Bearer " + this.token,
-    //         "Content-Type": "application/json",
-    //         "Access-Control-Allow-Origin": "*"
-    //       }
-    //     })
-    //     .then(response => {
-    //       return response.data;
-    //     });
-    // }
+    await this.getEvents();
   },
 
-  computed: mapState(["token"])
+  computed: mapState({
+    events: state => state.wuapi.events
+  }),
+
+  methods: mapActions("wuapi", ["getEvents"])
 };
 </script>
 

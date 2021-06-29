@@ -1,20 +1,11 @@
 import colors from "vuetify/es5/util/colors";
 
 export default {
-  // env: {
-  //   baseUrl: process.env.BASE_URL || 'http://localhost:3000',
-  //   API_CLIENT: "0ecd0add360dac608301678189b3c614",
-  //   API_SECRET: "3738877c2b5d766209b3a528c86af893",
-  //   BASE_URL: "http://madisoncounty.signaturewebcreations.com/",
-  //   WP_API_URL: "http://madisoncounty.signaturewebcreations.com/wp-json/wp/v2/",
-  //   WU247_API_URL: "https://api.whatsup247.com"
-  // },
-
   target: "static",
 
   router: {
-    base: "/wp_madison-county-in/",
-    middleware: ["bearer-token"]
+    base: "/wp_madison-county-in/"
+    // middleware: ["bearer-token"]
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
