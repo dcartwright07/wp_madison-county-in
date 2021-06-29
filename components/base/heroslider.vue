@@ -1,49 +1,66 @@
 <template>
-  <v-container fluid class="pa-0 relative">
+  <v-container fluid class="pa-0 fill-height ma-0 relative">
     <v-carousel
       cycle
       hide-delimiters
       :show-arrows="false"
       width="100vw"
-      height="100vh"
       min-width="320"
+      height="100vh"
       interval="6000"
+      v-model="carouselIndex"
     >
       <v-carousel-item
         hide-on-leave
         transition="slide-x-reverse-transition"
+        reverse-transition="slide-x-transition"
         class="accent"
-        v-for="post in homeFeatures"
-        :key="post.id"
+        v-for="homepost in homeFeatures"
+        :key="homepost.id"
         width="100%"
         min-height="320"
         :style="{
           background:
             'linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 28%, rgba(0, 0, 0, 0) 100%), url(' +
-            post.acf.hero_image.url +
+            homepost.acf.hero_image.url +
             ')',
           'background-size': 'cover',
           'background-position': 'center'
         }"
-      >
-        <div align="start" class="pl-md-16 pr-md-16 header-wrap absolute">
-          <h2
-            color="primary"
-            class="lightgrey--text h2 ma-0 pa-0"
-            v-html="post.acf.subheader"
-          ></h2>
-          <h1
-            color="primary"
-            class="lightgrey--text h1 ma-0 pa-0"
-            v-html="post.title.rendered"
-          ></h1>
-          <div
-            class="lightgrey--text mr-10"
-            v-html="post.acf.hero_short_description"
-          ></div>
-        </div>
-      </v-carousel-item>
+      ></v-carousel-item>
     </v-carousel>
+
+    <v-sheet
+      class="header-wrap pl-md-16 pr-md-16 absolute"
+      v-for="(post, index) in homeFeatures"
+      :key="post.id"
+    >
+      <v-slide-x-transition hide-on-leave>
+        <h2
+          color="primary"
+          class="lightgrey--text h2 ma-0 pa-0 "
+          v-show="carouselIndex === index"
+          v-html="post.acf.subheader"
+        ></h2>
+      </v-slide-x-transition>
+
+      <v-slide-x-reverse-transition hide-on-leave>
+        <h1
+          color="primary"
+          class="lightgrey--text h1 ma-0 pa-0"
+          v-show="carouselIndex === index"
+          v-html="post.title.rendered"
+        ></h1>
+      </v-slide-x-reverse-transition>
+
+      <v-slide-x-transition hide-on-leave>
+        <div
+          class="lightgrey--text postcontent mr-10"
+          v-show="carouselIndex === index"
+          v-html="post.acf.hero_short_description"
+        ></div>
+      </v-slide-x-transition>
+    </v-sheet>
 
     <BaseEventCards />
   </v-container>
@@ -53,6 +70,7 @@
 export default {
   data() {
     return {
+      carouselIndex: 0,
       homeFeatures: []
     };
   },
@@ -75,6 +93,7 @@ export default {
 
 <style lang="scss" scoped>
 .header-wrap {
+  background: transparent;
   top: 30%;
   max-width: 1026px;
   display: flex;
@@ -88,8 +107,15 @@ export default {
     font-weight: 200;
   }
 }
-
+.postcontent {
+  width: inherit;
+}
 .relative {
   position: relative;
+}
+.v-carousel .v-window-item {
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 </style>
