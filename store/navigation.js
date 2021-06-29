@@ -10,7 +10,6 @@ export const mutations = {
 
 export const actions = {
   updateDrawer({ commit }, value) {
-    console.log(value);
     commit("TOGGLE_HOME_NAVIGATION_DRAWER", value);
   }
 };
