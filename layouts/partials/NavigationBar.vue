@@ -4,7 +4,8 @@
     app
     tile
     color="transparent"
-    class="blur-primary-color lightgrey--text"
+    class="blur-primary-color"
+    :class="barClasses"
     style="z-index:2;"
     dark
   >
@@ -24,19 +25,16 @@
       ></v-img>
 
       <v-toolbar-title
-        class="mr-16 lightgrey--text text-decoration-none"
+        class="mr-16 text-decoration-none"
         v-text="location.county + ', ' + location.state.abbrv"
       />
     </nuxt-link>
     <v-spacer />
     <v-btn class="ml-16" icon>
-      <v-icon class="lightgrey--text">mdi-magnify</v-icon>
+      <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
-    <v-app-bar-nav-icon
-      class="lightgrey--text"
-      @click.stop="drawer = !drawer"
-    />
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
   </v-app-bar>
 </template>
 
@@ -53,7 +51,8 @@ export default {
 
   data() {
     return {
-      drawer: false
+      drawer: false,
+      barClasses: "home"
     };
   },
 
@@ -63,6 +62,9 @@ export default {
     },
     stateDrawer(value) {
       this.drawer = value;
+    },
+    "$route.path"(value) {
+      this.updateBarClasses();
     }
   },
 
@@ -70,19 +72,49 @@ export default {
     stateDrawer: state => state.navigation.drawer
   }),
 
-  methods: mapActions("navigation", ["updateDrawer"]),
+  methods: {
+    updateBarClasses() {
+      if (this.$route.path == "/") {
+        this.barClasses = "home";
+      } else {
+        this.barClasses = "not-home";
+      }
+    },
+    ...mapActions("navigation", ["updateDrawer"])
+  },
 
   created() {
     this.drawer = this.stateDrawer;
+    this.updateBarClasses();
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.v-app-bar{
-&.v-app-bar--is-scrolled.blur-primary-color{
-  background-color:rgba(68,100,100,.75) !important;
-  backdrop-filter: blur(10px);
+.v-app-bar {
+  &.v-app-bar--is-scrolled {
+    &.blur-primary-color {
+      // background-color:rgba(68,100,100,.75) !important;
+      // background-color: rgba(255, 255, 255, 0.75) !important;
+      background-color: #fff !important;
+      // backdrop-filter: blur(10px);
+    }
+    a,
+    .v-icon {
+      color: rgba(68, 100, 100) !important;
+    }
+  }
+}
+.home {
+  a,
+  .v-icon {
+    color: #fff;
+  }
+}
+.not-home {
+  a,
+  .v-icon {
+    color: rgba(68, 100, 100);
   }
 }
 </style>
