@@ -7,7 +7,7 @@
       class="flex-sm-column-reverse ma-0"
       :class="{
         'flex-md-row': index % 2 === 0,
-        'flex-md-row-reverse gray-background': index % 2 !== 0
+        'flex-md-row-reverse': index % 2 !== 0
       }"
       justify="center"
     >
