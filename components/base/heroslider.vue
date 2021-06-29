@@ -1,7 +1,53 @@
 <template>
-  <v-container fluid class="pa-0 fill-height ma-0 relative">
-    <!-- background & overlay -->
+  <v-container fluid class="pa-0 relative">
+    <v-carousel
+      cycle
+      hide-delimiters
+      :show-arrows="false"
+      width="100vw"
+      height="100vh"
+      min-width="320"
+      interval="6000"
+    >
+      <v-carousel-item
+        hide-on-leave
+        transition="slide-x-reverse-transition"
+        class="accent"
+        v-for="post in homeFeatures"
+        :key="post.id"
+        width="100%"
+        min-height="320"
+        :style="{
+          background:
+            'linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 28%, rgba(0, 0, 0, 0) 100%), url(' +
+            post.acf.hero_image.url +
+            ')',
+          'background-size': 'cover',
+          'background-position': 'center'
+        }"
+      >
+        <div align="start" class="pl-md-16 pr-md-16 header-wrap absolute">
+          <h2
+            color="primary"
+            class="lightgrey--text h2 ma-0 pa-0"
+            v-html="post.acf.subheader"
+          ></h2>
+          <h1
+            color="primary"
+            class="lightgrey--text h1 ma-0 pa-0"
+            v-html="post.title.rendered"
+          ></h1>
+          <div
+            class="lightgrey--text mr-10"
+            v-html="post.acf.hero_short_description"
+          ></div>
+        </div>
+      </v-carousel-item>
+    </v-carousel>
 
+    <BaseEventCards />
+  </v-container>
+  <!-- <v-container fluid class="pa-0 fill-height ma-0 relative">
     <v-carousel
       cycle
       hide-delimiters
@@ -11,14 +57,14 @@
       height="100vh"
       interval="6000"
       v-model="carouselIndex"
-    >
-      <!-- carousel that transition each item -->
-      <!-- carousel-item to have title, sub-header, img, description, organiztion_event  -->
-      <!-- carousel-item to have title(R_L), sub-header(T_B), img(slide), description(fade), organiztion_event(fade)  -->
-      <!--!   carousel with carousel-item carousel-item carousel-item  -->
-      <!-- -->
+    > -->
+  <!-- carousel that transition each item -->
+  <!-- carousel-item to have title, sub-header, img, description, organiztion_event  -->
+  <!-- carousel-item to have title(R_L), sub-header(T_B), img(slide), description(fade), organiztion_event(fade)  -->
+  <!--!   carousel with carousel-item carousel-item carousel-item  -->
+  <!-- -->
 
-      <v-carousel-item
+  <!-- <v-carousel-item
         hide-on-leave
         transition="slide-x-reverse-transition"
         class="accent"
@@ -64,22 +110,23 @@
           ></div>
         </v-slide-x-transition>
       </v-row>
-    </v-sheet>
-    <BaseEventCards />
-  </v-container>
+    </v-sheet> -->
+
+  <!--
+  </v-container> -->
 </template>
 
 <script>
 export default {
   data() {
     return {
-      absolute: true,
-      opacity: 0.35,
-      overlay: true,
-      zIndex: 1,
-      show: false,
-      hidden: true,
-      carouselIndex: 0,
+      // absolute: true,
+      // opacity: 0.35,
+      // overlay: true,
+      // zIndex: 1,
+      // show: false,
+      // hidden: true,
+      // carouselIndex: 0,
       homeFeatures: []
     };
   },
@@ -101,63 +148,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.show {
-  display: inline-block;
-}
-.hide {
-  display: none;
-}
-.hero-content-sheet {
-  // top: calc(0vw + 64px);
-  left: 0;
-  background: transparent;
-  width: 100%;
-  // &:after{
-  //     content: "";
-  //     background: #000;
-  //     height: 110%;
-  //     width: 110%;
-  //     position: absolute;
-  //     border-radius: 10px;
-  //     opacity: .7;
-  //     z-index: -1;
-  //     left: 5%;
-  // }
-  // height: calc(100vh - 64px);
+.header-wrap {
+  top: 30%;
+  max-width: 1026px;
+  display: flex;
+  flex-direction: column;
 
-  .header-wrap {
-    // margin-left: -6%;
-    top: 30%;
-    max-width: 1026px;
-    display: flex;
-    flex-direction: column;
-
-    .h1,
-    .h2 {
-      font-size: 62px;
-    }
-    .h2 {
-      font-weight: 200;
-    }
+  .h1,
+  .h2 {
+    font-size: 62px;
+  }
+  .h2 {
+    font-weight: 200;
   }
 }
-.postcontent {
-  width: inherit;
-}
-.z-1 {
-  z-index: 1;
-}
+
 .relative {
   position: relative;
-}
-.gradient {
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.5) 28%,
-    rgba(0, 0, 0, 0) 100%
-  ) !important;
-  // background: linear-gradient(236deg, rgba(2,0,36,0.5) 0%, rgba(9,9,121,0) 20%, rgba(0,212,255,0.500437675070028) 100%) !important;
 }
 </style>
