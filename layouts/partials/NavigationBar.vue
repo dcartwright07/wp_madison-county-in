@@ -81,7 +81,7 @@ export default {
 <style lang="scss" scoped>
 .v-app-bar{
 &.v-app-bar--is-scrolled.blur-primary-color{
-  background-color:rgba(68,100,100,.5) !important;
+  background-color:rgba(68,100,100,.75) !important;
   backdrop-filter: blur(10px);
   }
 }
