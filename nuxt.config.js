@@ -27,7 +27,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/services.server.js"],
+  plugins: ["~/plugins/services.server.js", "~/plugins/filters.js"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -36,11 +36,11 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     "@nuxtjs/vuetify",
-    '@nuxtjs/moment',
+    "@nuxtjs/moment"
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/axios", "@nuxtjs/proxy",'@nuxtjs/moment',],
+  modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
 
   axios: {
     baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
@@ -127,13 +127,11 @@ export default {
   // .Mounds-State-park-5-hsla { color: hsla(0, 0, 94, 1); }
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extend (config, { isDev, isClient }) {
-  
-       config.node: {
-          fs: 'empty'
-        }
-  
-       // ....
+    extend(config, { isDev, isClient }) {
+      //  config.node: {
+      //     fs: 'empty'
+      //   }
+      // ....
     }
   },
   devtools: true
