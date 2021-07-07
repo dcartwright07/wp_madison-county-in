@@ -35,11 +35,12 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    "@nuxtjs/vuetify"
+    "@nuxtjs/vuetify",
+    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/proxy",'@nuxtjs/moment',],
 
   axios: {
     baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
@@ -125,6 +126,15 @@ export default {
   // .Mounds-State-park-4-hsla { color: hsla(22, 72, 37, 1); }
   // .Mounds-State-park-5-hsla { color: hsla(0, 0, 94, 1); }
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extend (config, { isDev, isClient }) {
+  
+       config.node: {
+          fs: 'empty'
+        }
+  
+       // ....
+    }
+  },
   devtools: true
 };
