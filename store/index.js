@@ -154,31 +154,43 @@ export const actions = {
   //   }
   // },
 
-  async getOffices({ commit }) {
+  async getOffices({ state, commit }) {
+    const fields = [
+          "acf",
+          "slug",
+          "yoast_head",
+          "categories",
+          "featured_media",
+          "tags",
+          "title",
+          "content",
+          "icon"
+    ];
+    const fieldParameter = fields.join(",");
+    const url =
+      this.$config.apiUrl + `office?per_page=100&_fields=${fieldParameter}`;
+
     try {
-      let offices = await fetch(this.$config.apiUrl + "office").then(res =>
-        res.json()
-      );
+      let offices = await fetch(url).then(res => res.json());
       offices = offices.map(
         ({
-          acf,
-          slug,
-          yoast_head,
-          categories,
-          tags,
-          title,
-          content,
-          icon
-        }) => ({
-          acf,
-          slug,
-          yoast_head,
-          categories,
-          tags,
-          name: title.rendered,
-          content: acf.content,
-          icon: acf.icon
-        })
+          acf, slug, yoast_head, categories, featured_media, tags, title, content, icon}) => {
+            return {
+              acf,
+              slug,
+              yoast_head,
+              categories,
+              media_url: getFeaturedMediaURL(
+                state.featuredImages,
+                featured_media
+              ),
+              tags,
+              name: title.rendered,
+              acf_content: acf.content,
+              content,
+              icon: acf.icon
+            };
+          }
       );
       commit("UPDATE_OFFICES", offices);
     } catch (err) {
@@ -286,8 +298,8 @@ export const actions = {
       };
       return state.offices
         .filter(hasCategory)
-        .map(({ name, slug, content, icon }) => {
-          return { name, slug, content, icon };
+        .map(({ name, slug, content,acf_content, icon }) => {
+          return { name, slug, content, acf_content, icon };
         });
     }
 

@@ -22,20 +22,39 @@
             <v-scroll-y-transition hide-on-leave>
               <div
                 v-if="!active"
-                class="flex-grow-1 animate-center text-center"
+                class="flex-grow-1 animate-center text-left"
               >
-                {{ event.name }}
+                <h4 class="accent--text">
+                 {{ event.name }}
+                </h4>
+                <p>
+                  {{ event.description }}
+                </p>
               </div>
             </v-scroll-y-transition>
             <v-scroll-y-transition hide-on-leave>
-              <div
+              <v-list
                 v-if="active"
-                class="primary fill-height flex-grow-1 animate-center text-center"
+                class="primary fill-height flex-grow-1 animate-center text-left"
               >
+                <v-list-item three-line>          
+                  <v-list-item-icon>
+                    <v-icon>mdi-clock</v-icon> 
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                  <v-list-item-subtitle>
+                    {{ event.start  }}
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    consectetur adipiscing elit.
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              
                 <v-btn>
                   Learn more
                 </v-btn>
-              </div>
+              </v-list>
             </v-scroll-y-transition>
           </v-card>
         </v-item>
@@ -46,7 +65,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-
+// import moment from "@nuxtjs/moment"
 export default {
   async fetch() {
     await this.getEvents();
@@ -55,6 +74,13 @@ export default {
   computed: mapState({
     events: state => state.wuapi.events
   }),
+  filters: {
+    formatDate: function (value) {
+      if (!value) return ''
+      // console.log(this.$moment);
+      // return this.$moment(String(value)).format('MM/DD/YYYY hh:mm')
+    }
+},
 
   methods: mapActions("wuapi", ["getEvents"])
 };
@@ -66,6 +92,7 @@ export default {
 }
 .event-bar {
   width: 100%;
-  bottom: 15px;
+  top: 75vh;
+  height: 235.526px;
 }
 </style>

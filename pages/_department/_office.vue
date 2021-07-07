@@ -6,12 +6,29 @@
       <v-row class=" pa-5 d-flex flex-column">
         <v-col
           class="section__content"
+          
+        > 
+        <div class="text-center mb-10">
+          <h2 class="h2">About US</h2>
+        </div>
+        <div
+          class="text-center"
           tag="p"
-          v-html="office.acf.description"
-        ></v-col>
+          v-html="office.acf.description"></div>
+        </v-col>
+        <v-col cols='12' class="d-flex flex-md-row flex-sm-column-reverse lightgrey pa-10">
+          <div class="col-md-6 col-sm-12">
+            <div class="text-left mt-12 mb-6 text-center ">
+              <h2 class="h2">What We Do</h2>
+            </div>
+            <div tag="p" v-html="office.acf.services"></div>
+          </div>
+          <v-img :src="office.media_url" class="col-md-6 col-sm-12 "/>
+        </v-col>
         <v-col class="section__content" v-html="office.acf.content"></v-col>
       </v-row>
     </v-container>
+    <!-- {{office}} this is A TEST -->
 
     <v-row no-gutters>
       <v-col class="secondary text-center pa-5 white--text" cols="12">
@@ -82,5 +99,10 @@ export default {
   .section__content {
     font-size: 28px;
   }
+
 }
+  .h2{
+    font-size:30px !important;
+    font-weight: 400 !important;
+  }
 </style>
