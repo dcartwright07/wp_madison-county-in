@@ -6,6 +6,8 @@
     <v-main class="pt-0">
       <nuxt />
     </v-main>
+
+    <Footer />
     <!-- <v-footer
       :absolute="!fixed"
       app
@@ -62,9 +64,10 @@
 import { mapState } from "vuex";
 import NavigationDrawer from "~/layouts/partials/NavigationDrawer";
 import NavigationBar from "~/layouts/partials/NavigationBar";
+import Footer from "~/layouts/partials/Footer";
 
 export default {
-  components: { NavigationDrawer, NavigationBar },
+  components: { NavigationDrawer, NavigationBar, Footer },
 
   data() {
     return {
