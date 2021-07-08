@@ -37,22 +37,22 @@
       </div>
       <v-row no-gutters>
         <v-col
-          v-for="destination in destinations"
+          v-for="destination in randomDestinations"
           :key="destination.id"
           cols="12"
           md="6"
           lg="4"
         >
           <v-hover v-slot="{ hover }">
-            <v-card class="mx-auto" color="grey lighten-4" max-width="600">
-              <v-img :aspect-ratio="16 / 9" :src="destination.listing_image">
-                <v-expand-transition>
-                  <a
-                    :href="
-                      `https://www.whatsup247.com/destinations/detail/${destination.id}`
-                    "
-                    target="_blank"
-                  >
+            <a
+              :href="
+                `https://www.whatsup247.com/destinations/detail/${destination.id}`
+              "
+              target="_blank"
+            >
+              <v-card class="mx-auto" color="grey lighten-4" max-width="600">
+                <v-img :aspect-ratio="16 / 9" :src="destination.listing_image">
+                  <v-expand-transition>
                     <div
                       v-if="hover"
                       class="transition-fast-in-fast-out v-card--reveal white--text"
@@ -61,10 +61,10 @@
                       <h3>{{ destination.name }}</h3>
                       <p>{{ destination.city }}, {{ destination.state }}</p>
                     </div>
-                  </a>
-                </v-expand-transition>
-              </v-img>
-            </v-card>
+                  </v-expand-transition>
+                </v-img>
+              </v-card>
+            </a>
           </v-hover>
         </v-col>
       </v-row>
@@ -115,6 +115,24 @@ export default {
       );
     },
 
+    randomDestinations() {
+      let array = [];
+      let arrayContainer = [];
+      const genNum = Math.floor(Math.random() * 20);
+      arrayContainer.push(genNum);
+
+      for (let counter = 0; counter < 9; counter++) {
+        let newGen = Math.floor(Math.random() * 20);
+        while (arrayContainer.lastIndexOf(newGen) !== -1) {
+          newGen = Math.floor(Math.random() * 20);
+        }
+        arrayContainer.push(newGen);
+        array.push(this.destinations[newGen]);
+      }
+
+      return array;
+    },
+
     ...mapState({
       offices: state => state.offices,
       categories: state => state.categories,
@@ -145,17 +163,6 @@ export default {
 .h2 {
   font-size: 30px !important;
   font-weight: 400 !important;
-}
-.destination-columns {
-  background-position: center;
-  background-size: cover;
-  height: 200px;
-  position: relative;
-  h3 {
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-  }
 }
 
 .v-card--reveal {
