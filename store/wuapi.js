@@ -25,10 +25,10 @@ export const mutations = {
     state.events = array;
   },
   UPDATE_DIRECTORY: (state, array) => {
-    state.events = array;
+    state.directory = array;
   },
   UPDATE_DESTINATIONS: (state, array) => {
-    state.events = array;
+    state.destinations = array;
   }
 };
 
@@ -93,7 +93,7 @@ export const actions = {
     const destinations = await this.$axios
       .get(
         this.$config.wuApiUrl +
-          "/destinations?organization_id=" +
+          "/destination?organization_id=" +
           this.$config.orgId +
           "&copromotions=1",
         {
