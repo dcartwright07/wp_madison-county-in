@@ -1,12 +1,12 @@
 import colors from "vuetify/es5/util/colors";
 
 export default {
-  target: "static",
+  // target: "static",
 
-  router: {
-    base: "/wp_madison-county-in/"
-    // middleware: ["bearer-token"]
-  },
+  // router: {
+  //   base: "/wp_madison-county-in/"
+  //   // middleware: ["bearer-token"]
+  // },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -85,7 +85,7 @@ export default {
           black: "#413E39",
           accent: "#FFE75E",
           hyperlink: "#6A8383",
-          footer:"#426464",
+          footer: "#426464",
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
@@ -98,7 +98,7 @@ export default {
           black: "#413E39",
           accent: "#FFE75E",
           hyperlink: "#6A8383",
-          footer:"#426464",
+          footer: "#426464",
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
