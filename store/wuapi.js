@@ -15,12 +15,16 @@ const getAuthorization = (config, axios) => {
 };
 
 export const state = () => ({
+  token: "",
   events: [],
   directory: [],
   destinations: []
 });
 
 export const mutations = {
+  UPDATE_TOKEN: (state, string) => {
+    state.token = string;
+  },
   UPDATE_EVENTS: (state, array) => {
     state.events = array;
   },
@@ -33,8 +37,15 @@ export const mutations = {
 };
 
 export const actions = {
-  async getEvents({ commit }) {
+  async setApiToken({ commit }) {
     const auth = await getAuthorization(this.$config, this.$axios);
+    await commit("UPDATE_TOKEN", auth.data.access_token);
+  },
+
+  async getEvents({ state, dispatch, commit }) {
+    if (!state.token) {
+      await dispatch("setApiToken");
+    }
 
     const events = await this.$axios
       .get(
@@ -44,7 +55,7 @@ export const actions = {
           "&copromotions=1",
         {
           headers: {
-            Authorization: "Bearer " + auth.data.access_token,
+            Authorization: "Bearer " + state.token,
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
           }
@@ -60,8 +71,10 @@ export const actions = {
     commit("UPDATE_EVENTS", events);
   },
 
-  async getDirectory({ commit }) {
-    const auth = await getAuthorization(this.$config, this.$axios);
+  async getDirectory({ state, dispatch, commit }) {
+    if (!state.token) {
+      await dispatch("setApiToken");
+    }
 
     const directory = await this.$axios
       .get(
@@ -71,7 +84,7 @@ export const actions = {
           "&copromotions=1",
         {
           headers: {
-            Authorization: "Bearer " + auth.data.access_token,
+            Authorization: "Bearer " + state.token,
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
           }
@@ -87,8 +100,10 @@ export const actions = {
     commit("UPDATE_DIRECTORY", directory);
   },
 
-  async getDestinations({ commit }) {
-    const auth = await getAuthorization(this.$config, this.$axios);
+  async getDestinations({ state, dispatch, commit }) {
+    if (!state.token) {
+      await dispatch("setApiToken");
+    }
 
     const destinations = await this.$axios
       .get(
@@ -98,7 +113,7 @@ export const actions = {
           "&copromotions=1",
         {
           headers: {
-            Authorization: "Bearer " + auth.data.access_token,
+            Authorization: "Bearer " + state.token,
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
           }
