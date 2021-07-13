@@ -81,21 +81,11 @@ actions is where we will make an API call that gathers the posts,
 and then commits the mutation to update it
 */
 export const actions = {
-  // async fetchDepartment({ commit }, value) {
-  //   try {
-  //     let array = await fetch(this.$config.apiUrl + "pages").then(res =>
-  //       res.json()
-  //     );
-  //     commit("setPageContent", array);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // },
 
   async getLandingPages({ state, commit }) {
     if (state.landingPages.length) return;
     try {
-      let landingPages = await fetch(this.$config.apiUrl + "pages").then(res =>
+      let landingPages = await fetch(this.$config.apiUrl + "pages?per_page=100").then(res =>
         res.json()
       );
 
@@ -307,6 +297,7 @@ export const actions = {
       /* Returns page with matching slug if found */
       for (let i = 0; i < state.landingPages.length; i++) {
         let current_page = state.landingPages[i];
+        // console.log(current_page)
         if (current_page.slug === slug) {
           return current_page;
         }
@@ -319,7 +310,7 @@ export const actions = {
       try {
         const page = getPageWithSlug(category.slug);
         const id = page.featured_media;
-
+        category.content = page.content.rendered
         category.featured_media_url = getFeaturedMediaURL(
           state.featuredImages,
           id
@@ -328,6 +319,7 @@ export const actions = {
         category.featured_media_url = "";
       }
       category.posts = categoryOffices(category.id);
+      // console.log(category);
       return category;
     });
 
