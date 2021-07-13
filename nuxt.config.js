@@ -10,8 +10,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: "%s - nuxt-madison",
-    title: "nuxt-madison",
+    titleTemplate: "%s - Madison County, IN",
+    title: "Madison County, IN",
     htmlAttrs: {
       lang: "en"
     },
