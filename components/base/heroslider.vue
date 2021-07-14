@@ -39,7 +39,7 @@
         <h2
           color="primary"
           class="lightgrey--text h2 ma-0 pa-0 "
-          v-show="carouselIndex === index"
+          v-if="carouselIndex === index"
           v-html="post.acf.subheader"
         ></h2>
       </v-slide-x-transition>
