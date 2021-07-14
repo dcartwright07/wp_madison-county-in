@@ -48,7 +48,7 @@
         <h1
           color="primary"
           class="lightgrey--text h1 ma-0 pa-0"
-          v-show="carouselIndex === index"
+          v-if="carouselIndex === index"
           v-html="post.title.rendered"
         ></h1>
       </v-slide-x-reverse-transition>
@@ -56,7 +56,7 @@
       <v-slide-x-transition hide-on-leave>
         <div
           class="lightgrey--text postcontent mr-10"
-          v-show="carouselIndex === index"
+          v-if="carouselIndex === index"
           v-html="post.acf.hero_short_description"
         ></div>
       </v-slide-x-transition>
