@@ -96,11 +96,11 @@
       </v-col>
     </v-row>
     <v-row>
-    <!-- <h2
-              class="section-name mb-10">< -->
-    </v-row>
-    <WhatsUpDestinations />
-    <BaseUpcomingevents />
+  <h2 class="section-name mb-10 text-left mr-2">Places to Visit</h2>
+  <WhatsUpDestinations />
+</v-row>
+<BaseUpcomingevents />
+
   </v-container>
 </template>
 

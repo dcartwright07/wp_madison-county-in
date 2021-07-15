@@ -1,6 +1,6 @@
 <template>
 <v-row no-gutters>
-    <v-col v-for="event in latestEvents" :key="event.id" col="12" md="4" lg="3">
+    <!-- <v-col v-for="event in latestEvents" :key="event.id" col="12" md="4" lg="3">
         <v-card
             class="mx-auto my-12"
             max-width="374"
@@ -41,7 +41,33 @@
             </v-btn>
             </v-card-actions>
         </v-card>
-    </v-col>
+    </v-col> -->
+
+	<div class="block-space bg-secondary">
+		<div class="block-head text-center mb-5">
+			<h2 class="head-line display-3 blackish--text">
+				Upcoming Events
+			</h2>
+			<p class="lead mt-2 head-desc primary--text">Upcoming events</p>
+		</div>
+		<v-container>
+			<v-row class="row d-flex justify-center">
+                <v-col class="col-lg-2" v-for="event in latestEvents" :key="event.name">
+                    <v-card class="card card-lift--hover shadow border-0">
+                        <v-img height="250" class="img-fluid" :src="event.image" alt=""/>
+                        <v-card-text class="card-body py-4">
+                            <h5>{{event.name}}</h5>
+                            <p class="text_muted">{{event.start | formatDate($moment, "DD MMMM YYYY")}}</p>
+                            <p class="description mb-4">{{event.desc}}</p>
+                            <a class="btn btn-primary" href="javascript:void(0);">Read More</a>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+			</v-row>
+		</v-container>
+	</div>
+
+
   </v-row>
 </template>
 
@@ -66,5 +92,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700!important;
+}
+.h5, h5 {
+    font-size: 1.25rem;
+}
+.lead{
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.7;
+}
+.sub-title {
+    font-size: 30px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    padding-bottom: 0;
+}
 </style>
