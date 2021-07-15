@@ -6,10 +6,7 @@ export const state = () => ({
   homePage: [],
   landingPages: [],
   homeMenus: [],
-  // wu247Dest: [],
-  // wu247Dir: [],
   offices: [],
-  // pageContent: [],
   categories: [],
   tags: null,
   categoryMap: null,
@@ -44,9 +41,6 @@ export const mutations = {
   UPDATE_OFFICES: (state, payload) => {
     state.offices = payload
   },
-  // setPageContent: (state, array) => {
-  //   state.pageContent = array;
-  // },
   UPDATE_TAGS: (state, obj) => {
     state.tags = obj
   },
@@ -56,9 +50,6 @@ export const mutations = {
   UPDATE_COUNTY_PROFILES: (state, array) => {
     state.countyProfiles = array
   }
-  // updateCategory: (state, profileData) => {
-  //   state.profileData = profileData;
-  // }
 }
 
 function getFeaturedMediaURL(featuredImages, featured_media_id) {
