@@ -5,7 +5,7 @@
   >
     <v-row>
       <v-col
-        v-for="event in events.slice(0, 3)"
+        v-for="event in featuredEvents"
         :key="event.id"
         cols="12"
         md="2"
@@ -67,11 +67,15 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   async fetch() {
-    await this.getEvents();
+    let options = {
+      type: "featured",
+      limit: "3"
+    };
+    await this.getEvents(options);
   },
 
   computed: mapState({
-    events: state => state.wuapi.events
+    featuredEvents: state => state.wuapi.featuredEvents
   }),
 
   methods: mapActions("wuapi", ["getEvents"])

@@ -16,7 +16,8 @@ const getAuthorization = (config, axios) => {
 
 export const state = () => ({
   token: "",
-  events: [],
+  featuredEvents: [],
+  latestEvents: [],
   directory: [],
   destinations: [],
   event_categories: [
@@ -270,8 +271,11 @@ export const mutations = {
   UPDATE_TOKEN: (state, string) => {
     state.token = string;
   },
-  UPDATE_EVENTS: (state, array) => {
-    state.events = array;
+  UPDATE_FEATURED_EVENTS: (state, array) => {
+    state.featuredEvents = array;
+  },
+  UPDATE_LATEST_EVENTS: (state, array) => {
+    state.latestEvents = array;
   },
   UPDATE_DIRECTORY: (state, array) => {
     state.directory = array;
@@ -287,33 +291,41 @@ export const actions = {
     await commit("UPDATE_TOKEN", auth.data.access_token);
   },
 
-  async getEvents({ state, dispatch, commit }) {
+  async getEvents({ state, dispatch, commit }, options) {
     if (!state.token) {
       await dispatch("setApiToken");
     }
 
+    let url =
+      this.$config.wuApiUrl +
+      "/event?organization_id=" +
+      this.$config.orgId +
+      "&copromotion=1";
+    if (options.type == "featured") {
+      url += "&categories=18,7,11,9,6,3,4,16"
+    }
+
     const events = await this.$axios
-      .get(
-        this.$config.wuApiUrl +
-          "/event?organization_id=" +
-          this.$config.orgId +
-          "&copromotions=1",
-        {
-          headers: {
-            Authorization: "Bearer " + state.token,
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
+      .get(url, {
+        headers: {
+          Authorization: "Bearer " + state.token,
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
         }
-      )
+      })
       .then(response => {
-        return response.data;
+        return response.data
       })
       .catch(error => {
-        console.log(error);
-        context.error(error);
-      });
-    commit("UPDATE_EVENTS", events);
+        console.log(error)
+        context.error(error)
+      })
+    
+    if(options.type == "featured") {
+      commit("UPDATE_FEATURED_EVENTS", events.slice(0, options.limit))
+    } else if(options.type == "latest") {
+      commit("UPDATE_LATEST_EVENTS", events.slice(0, options.limit))
+    }
   },
 
   async getDirectory({ state, dispatch, commit }) {
@@ -326,7 +338,7 @@ export const actions = {
         this.$config.wuApiUrl +
           "/directory?organization_id=" +
           this.$config.orgId +
-          "&copromotions=1",
+          "&copromotion=1",
         {
           headers: {
             Authorization: "Bearer " + state.token,
@@ -355,7 +367,7 @@ export const actions = {
         this.$config.wuApiUrl +
           "/destination?organization_id=" +
           this.$config.orgId +
-          "&copromotions=1",
+          "&copromotion=1",
         {
           headers: {
             Authorization: "Bearer " + state.token,

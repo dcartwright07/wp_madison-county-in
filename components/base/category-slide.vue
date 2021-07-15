@@ -4,19 +4,20 @@
 			<div class="block-head text-center mb-5">
 				<h2 class="head-line display-3">
 					{{title}}
+
 				</h2>
 				<p class="lead mt-2 head-desc text-primary">{{desc}}</p>
 			</div>
 		</div>
 		<!-- Categories Carousel -->
         {{categories}}
-        <!-- <v-carousel v-model="model">
+        <v-carousel v-model="model">
     <v-carousel-item
-      v-for="(data, i) in categories"
+      v-for="data in categories"
       :key="data"
     >
       <v-sheet
-        :color="color"
+        :color="data.color"
         height="100%"
         tile
       >
@@ -26,12 +27,13 @@
           justify="center"
         >
           <div class="text-h2">
-            Slide {{ data + 1 }}
+            {{ data.name }}
+            <v-img :src="data.image" width="60" />
           </div>
         </v-row>
       </v-sheet>
     </v-carousel-item>
-  </v-carousel> -->
+  </v-carousel>
 	</div>
 </template>
 
@@ -42,7 +44,7 @@ import {mapState} from 'vuex'
 export default {
 	props: ['title', 'desc', 'type'],
     data(){return {categories:[]}},
-    computed:mapState(["event_categories","destinations_categories","directory_categories"]),
+    computed:mapState("wuapi", ["event_categories","destinations_categories","directory_categories"]),
     created(){
         if (this.type === "events"){ this.categories = this.event_categories;}
         else if (this.type === "destinations")

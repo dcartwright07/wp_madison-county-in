@@ -95,7 +95,12 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <v-row><BaseCategorySlide title="Event" desc="data.popularCategoriesDesc" type="events"></BaseCategorySlide></v-row>
+    <v-row>
+    <!-- <h2
+              class="section-name mb-10">< -->
+    </v-row>
+    <WhatsUpDestinations />
+    <BaseUpcomingevents />
   </v-container>
 </template>
 
