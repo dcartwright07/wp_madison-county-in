@@ -74,6 +74,7 @@
         </v-sheet>
       </v-col>
     </v-row>
+    <v-row><BaseCategorySlide title="Event" desc="data.popularCategoriesDesc" type="events"></BaseCategorySlide></v-row>
   </v-container>
 </template>
 
