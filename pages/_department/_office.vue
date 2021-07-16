@@ -31,13 +31,6 @@
     </v-container>
     <!-- {{office}} this is A TEST -->
 
-    <section v-if="$route.params.office == 'visitors-bureau'">
-      <div class="text-center mb-10">
-        <h2 class="h2">Places to Visit</h2>
-      </div>
-      <WhatsUpDestinations />
-    </section>
-
     <v-row no-gutters v-if="profiles.length > 0">
       <v-col class="secondary text-center pa-5 white--text" cols="12">
         <BaseTeam :team="profiles" />
