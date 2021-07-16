@@ -25,7 +25,7 @@
                   {{ event.name }}
                 </h4>
                 <p>
-                  {{ event.description }}
+                  {{ event.description | truncateText(50) }}
                 </p>
               </div>
             </v-scroll-y-transition>
@@ -88,7 +88,7 @@ export default {
 }
 .event-bar {
   width: 100%;
-  top: 75vh;
-  height: 235.526px;
+  bottom: 5vh;
+  // height: 235.526px;
 }
 </style>
