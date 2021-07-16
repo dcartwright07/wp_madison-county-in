@@ -5,7 +5,7 @@
   >
     <v-row>
       <v-col
-        v-for="event in featuredEvents"
+        v-for="event in eventList"
         :key="event.id"
         cols="12"
         md="4"
@@ -41,6 +41,17 @@ export default {
   },
 
   computed: mapState({
+    eventList() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+        case 'sm':
+          return this.featuredEvents.slice(0, 1)
+        case 'md':
+        case 'lg':
+        case 'xl':
+          return this.featuredEvents
+      }
+    },
     featuredEvents: state => state.wuapi.featuredEvents
   }),
 
