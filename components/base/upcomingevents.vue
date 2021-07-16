@@ -1,5 +1,5 @@
 <template>
-<v-row no-gutters>
+<v-row class="lightgrey" no-gutters>
     <!-- <v-col v-for="event in latestEvents" :key="event.id" col="12" md="4" lg="3">
         <v-card
             class="mx-auto my-12"
@@ -43,12 +43,12 @@
         </v-card>
     </v-col> -->
 
-	<div class="block-space bg-secondary">
+	<div class="block-space ">
 		<div class="block-head text-center mb-5">
+			<p class="lead mt-2 head-desc primary--text">Stay Engage</p>
 			<h2 class="head-line display-3 blackish--text">
 				Upcoming Events
 			</h2>
-			<p class="lead mt-2 head-desc primary--text">Upcoming events</p>
 		</div>
 		<v-container>
 			<v-row class="row d-flex justify-center">
@@ -108,5 +108,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 50px;
     margin-bottom: 10px;
     padding-bottom: 0;
+    font-weight: 300;
 }
 </style>

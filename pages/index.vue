@@ -1,7 +1,7 @@
 <template>
   <section id="welcome" class="overflow-hidden">
     <BaseHeroslider />
-    <BaseIntrobar />
+    <!-- <BaseIntrobar /> -->
     <BaseTwoCol />
   </section>
 </template>

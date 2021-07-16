@@ -8,7 +8,7 @@
       :class="{
         'flex-md-row': index % 2 === 0,
         'flex-md-row-reverse': index % 2 !== 0,
-        primary: index % 5 === 0,
+        secondary: index % 5 === 0,
         lightgrey: index % 5 === 1,
         hyperlink: index % 5 === 2,
         lightgrey: index % 5 === 3
@@ -95,12 +95,8 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <v-row>
-  <h2 class="section-name mb-10 text-left mr-2">Places to Visit</h2>
-  <WhatsUpDestinations />
-</v-row>
-<BaseUpcomingevents />
-
+    <WhatsUpDestinations />
+    <BaseUpcomingevents />
   </v-container>
 </template>
 

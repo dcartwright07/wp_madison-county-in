@@ -1,6 +1,16 @@
 <template>
   <v-row no-gutters>
-    <v-col
+		<div class="block-head text-center mb-5">
+      
+			<h2 class="head-line display-3 blackish--text d-flex flex-column">
+        <small class="top-subheader primary--text text-left">Don't know where to go?</small>Let's Explore
+			</h2>
+			<!-- <p class="lead mt-2 head-desc primary--text">Upcoming events</p> -->
+		</div>
+    
+    <v-container>
+      <v-row>
+          <v-col
       v-for="destination in randomDestinations"
       :key="destination.id"
       cols="12"
@@ -14,7 +24,7 @@
           "
           target="_blank"
         >
-          <v-card class="mx-auto" color="grey lighten-4" max-width="600">
+          <v-card class="mx-auto mb-10" color="grey lighten-4" max-width="600">
             <v-img :aspect-ratio="16 / 9" :src="destination.listing_image">
               <v-expand-transition>
                 <div
@@ -31,6 +41,10 @@
         </a>
       </v-hover>
     </v-col>
+      </v-row>
+    </v-container>
+
+  
   </v-row>
 </template>
 
@@ -71,6 +85,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  h2{
+    small{
+      font-size: 1.5rem;
+    }
+  }
 .v-card--reveal {
   bottom: 0;
   position: absolute;
