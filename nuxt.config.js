@@ -80,7 +80,7 @@ export default {
       themes: {
         dark: {
           primary: "#8BC0BF",
-          secondary: "#B78658",
+          secondary: "#3E363D",
           lightgrey: "#F5F5F5",
           blackish: "#413E39",
           accent: "#FFE75E",
@@ -94,7 +94,7 @@ export default {
         },
         light: {
           primary: "#8BC0BF",
-          secondary: "#B78658",
+          secondary: "#3E363D",
           lightgrey: "#F5F5F5",
           blackish: "#413E39",
           accent: "#FFE75E",
