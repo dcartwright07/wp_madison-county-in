@@ -8,7 +8,7 @@
     <v-overlay value="true" absolute>
       <v-container>
         <v-row>
-          <v-col cols="12" sm="8" lg="6">
+          <v-col cols="12" lg="6">
             <h2 class="display-1 mb-8">Madison County Visitor's Bureau</h2>
             <div class="white--text mt-8 mb-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam officiis corporis deleniti tempora atque adipisci minima omnis non asperiores distinctio optio maiores ipsam, alias saepe mollitia aspernatur ipsa, impedit libero!</div>
 

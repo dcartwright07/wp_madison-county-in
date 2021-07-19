@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-10">
 		<div class="d-flex justify-space-around mt-8 mb-10">
 			<h2 class="head-line display-3 text-center blackish--text">
         <small class="top-subheader primary--text text-left">Don't know where to go?</small><br/>Let's Explore
@@ -12,7 +12,7 @@
           v-for="destination in randomDestinations"
           :key="destination.id"
           cols="12"
-          md="6"
+          sm="6"
           lg="4"
         >
           <v-hover v-slot="{ hover }">
@@ -22,7 +22,7 @@
               "
               target="_blank"
             >
-              <v-card class="mx-auto mb-10" color="grey lighten-4" max-width="600">
+              <v-card class="mx-auto" color="grey lighten-4" max-width="600">
                 <v-img :aspect-ratio="16 / 9" :src="destination.listing_image">
                   <v-expand-transition>
                     <div
@@ -68,6 +68,18 @@ export default {
         }
         arrayContainer.push(newGen);
         array.push(this.destinations[newGen]);
+      }
+
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return array.slice(0, 4)
+        case 'sm':
+          return array.slice(0, 6)
+        case 'md':
+          return array.slice(0, 8)
+        case 'lg':
+        case 'xl':
+          return array
       }
 
       return array;
