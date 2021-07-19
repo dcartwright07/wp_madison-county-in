@@ -47,7 +47,7 @@
       <v-slide-x-reverse-transition hide-on-leave>
         <h1
           color="primary"
-          class="lightgrey--text h1 ma-0 pa-0"
+          class="lightgrey--text h1 ma-0 pa-0 mt-3"
           v-if="carouselIndex === index"
           v-html="post.title.rendered"
         ></h1>
@@ -105,6 +105,9 @@ export default {
   }
   .h2 {
     font-weight: 200;
+  }
+  .h1 {
+    line-height: 1.1;
   }
 }
 .postcontent {

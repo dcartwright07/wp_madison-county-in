@@ -57,17 +57,6 @@
   </v-container>
 </template>
 
-<style lang="scss" scoped>
-.sectionHeader {
-  &::before {
-    content: "";
-    width: 100%;
-    height: 2px;
-    background: "secondary";
-  }
-}
-</style>
-
 <script>
 export default {
   props: {
@@ -85,3 +74,14 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.sectionHeader {
+  &::before {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: "secondary";
+  }
+}
+</style>

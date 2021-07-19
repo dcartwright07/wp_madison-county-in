@@ -19,6 +19,31 @@
   </v-app>
 </template>
 
+<script>
+import { mapState } from "vuex";
+import NavigationDrawer from "~/layouts/partials/NavigationDrawer";
+import NavigationBar from "~/layouts/partials/NavigationBar";
+import Footer from "~/layouts/partials/Footer";
+
+export default {
+  components: { NavigationDrawer, NavigationBar, Footer },
+
+  data() {
+    return {
+      location: {
+        county: "Madison County",
+        state: {
+          name: "Indiana",
+          abbrv: "IN"
+        }
+      }
+    };
+  },
+
+  computed: mapState(["categories"])
+};
+</script>
+
 <style lang="scss" scoped>
 .v-app-bar.v-app-bar--is-scrolled {
   /* background-image: url('http://madisoncounty.signaturewebcreations.com/wp-content/uploads/2021/06/navbg.png');
@@ -59,28 +84,3 @@
   opacity: 0;
 }
 </style>
-
-<script>
-import { mapState } from "vuex";
-import NavigationDrawer from "~/layouts/partials/NavigationDrawer";
-import NavigationBar from "~/layouts/partials/NavigationBar";
-import Footer from "~/layouts/partials/Footer";
-
-export default {
-  components: { NavigationDrawer, NavigationBar, Footer },
-
-  data() {
-    return {
-      location: {
-        county: "Madison County",
-        state: {
-          name: "Indiana",
-          abbrv: "IN"
-        }
-      }
-    };
-  },
-
-  computed: mapState(["categories"])
-};
-</script>

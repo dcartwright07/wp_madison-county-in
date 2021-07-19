@@ -28,10 +28,10 @@
           exact
         >
           <v-list-item-action>
-            
+
           </v-list-item-action>
           <v-list-item-content>
-              
+
               <v-list-item-title v-if="!item.child_items" v-text="item.title" />
 
 
@@ -41,7 +41,7 @@
                 >
                   <v-list-item-content>
                     <v-list-item-title @click="show = !show" v-text="item.title"/>
-                    
+
                   </v-list-item-content>
                 </template>
                 <v-list-item
@@ -49,7 +49,7 @@
                   :key="n"
                   name="slide-fade"
                   :to="submenu.url"
-                  
+
                 >
                 <transition name="slide-fade">
                   <v-list-item-title v-text="submenu.title"></v-list-item-title>
@@ -60,7 +60,7 @@
                   </v-list-item-icon> -->
                 </v-list-item>
               </v-list-group>
-            
+
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -71,7 +71,7 @@
   export default {}
 </script>
 
-<style>
+<style scoped>
 .title{
   color:#fff !important;
 }

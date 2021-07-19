@@ -9,7 +9,7 @@
       </div>
 			<!-- <p class="lead mt-2 head-desc primary--text">Upcoming events</p> -->
 		</div>
-    
+
     <v-container>
       <v-row>
           <v-col
@@ -46,8 +46,8 @@
       </v-row>
     </v-container>
 
-  
-  </v-row>
+
+  </div>
 </template>
 
 <script>
