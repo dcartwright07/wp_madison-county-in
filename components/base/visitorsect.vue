@@ -1,35 +1,25 @@
 <template>
-    <row>
-        <v-parallax
-    height="400"
+  <v-parallax
+    height="600"
     src="https://images.unsplash.com/photo-1573344176794-e7f9403f5a43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1032&q=80"
     cover
     class="pa-0"
   >
+    <v-overlay value="true" absolute>
+      <v-container>
+        <v-row>
+          <v-col cols="12" lg="6">
+            <h2 class="display-1 mb-8">Madison County Visitor's Bureau</h2>
+            <div class="white--text mt-8 mb-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam officiis corporis deleniti tempora atque adipisci minima omnis non asperiores distinctio optio maiores ipsam, alias saepe mollitia aspernatur ipsa, impedit libero!</div>
 
- <div class="overlay_parallax absolute blackish fill-height col-12"></div>
-
-    <div class="parallax-text-content ">
-        <div class="container">
-            <v-row class="row">
-                <v-col>
-                    <div class="d-flex flex-column col-lg-6 col-sm-8 align-space-around" >
-                        
-                        <h2 class="display-1">Madison County Visitor's Bureau</h2>
-                 
-                        <v-btn id="visitorsbtn" color="primary" class="ma-2 white--text">
-                            Learn More
-                        </v-btn>
-                    </div>
-                </v-col>
-            </v-row>
-        </div>
-    </div>
-
-
-
+            <v-btn id="visitorsbtn" color="primary" class="ma-2 white--text">
+                Learn More
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-overlay>
   </v-parallax>
-    </row>
 </template>
 
 <script setup>
