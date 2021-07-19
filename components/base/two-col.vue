@@ -19,24 +19,24 @@
         <v-sheet
           rounded
           shaped
-          class="icon-section transparent"
+          class="icon-section transparent text-center"
           :class="{
-            'text-left': index % 2 === 0,
-            'text-right': index % 2 !== 0
+            'text-md-left': index % 2 === 0,
+            'text-md-right': index % 2 !== 0
           }"
         >
           <div
-            class="mb-5"
+            class="mb-5 text-center"
             :class="{
-              'text-right': index % 2 !== 0,
-              'text-left': index % 2 === 0
+              'text-md-right': index % 2 !== 0,
+              'text-md-left': index % 2 === 0
             }"
           >
             <h2
-              class="section-name mb-10"
+              class="section-name mb-10 text-center"
               :class="{
-                'text-right ml-2': index % 2 === 0,
-                'text-left mr-2': index % 2 !== 0
+                'text-md-right ml-md-4': index % 2 === 0,
+                'text-md-left mr-md-4': index % 2 !== 0
               }"
             >
               {{ category.name }}
@@ -45,8 +45,8 @@
 
           <div
             :class="{
-              'text-right mr-4': index % 2 !== 0,
-              'text-left ml-4': index % 2 === 0
+              'text-md-right mr-md-4': index % 2 !== 0,
+              'text-md-left ml-md-4': index % 2 === 0
             }"
             v-html="category.content"
           ></div>
