@@ -6,9 +6,12 @@
     temporary
     right
     app
-    color="#426464"
   >
     <v-list-item>
+      <v-list-item-avatar>
+        <v-img src="https://madisoncounty.in.gov/images/recoloredlogo.png" />
+      </v-list-item-avatar>
+
       <v-list-item-content>
         <v-list-item-title class="title" v-text="location.county">
         </v-list-item-title>
@@ -18,30 +21,62 @@
     </v-list-item>
 
     <v-divider></v-divider>
-    <v-list dense>
-      <v-list-item v-for="item in categories" :key="item.name" href>
+
+    <v-list>
+      <v-list-item link to="/">
+        <v-list-item-icon>
+          <v-icon>mdi-home</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item
+        v-for="item in categories"
+        :key="item.name"
+        link
+        :href="`/#${item.slug}`"
+      >
         <v-list-item-icon>
           <v-icon>{{ categoryIcon(item.slug) }}</v-icon>
         </v-list-item-icon>
 
-        <NuxtLink :to="{ path: '/', hash: item.slug }">
-          <v-list-item-content>
-            <v-list-item-title>{{ item.name }}</v-list-item-title>
-          </v-list-item-content>
-        </NuxtLink>
+        <v-list-item-content>
+          <v-list-item-title>{{ item.name }}</v-list-item-title>
+        </v-list-item-content>
       </v-list-item>
-    </v-list>
-    <v-list>
-      <NuxtLink to="/directory">
-        <v-list-item>
-          <v-list-item-icon> </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>
-              Directory
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </NuxtLink>
+
+      <v-list-item link to="/directory">
+        <v-list-item-icon>
+          <v-icon>mdi-home</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Directory</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item link to="/#events">
+        <v-list-item-icon>
+          <v-icon>mdi-home</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Events</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item link to="/#destinations">
+        <v-list-item-icon>
+          <v-icon>mdi-home</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Destinations</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
