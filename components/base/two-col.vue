@@ -8,10 +8,10 @@
       :class="{
         'flex-md-row': index % 2 === 0,
         'flex-md-row-reverse': index % 2 !== 0,
-        secondary: index % 5 === 0,
-        lightgrey: index % 5 === 1,
-        hyperlink: index % 5 === 2,
-        lightgrey: index % 5 === 3
+        lightgrey: index % 5 === 0,
+        secondary: index % 5 === 1,
+        lightgrey: index % 5 === 2,
+        hyperlink: index % 5 === 3
       }"
       justify="center"
     >
@@ -56,12 +56,14 @@
             :to="'/' + category.slug + '/' + post.slug"
             class="d-inline-flex ma-4"
           >
+          
+
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   v-bind="attrs"
                   v-on="on"
-                  class="square-reveal lightgrey"
+                  class="square-reveal transparent"
                   width="100"
                   height="100"
                   elevation="4"
@@ -69,9 +71,7 @@
                   icon
                   :style="{ content: 'post.slug' }"
                 >
-                  <v-icon size="40">
-                    {{ post.icon }}
-                  </v-icon>
+                    <v-img :src="'http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/'+ post.icon + '.png'" width="100%"/>
                 </v-btn>
               </template>
               <span
@@ -95,8 +95,7 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <WhatsUpDestinations />
-    <BaseUpcomingevents />
+
   </v-container>
 </template>
 

@@ -1,10 +1,12 @@
 <template>
-  <v-row no-gutters>
-		<div class="block-head text-center mb-5">
-      
-			<h2 class="head-line display-3 blackish--text d-flex flex-column">
-        <small class="top-subheader primary--text text-left">Don't know where to go?</small>Let's Explore
-			</h2>
+  <v-row class="hyperlink" no-gutters>
+		<div class="block-head text-center col-12 mb-5">
+        
+      <div>
+        <h2 class="head-line display-3 lightgrey--text d-inline-flex flex-column mb-16">
+         <small class="top-subheader accent--text text-center">Don't know where to go?</small>Let's Explore
+			  </h2>
+      </div>
 			<!-- <p class="lead mt-2 head-desc primary--text">Upcoming events</p> -->
 		</div>
     

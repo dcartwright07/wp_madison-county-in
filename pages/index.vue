@@ -3,6 +3,10 @@
     <BaseHeroslider />
     <!-- <BaseIntrobar /> -->
     <BaseTwoCol />
+    <BaseVisitorsect />
+    <WhatsUpDestinations />
+    <BaseUpcomingevents />
+
   </section>
 </template>
 
