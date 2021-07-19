@@ -7,8 +7,8 @@
 		</div>
 
 		<v-container>
-			<v-row class="row d-flex justify-center">
-        <v-col class="col-lg-2" v-for="event in latestEvents" :key="event.name">
+			<v-row class="row d-flex justify-space-between">
+        <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-for="event in upcomingEventList" :key="event.name">
           <v-card class="card card-lift--hover shadow border-0">
             <v-img height="250" class="img-fluid" :src="event.image" alt=""/>
             <v-card-title class="font-weight-normal event_name" >{{event.name}}</v-card-title>
@@ -31,14 +31,29 @@ export default {
   async fetch() {
 	let options = {
 		type: "latest",
-		limit: "5"
+		limit: "6"
 	};
     await this.getEvents(options);
   },
 
-  computed: mapState({
-    latestEvents: state => state.wuapi.latestEvents
-  }),
+  computed: {
+    upcomingEventList() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+        case 'sm':
+          return this.latestEvents.slice(0, 4)
+        case 'md':
+          return this.latestEvents.slice(0, 3)
+        case 'lg':
+          return this.latestEvents.slice(0, 4)
+        case 'xl':
+          return this.latestEvents
+      }
+    },
+    ...mapState({
+      latestEvents: state => state.wuapi.latestEvents
+    }),
+  },
 
   methods: mapActions("wuapi", ["getEvents"])
 };

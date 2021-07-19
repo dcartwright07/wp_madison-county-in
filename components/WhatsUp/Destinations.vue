@@ -8,37 +8,37 @@
 
     <v-container>
       <v-row>
-          <v-col
-      v-for="destination in randomDestinations"
-      :key="destination.id"
-      cols="12"
-      md="6"
-      lg="4"
-    >
-      <v-hover v-slot="{ hover }">
-        <a
-          :href="
-            `https://www.whatsup247.com/destinations/detail/${destination.id}`
-          "
-          target="_blank"
+        <v-col
+          v-for="destination in randomDestinations"
+          :key="destination.id"
+          cols="12"
+          md="6"
+          lg="4"
         >
-          <v-card class="mx-auto mb-10" color="grey lighten-4" max-width="600">
-            <v-img :aspect-ratio="16 / 9" :src="destination.listing_image">
-              <v-expand-transition>
-                <div
-                  v-if="hover"
-                  class="transition-fast-in-fast-out v-card--reveal white--text"
-                  style="height: 30%;"
-                >
-                  <h3>{{ destination.name }}</h3>
-                  <p>{{ destination.city }}, {{ destination.state }}</p>
-                </div>
-              </v-expand-transition>
-            </v-img>
-          </v-card>
-        </a>
-      </v-hover>
-    </v-col>
+          <v-hover v-slot="{ hover }">
+            <a
+              :href="
+                `https://www.whatsup247.com/destinations/detail/${destination.id}`
+              "
+              target="_blank"
+            >
+              <v-card class="mx-auto mb-10" color="grey lighten-4" max-width="600">
+                <v-img :aspect-ratio="16 / 9" :src="destination.listing_image">
+                  <v-expand-transition>
+                    <div
+                      v-if="hover"
+                      class="transition-fast-in-fast-out v-card--reveal white--text"
+                      style="height: 30%;"
+                    >
+                      <h3>{{ destination.name }}</h3>
+                      <p>{{ destination.city }}, {{ destination.state }}</p>
+                    </div>
+                  </v-expand-transition>
+                </v-img>
+              </v-card>
+            </a>
+          </v-hover>
+        </v-col>
       </v-row>
     </v-container>
 
