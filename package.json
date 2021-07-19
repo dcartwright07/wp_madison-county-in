@@ -23,6 +23,7 @@
     "vuex-search": "^2.2.5"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "@nuxtjs/vuetify": "^1.11.3",
     "@wdio/cli": "^7.2.1",
     "@wdio/local-runner": "^7.2.1",

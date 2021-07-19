@@ -74,6 +74,9 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ["~/assets/variables.scss"],
+    defaultAssets: {
+      icons: "fa"
+    },
     theme: {
       dark: false,
       light: true,
@@ -105,7 +108,7 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
         }
-      }
+      },
     }
   },
   /* Color Theme Swatches in Hex */

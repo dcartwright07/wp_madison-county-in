@@ -25,7 +25,7 @@
     <v-list>
       <v-list-item link to="/">
         <v-list-item-icon>
-          <v-icon>mdi-home</v-icon>
+          <v-icon dense>fas fa-home</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -34,13 +34,13 @@
       </v-list-item>
 
       <v-list-item
-        v-for="item in categories"
+        v-for="item in categorySections"
         :key="item.name"
         link
-        :href="`/#${item.slug}`"
+        :href="`/#${item.url}`"
       >
         <v-list-item-icon>
-          <v-icon>{{ categoryIcon(item.slug) }}</v-icon>
+          <v-icon dense>{{ item.icon }}</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -48,7 +48,22 @@
         </v-list-item-content>
       </v-list-item>
 
-      <!-- <v-list-item link to="/#directory">
+      <v-list-item
+        v-for="item in wuSections"
+        :key="item.name"
+        link
+        :href="`/#${item.url}`"
+      >
+        <v-list-item-icon>
+          <v-icon dense>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>{{ item.name }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <!-- <v-list-item link href="/#directory">
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
@@ -56,9 +71,9 @@
         <v-list-item-content>
           <v-list-item-title>Directory</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
 
-      <v-list-item link to="/#events">
+      <!-- <v-list-item link href="/#events">
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
@@ -68,7 +83,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="/#destinations">
+      <v-list-item link href="/#destinations">
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
@@ -94,12 +109,45 @@ export default {
 
   data() {
     return {
-      cat_icon: {
-        government: "mdi-bank",
-        business: "mdi-handshake",
-        residents: "mdi-homegroup ",
-        visitors: "mdi-mapsearch"
-      }
+      categorySections: [
+        {
+          name: "Government",
+          url: "/#government",
+          icon: "fas fa-university"
+        },
+        {
+          name: "Business",
+          url: "/#business",
+          icon: "fas fa-handshake"
+        },
+        {
+          name: "Residents",
+          url: "/#residents",
+          icon: "fas fa-house-user"
+        },
+        {
+          name: "Visitors",
+          url: "/#visitors",
+          icon: "fas fa-map-marked-alt"
+        }
+      ],
+      wuSections: [
+        {
+          name: "Events",
+          url: "/#events",
+          icon: "fas fa-calendar-alt"
+        },
+        {
+          name: "Directory",
+          url: "/directory",
+          icon: "fas fa-folder-open"
+        },
+        {
+          name: "Destinations",
+          url: "/#destinations",
+          icon: "fas fa-map-signs"
+        }
+      ]
     };
   },
 
