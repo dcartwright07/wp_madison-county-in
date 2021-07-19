@@ -1,31 +1,27 @@
 <template>
-<v-row class="lightgrey" no-gutters>
-	<div class="text-center ">
-		<div class="block-head text-center mb-15">
-			<p class="lead mt-2 head-desc primary--text">Stay Engage</p>
-			<h2 class="head-line display-1 mb-10 blackish--text">
-				Upcoming Events
+  <div class="lightgrey pb-10">
+    <div class="d-flex justify-space-around mt-8 mb-10 pt-8 pb-5">
+			<h2 class="head-line display-3 text-center blackish--text">
+        <small class="top-subheader primary--text text-left">Stay Engaged</small><br/>Upcoming Events
 			</h2>
 		</div>
+
 		<v-container>
 			<v-row class="row d-flex justify-center">
-                <v-col class="col-lg-2" v-for="event in latestEvents" :key="event.name">
-                    <v-card class="card card-lift--hover shadow border-0">
-                        <v-img height="250" class="img-fluid" :src="event.image" alt=""/>
-                            <v-card-title class="font-weight-normal event_name" >{{event.name}}</v-card-title>
-                        <v-card-text class="card-body text-left py-4">
-                            <p class="font-weight-medium">{{event.start | formatDate($moment, "DD MMMM YYYY")}}</p>
-                            <p class="description mb-4">{{event.desc}}</p>
-                            <a class="btn btn-primary" href="javascript:void(0);">Read More</a>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
+        <v-col class="col-lg-2" v-for="event in latestEvents" :key="event.name">
+          <v-card class="card card-lift--hover shadow border-0">
+            <v-img height="250" class="img-fluid" :src="event.image" alt=""/>
+            <v-card-title class="font-weight-normal event_name" >{{event.name}}</v-card-title>
+            <v-card-text class="card-body text-left py-4">
+              <p class="font-weight-medium">{{event.start | formatDate($moment, "DD MMMM YYYY")}}</p>
+              <p class="description mb-4">{{event.desc}}</p>
+              <a class="btn btn-primary" href="javascript:void(0);">Read More</a>
+            </v-card-text>
+          </v-card>
+        </v-col>
 			</v-row>
 		</v-container>
 	</div>
-
-
-  </v-row>
 </template>
 
 <script>
@@ -49,6 +45,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h2{
+  small{
+    font-size: 1.5rem;
+  }
+}
 .event_name{
     word-break: break-word !important;
 }

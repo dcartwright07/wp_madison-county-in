@@ -1,11 +1,9 @@
 <template>
   <div>
 		<div class="d-flex justify-space-around mt-8 mb-10">
-
 			<h2 class="head-line display-3 text-center blackish--text">
         <small class="top-subheader primary--text text-left">Don't know where to go?</small><br/>Let's Explore
 			</h2>
-			<!-- <p class="lead mt-2 head-desc primary--text">Upcoming events</p> -->
 		</div>
 
     <v-container>
