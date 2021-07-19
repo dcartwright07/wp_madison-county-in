@@ -48,7 +48,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="/directory">
+      <!-- <v-list-item link to="/#directory">
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
@@ -76,7 +76,7 @@
         <v-list-item-content>
           <v-list-item-title>Destinations</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
     </v-list>
   </v-navigation-drawer>
 </template>

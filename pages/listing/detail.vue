@@ -1,14 +1,15 @@
 <template>
-	<div class="main-wrapper">
-		<title-bar title="Dingloy Place" subtitle="Explore New Places"></title-bar>
+<div></div>
+	<!-- <div class="main-wrapper">
+		<title-bar title="Dingloy Place" subtitle="Explore New Places"></title-bar> -->
 		<!-- Content -->
-		<div class="container">
+		<!-- <div class="container">
 			<div class="content">
 				<div class="row sticky-wrapper">
 					<div class="col-md-8 col-lg-8 mb-3">
 						<div class="">
 							<div class="detail-tile mb-4">
-								<h3 v-html="data.name"/>data.name 
+								<h3 v-html="data.name"/>data.name
 								<p class="text-muted" v-html="event.address + '<br/>' + event.city + ' ' + event.state + ', '+ event.zip"/>
 								<span class="badge badge-pill badge-info text-uppercase mr-2">data.categories</span>
 							</div>
@@ -62,25 +63,25 @@
 					</div>
 				</div>
 			</div>
-		</div>     
-	</div>  
+		</div>
+	</div> -->
 </template>
 
 <script>
 // import TitleBar from 'Components/globalFrontendComponents/TitleBar';
 // import SidebarLayoutTwo from 'Views/listing/SidebarLayoutTwo';
 export default {
-	data(){
-		return{
-			center: {
-				lat : -34.397,
-				lng : 150.644
-			}
-		}
-	},
-	components: {
-		TitleBar: TitleBar,
-		SidebarLayoutTwo: SidebarLayoutTwo
-	}
+	// data(){
+	// 	return{
+	// 		center: {
+	// 			lat : -34.397,
+	// 			lng : 150.644
+	// 		}
+	// 	}
+	// },
+	// components: {
+	// 	TitleBar: TitleBar,
+	// 	SidebarLayoutTwo: SidebarLayoutTwo
+	// }
 };
 </script>

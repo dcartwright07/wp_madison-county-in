@@ -8,14 +8,6 @@
     </v-main>
 
     <Footer />
-    <!-- <v-footer
-      :absolute="!fixed"
-      app
-      black
-    >
-    this is a test
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer> -->
   </v-app>
 </template>
 
