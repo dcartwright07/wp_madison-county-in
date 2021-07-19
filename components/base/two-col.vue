@@ -42,6 +42,7 @@
               {{ category.name }}
             </h2>
           </div>
+
           <div
             :class="{
               'text-right mr-4': index % 2 !== 0,
@@ -49,29 +50,27 @@
             }"
             v-html="category.content"
           ></div>
-          <nuxt-link
+
+          <div
             v-for="post in category.posts"
             :key="post.slug"
-            style="text-decoration: none;"
-            :to="'/' + category.slug + '/' + post.slug"
             class="d-inline-flex ma-4"
           >
-          
-
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   v-bind="attrs"
                   v-on="on"
-                  class="square-reveal transparent"
                   width="100"
                   height="100"
-                  elevation="4"
-                  fab
-                  icon
-                  :style="{ content: 'post.slug' }"
+                  elevation="2"
+                  :to="'/' + category.slug + '/' + post.slug"
                 >
-                    <v-img :src="'http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/'+ post.icon + '.png'" width="100%"/>
+                  <v-img
+                    :src="'http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/'+ post.icon + '.png'"
+                    width="100"
+                    height="100"
+                  />
                 </v-btn>
               </template>
               <span
@@ -79,7 +78,8 @@
                 v-html="post.name"
               />
             </v-tooltip>
-          </nuxt-link>
+          </div>
+
         </v-sheet>
       </v-col>
 
