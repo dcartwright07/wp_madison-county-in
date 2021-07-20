@@ -1,17 +1,8 @@
 <template>
 	<div class="main-wrapper">
-    <!-- <WhatsUpListingHeader :image="event.image" /> -->
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    Test
-    <!-- {{ event.name }} -->
+    <WhatsUpListingHeader :image="event.image" />
 
-		<!-- <title-bar :title="event.name" subtitle="Explore New Places">{{ event.name }}</title-bar> -->
+		<title-bar :title="event.name" subtitle="Explore New Places">{{ event.name }}</title-bar>
 		<!-- Content -->
 		<!-- <div class="container">
 			<div class="content">
@@ -81,12 +72,6 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
-  // middleware: "bearer-token",
-
-  // async fetch({ store, params }) {
-  //   await store.dispatch("wuapi/getEvent", params.id);
-  // },
-
   computed: mapState({
     event: state => state.wuapi.event
   }),

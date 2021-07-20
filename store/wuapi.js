@@ -9,10 +9,7 @@ const getAuthorization = (config, axios) => {
     },
     {
       baseURL: config.wuApiUrl,
-      headers: {
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "https://madison-county-indiana.herokuapp.com"
-      }
+      headers: { Accept: "application/json" }
     }
   );
 };
@@ -341,14 +338,13 @@ export const actions = {
       await dispatch("setApiToken");
     }
 
-    const url = this.$config.wuApiUrl + "/event/" + id;
+    const url = "/wuapi/event/" + id;
 
     const event = await this.$axios
       .get(url, {
         headers: {
           Authorization: "Bearer " + state.token,
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "https://madison-county-indiana.herokuapp.com"
         }
       })
       .then(response => {

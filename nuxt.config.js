@@ -63,6 +63,11 @@ export default {
       target: "https://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
       pathRewrite: { "^/api": "" },
       changeOrigin: true
+    },
+    "/wuapi/": {
+      target: "https://api.whatsup247.com",
+      pathRewrite: { "^/wuapi": "" },
+      changeOrigin: true
     }
   },
 
