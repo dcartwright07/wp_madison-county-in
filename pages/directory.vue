@@ -104,8 +104,18 @@ export default {
     users: []
   }),
 
+  async fetch({ store }) {
+    let options = {
+      limit: "500"
+    };
+    await store.dispatch("wuapi/getDirectory", options);
+  },
+
   computed: {
-    ...mapState(["offices"]),
+    ...mapState({
+      organizations: state => state.wuapi.directory
+    }),
+
     items() {
       return [
         {

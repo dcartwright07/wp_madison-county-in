@@ -357,7 +357,7 @@ export const actions = {
     commit("SET_EVENT", event);
   },
 
-  async getDirectory({ state, dispatch, commit }) {
+  async getDirectory({ state, dispatch, commit }, options) {
     if (!state.token) {
       await dispatch("setApiToken");
     }
@@ -367,7 +367,7 @@ export const actions = {
         this.$config.wuApiUrl +
           "/directory?organization_id=" +
           this.$config.orgId +
-          "&copromotion=1",
+          "&limit=" + options.limit,
         {
           headers: {
             Authorization: "Bearer " + state.token,
@@ -383,6 +383,7 @@ export const actions = {
         console.log(error);
         context.error(error);
       });
+
     commit("UPDATE_DIRECTORY", directory);
   },
 
