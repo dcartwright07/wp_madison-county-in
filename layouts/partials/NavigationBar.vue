@@ -106,16 +106,9 @@ export default {
     }
   }
 }
-.home {
-  a,
-  .v-icon {
-    color: #fff;
-  }
-}
-.not-home {
-  a,
-  .v-icon {
-    color: rgba(68, 100, 100);
-  }
+
+a,
+.v-icon {
+  color: #fff;
 }
 </style>

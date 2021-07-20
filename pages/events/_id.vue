@@ -1,7 +1,10 @@
 <template>
-<div></div>
-	<!-- <div class="main-wrapper">
-		<title-bar title="Dingloy Place" subtitle="Explore New Places"></title-bar> -->
+	<div class="main-wrapper">
+    <WhatsUpListingHeader :image="event.image" />
+
+    {{ event.name }}
+
+		<!-- <title-bar :title="event.name" subtitle="Explore New Places">{{ event.name }}</title-bar> -->
 		<!-- Content -->
 		<!-- <div class="container">
 			<div class="content">
@@ -63,25 +66,39 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div> -->
+		</div> -->
+	</div>
 </template>
 
 <script>
-// import TitleBar from 'Components/globalFrontendComponents/TitleBar';
-// import SidebarLayoutTwo from 'Views/listing/SidebarLayoutTwo';
+import { mapState } from "vuex";
+
 export default {
-	// data(){
-	// 	return{
-	// 		center: {
-	// 			lat : -34.397,
-	// 			lng : 150.644
-	// 		}
-	// 	}
-	// },
-	// components: {
-	// 	TitleBar: TitleBar,
-	// 	SidebarLayoutTwo: SidebarLayoutTwo
-	// }
+  async fetch({ store, $config, $axios, params }) {
+    const token = await store.dispatch("wuapi/setApiToken");
+    const url = $config.wuApiUrl + "/event/" + params.id;
+
+    const event = await $axios
+      .get(url, {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        console.log(error)
+      });
+
+    store.commit("wuapi/SET_EVENT", event);
+  },
+
+  computed: mapState({
+    event: state => state.wuapi.event
+  })
+
 };
 </script>

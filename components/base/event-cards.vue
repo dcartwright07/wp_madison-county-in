@@ -16,7 +16,7 @@
           elevation="2"
           class="event-card"
           height="100%"
-          :href="`https://www.whatsup247.com/events/detail/` + event.id"
+          :to="`/events/` + event.id"
         >
           <v-card-title class="pb-2 accent--text">{{ event.name }}</v-card-title>
           <v-card-text>
