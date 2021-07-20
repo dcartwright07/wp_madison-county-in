@@ -37,7 +37,7 @@
         v-for="item in categorySections"
         :key="item.name"
         link
-        :href="`/#${item.url}`"
+        :href="item.url"
       >
         <v-list-item-icon>
           <v-icon dense>{{ item.icon }}</v-icon>
@@ -52,7 +52,7 @@
         v-for="item in wuSections"
         :key="item.name"
         link
-        :href="`/#${item.url}`"
+        :href="item.url"
       >
         <v-list-item-icon>
           <v-icon dense>{{ item.icon }}</v-icon>
