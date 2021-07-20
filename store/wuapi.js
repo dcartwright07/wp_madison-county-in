@@ -11,7 +11,7 @@ const getAuthorization = (config, axios) => {
       baseURL: config.wuApiUrl,
       headers: {
         Accept: "application/json",
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "https://madison-county-indiana.herokuapp.com"
       }
     }
   );
@@ -348,7 +348,7 @@ export const actions = {
         headers: {
           Authorization: "Bearer " + state.token,
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
+          "Access-Control-Allow-Origin": "https://madison-county-indiana.herokuapp.com"
         }
       })
       .then(response => {

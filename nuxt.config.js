@@ -43,7 +43,7 @@ export default {
   modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
 
   axios: {
-    baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
+    // baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
     proxy: true
   },
 
@@ -64,11 +64,6 @@ export default {
       pathRewrite: { "^/api": "" },
       changeOrigin: true
     }
-    // "/wuapi/": {
-    //   target: "https://api.whatsup247.com",
-    //   pathRewrite: { "^/wuapi": "" },
-    //   changeOrigin: true
-    // }
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
