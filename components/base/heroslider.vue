@@ -31,14 +31,17 @@
     </v-carousel>
 
     <v-sheet
-      class="header-wrap pl-md-16 pr-md-16 absolute"
+      class="header-wrap pl-5 pr-5 pl-md-16 pr-md-16 absolute"
       v-for="(post, index) in homeFeatures"
       :key="post.id"
     >
       <v-slide-x-transition hide-on-leave>
         <h2
           color="primary"
-          class="lightgrey--text h2 ma-0 pa-0 "
+          class="lightgrey--text h2 ma-0 pa-0"
+          :style="{
+            'font-size': header2
+          }"
           v-if="carouselIndex === index"
           v-html="post.acf.subheader"
         ></h2>
@@ -47,7 +50,8 @@
       <v-slide-x-reverse-transition hide-on-leave>
         <h1
           color="primary"
-          class="lightgrey--text h1 ma-0 pa-0 mt-3"
+          class="lightgrey--text ma-0 pa-0 mt-3"
+          :style="header1"
           v-if="carouselIndex === index"
           v-html="post.title.rendered"
         ></h1>
@@ -87,6 +91,39 @@ export default {
         yoast_head
       })
     );
+  },
+
+  computed: {
+    header2() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return "30px"
+        case 'sm':
+        case 'md':
+        case 'lg':
+        case 'xl':
+          return "62px"
+      }
+    },
+    header1() {
+      let object = {};
+
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return object = {
+            "font-size": "40px",
+            "line-height": "1.07"
+          }
+        case 'sm':
+        case 'md':
+        case 'lg':
+        case 'xl':
+          return object = {
+            "font-size": "62px",
+            "line-height": "1.1"
+          }
+      }
+    }
   }
 };
 </script>
@@ -98,16 +135,8 @@ export default {
   max-width: 1026px;
   display: flex;
   flex-direction: column;
-
-  .h1,
-  .h2 {
-    font-size: 62px;
-  }
   .h2 {
     font-weight: 200;
-  }
-  .h1 {
-    line-height: 1.1;
   }
 }
 .postcontent {

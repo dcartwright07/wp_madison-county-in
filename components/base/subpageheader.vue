@@ -36,9 +36,12 @@
 <script>
 export default {
   props: {
-    office: Object
+    office: {
+      type: Object,
+      required: true
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

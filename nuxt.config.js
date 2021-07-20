@@ -43,7 +43,7 @@ export default {
   modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
 
   axios: {
-    baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
+    // baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
     proxy: true
   },
 
@@ -63,17 +63,20 @@ export default {
       target: "https://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
       pathRewrite: { "^/api": "" },
       changeOrigin: true
+    },
+    "/wuapi/": {
+      target: "https://api.whatsup247.com",
+      pathRewrite: { "^/wuapi": "" },
+      changeOrigin: true
     }
-    // "/wuapi/": {
-    //   target: "https://api.whatsup247.com",
-    //   pathRewrite: { "^/wuapi": "" },
-    //   changeOrigin: true
-    // }
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ["~/assets/variables.scss"],
+    defaultAssets: {
+      icons: "fa"
+    },
     theme: {
       dark: false,
       light: true,
@@ -105,7 +108,7 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
         }
-      }
+      },
     }
   },
   /* Color Theme Swatches in Hex */

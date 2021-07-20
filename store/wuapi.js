@@ -18,6 +18,7 @@ export const state = () => ({
   token: "",
   featuredEvents: [],
   latestEvents: [],
+  event: {},
   directory: [],
   destinations: [],
   event_categories: [
@@ -116,155 +117,155 @@ export const state = () => ({
         "image":"https://www.whatsup247.com/img/events/categories/18-arts.png",
         "color":"#8F0800"
      }
-],
-destinations_categories:[
-  {
-      "name":"Misc",
-      "image":"https://www.whatsup247.com/img/destinations/categories/misc.png",
-      "color":"#fb8909"
-  
-  },
-  {
-      "name":"Architecture & Installations",
-      "image":"https://www.whatsup247.com/img/destinations/categories/architecture.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Breweries, Distilleries & Wineries",
-      "image":"https://www.whatsup247.com/img/destinations/categories/wineries-distilleries.png",
-      "color":"#e18d19"
-  
-  },
-  {
-      "name":"History: Cultural History & Markers",
-      "image":"https://www.whatsup247.com/img/destinations/categories/culture.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Event Venues",
-      "image":"https://www.whatsup247.com/img/destinations/categories/venues.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Fairs & Festivals",
-      "image":"https://www.whatsup247.com/img/destinations/categories/fairs-festivals.png",
-      "color":"#DE590F"
-  
-  },
-  {
-      "name":"History: Faith Heritage & Cemeteries",
-      "image":"https://www.whatsup247.com/img/destinations/categories/faith.png",
-      "color":"#446257"
-  
-  },
-  {
-      "name":"Food & Culinary",
-      "image":"https://www.whatsup247.com/img/destinations/categories/food.png",
-      "color":"#9C002B"
-  
-  },
-  {
-      "name":"Health & Fitness",
-      "image":"https://www.whatsup247.com/img/destinations/categories/health-fitness.png",
-      "color":"#485E86"
-  
-  },
-  {
-      "name":"History: Historic Cities, Towns & Districts",
-      "image":"https://www.whatsup247.com/img/destinations/categories/cities.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Libraries",
-      "image":"https://www.whatsup247.com/img/destinations/categories/libraries.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"History: Museums & Collections",
-      "image":"https://www.whatsup247.com/img/destinations/categories/museums.png",
-      "color":"#b89a00"
-  
-  },
-  {
-      "name":"Natural Spaces & Archaeology",
-      "image":"https://www.whatsup247.com/img/destinations/categories/archaeology.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Parks & Preserves",
-      "image":"https://www.whatsup247.com/img/destinations/categories/parks.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Performing Arts & Entertainment",
-      "image":"https://www.whatsup247.com/img/destinations/categories/arts-entertainment.png",
-      "color":"#902610"
-  
-  },
-  {
-      "name":"Shopping & Antiques",
-      "image":"https://www.whatsup247.com/img/destinations/categories/shopping.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"History: Sports Heritage",
-      "image":"https://www.whatsup247.com/img/destinations/categories/sports-heritage.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Sports & Recreation",
-      "image":"https://www.whatsup247.com/img/destinations/categories/sports-recreation.png",
-      "color":"#2ab700"
-  
-  },
-  {
-      "name":"Arts & Artisans",
-      "image":"https://www.whatsup247.com/img/destinations/categories/arts.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Trails: Heritage & Byways",
-      "image":"https://www.whatsup247.com/img/destinations/categories/trails.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Trails: Hiking & Biking",
-      "image":"https://www.whatsup247.com/img/destinations/categories/hiking-biking.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Travel & Lodging",
-      "image":"https://www.whatsup247.com/img/destinations/categories/travel-lodging.png",
-      "color":"#543800"
-  
-  },
-  {
-      "name":"Agricultural Markets & Adventures",
-      "image":"https://www.whatsup247.com/img/destinations/categories/agriculture.png",
-      "color":"#000000"
-  
-  },
-  {
-      "name":"Colleges & Universities",
-      "image":"https://www.whatsup247.com/img/destinations/categories/colleges.png",
-      "color":"#000000"
-  
-  }
-],
-directory_categories:[],
-test:"test in store wuapi"
+  ],
+  destinations_categories:[
+    {
+        "name":"Misc",
+        "image":"https://www.whatsup247.com/img/destinations/categories/misc.png",
+        "color":"#fb8909"
+
+    },
+    {
+        "name":"Architecture & Installations",
+        "image":"https://www.whatsup247.com/img/destinations/categories/architecture.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Breweries, Distilleries & Wineries",
+        "image":"https://www.whatsup247.com/img/destinations/categories/wineries-distilleries.png",
+        "color":"#e18d19"
+
+    },
+    {
+        "name":"History: Cultural History & Markers",
+        "image":"https://www.whatsup247.com/img/destinations/categories/culture.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Event Venues",
+        "image":"https://www.whatsup247.com/img/destinations/categories/venues.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Fairs & Festivals",
+        "image":"https://www.whatsup247.com/img/destinations/categories/fairs-festivals.png",
+        "color":"#DE590F"
+
+    },
+    {
+        "name":"History: Faith Heritage & Cemeteries",
+        "image":"https://www.whatsup247.com/img/destinations/categories/faith.png",
+        "color":"#446257"
+
+    },
+    {
+        "name":"Food & Culinary",
+        "image":"https://www.whatsup247.com/img/destinations/categories/food.png",
+        "color":"#9C002B"
+
+    },
+    {
+        "name":"Health & Fitness",
+        "image":"https://www.whatsup247.com/img/destinations/categories/health-fitness.png",
+        "color":"#485E86"
+
+    },
+    {
+        "name":"History: Historic Cities, Towns & Districts",
+        "image":"https://www.whatsup247.com/img/destinations/categories/cities.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Libraries",
+        "image":"https://www.whatsup247.com/img/destinations/categories/libraries.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"History: Museums & Collections",
+        "image":"https://www.whatsup247.com/img/destinations/categories/museums.png",
+        "color":"#b89a00"
+
+    },
+    {
+        "name":"Natural Spaces & Archaeology",
+        "image":"https://www.whatsup247.com/img/destinations/categories/archaeology.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Parks & Preserves",
+        "image":"https://www.whatsup247.com/img/destinations/categories/parks.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Performing Arts & Entertainment",
+        "image":"https://www.whatsup247.com/img/destinations/categories/arts-entertainment.png",
+        "color":"#902610"
+
+    },
+    {
+        "name":"Shopping & Antiques",
+        "image":"https://www.whatsup247.com/img/destinations/categories/shopping.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"History: Sports Heritage",
+        "image":"https://www.whatsup247.com/img/destinations/categories/sports-heritage.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Sports & Recreation",
+        "image":"https://www.whatsup247.com/img/destinations/categories/sports-recreation.png",
+        "color":"#2ab700"
+
+    },
+    {
+        "name":"Arts & Artisans",
+        "image":"https://www.whatsup247.com/img/destinations/categories/arts.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Trails: Heritage & Byways",
+        "image":"https://www.whatsup247.com/img/destinations/categories/trails.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Trails: Hiking & Biking",
+        "image":"https://www.whatsup247.com/img/destinations/categories/hiking-biking.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Travel & Lodging",
+        "image":"https://www.whatsup247.com/img/destinations/categories/travel-lodging.png",
+        "color":"#543800"
+
+    },
+    {
+        "name":"Agricultural Markets & Adventures",
+        "image":"https://www.whatsup247.com/img/destinations/categories/agriculture.png",
+        "color":"#000000"
+
+    },
+    {
+        "name":"Colleges & Universities",
+        "image":"https://www.whatsup247.com/img/destinations/categories/colleges.png",
+        "color":"#000000"
+
+    }
+  ],
+  directory_categories:[],
+  test:"test in store wuapi"
 });
 
 export const mutations = {
@@ -276,6 +277,9 @@ export const mutations = {
   },
   UPDATE_LATEST_EVENTS: (state, array) => {
     state.latestEvents = array;
+  },
+  SET_EVENT: (state, object) => {
+    state.event = object;
   },
   UPDATE_DIRECTORY: (state, array) => {
     state.directory = array;
@@ -289,6 +293,7 @@ export const actions = {
   async setApiToken({ commit }) {
     const auth = await getAuthorization(this.$config, this.$axios);
     await commit("UPDATE_TOKEN", auth.data.access_token);
+    return auth.data.access_token;
   },
 
   async getEvents({ state, dispatch, commit }, options) {
@@ -320,12 +325,36 @@ export const actions = {
         console.log(error)
         context.error(error)
       })
-    
+
     if(options.type == "featured") {
       commit("UPDATE_FEATURED_EVENTS", events.slice(0, options.limit))
     } else if(options.type == "latest") {
       commit("UPDATE_LATEST_EVENTS", events.slice(0, options.limit))
     }
+  },
+
+  async getEvent({ state, dispatch, commit }, id) {
+    if (!state.token) {
+      await dispatch("setApiToken");
+    }
+
+    const url = "/wuapi/event/" + id;
+
+    const event = await this.$axios
+      .get(url, {
+        headers: {
+          Authorization: "Bearer " + state.token,
+          "Content-Type": "application/json",
+        }
+      })
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        console.log(error)
+      });
+
+    commit("SET_EVENT", event);
   },
 
   async getDirectory({ state, dispatch, commit }) {

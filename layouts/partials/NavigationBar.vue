@@ -9,9 +9,6 @@
     style="z-index:2;"
     dark
   >
-    <div class="blur-container">
-      <div class="blur-content" style=""></div>
-    </div>
     <nuxt-link
       class="d-flex text-decoration-none justify-center align-center flex-nowrap"
       to="/"
@@ -21,20 +18,23 @@
         max-height="45"
         max-width="45"
         src="https://madisoncounty.in.gov/images/recoloredlogo.png"
-        lazy-src="https://madisoncounty.in.gov/images/recoloredlogo.png"
-      ></v-img>
+      />
 
       <v-toolbar-title
         class="mr-16 text-decoration-none"
         v-text="location.county + ', ' + location.state.abbrv"
       />
     </nuxt-link>
-    <v-spacer />
-    <v-btn class="ml-16" icon>
-      <v-icon>mdi-magnify</v-icon>
-    </v-btn>
 
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+    <v-spacer />
+
+    <!-- <v-btn class="ml-16" icon>
+      <v-icon small>fas fa-search</v-icon>
+    </v-btn> -->
+
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer">
+      <v-icon small>fas fa-bars</v-icon>
+    </v-app-bar-nav-icon>
   </v-app-bar>
 </template>
 
@@ -92,11 +92,12 @@ export default {
 
 <style lang="scss" scoped>
 .v-app-bar {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%);
   &.v-app-bar--is-scrolled {
     &.blur-primary-color {
       // background-color:rgba(68,100,100,.75) !important;
       // background-color: rgba(255, 255, 255, 0.75) !important;
-      background-color: #fff !important;
+      background: #fff !important;
       // backdrop-filter: blur(10px);
     }
     a,
@@ -105,16 +106,9 @@ export default {
     }
   }
 }
-.home {
-  a,
-  .v-icon {
-    color: #fff;
-  }
-}
-.not-home {
-  a,
-  .v-icon {
-    color: rgba(68, 100, 100);
-  }
+
+a,
+.v-icon {
+  color: #fff;
 }
 </style>

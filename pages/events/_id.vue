@@ -1,7 +1,8 @@
 <template>
-<div></div>
-	<!-- <div class="main-wrapper">
-		<title-bar title="Dingloy Place" subtitle="Explore New Places"></title-bar> -->
+	<div class="main-wrapper">
+    <WhatsUpListingHeader :image="event.image" />
+
+		<title-bar :title="event.name" subtitle="Explore New Places">{{ event.name }}</title-bar>
 		<!-- Content -->
 		<!-- <div class="container">
 			<div class="content">
@@ -63,25 +64,22 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div> -->
+		</div> -->
+	</div>
 </template>
 
 <script>
-// import TitleBar from 'Components/globalFrontendComponents/TitleBar';
-// import SidebarLayoutTwo from 'Views/listing/SidebarLayoutTwo';
+import { mapState, mapActions } from "vuex";
+
 export default {
-	// data(){
-	// 	return{
-	// 		center: {
-	// 			lat : -34.397,
-	// 			lng : 150.644
-	// 		}
-	// 	}
-	// },
-	// components: {
-	// 	TitleBar: TitleBar,
-	// 	SidebarLayoutTwo: SidebarLayoutTwo
-	// }
+  computed: mapState({
+    event: state => state.wuapi.event
+  }),
+
+  methods: mapActions("wuapi", ["getEvent"]),
+
+  created() {
+    this.getEvent(this.$route.params.id);
+  }
 };
 </script>
