@@ -1,6 +1,6 @@
 <template>
   <v-item-group
-    class="absolute event-bar pl-md-16 pr-md-16"
+    class="absolute event-bar pl-5 pr-5 pl-md-16 pr-md-16"
     active-class="primary"
   >
     <v-row>
@@ -8,6 +8,7 @@
         v-for="event in eventList"
         :key="event.id"
         cols="12"
+        sm="6"
         md="4"
         lg="3"
       >
@@ -44,8 +45,9 @@ export default {
     eventList() {
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
-        case 'sm':
           return this.featuredEvents.slice(0, 1)
+        case 'sm':
+          return this.featuredEvents.slice(0, 2)
         case 'md':
         case 'lg':
         case 'xl':
