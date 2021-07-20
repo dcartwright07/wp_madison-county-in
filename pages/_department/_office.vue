@@ -4,7 +4,7 @@
 
     <v-container>
       <v-row class=" pa-5 d-flex flex-column">
-        <v-col class="section__content">
+        <!-- <v-col class="section__content">
           <div class="text-center mb-10">
             <h2 class="h2">About US</h2>
           </div>
@@ -13,7 +13,7 @@
             tag="p"
             v-html="office.acf.description"
           ></div>
-        </v-col>
+        </v-col> -->
         <v-col
           cols="12"
           class="d-flex flex-md-row flex-sm-column-reverse lightgrey pa-10"
@@ -24,12 +24,16 @@
             </div>
             <div tag="p" v-html="office.acf.services"></div>
           </div>
-          <v-img :src="office.media_url" class="col-md-6 col-sm-12 " />
+          <div class="col-md-6 col-sm-12">
+            <v-sheet elevation='5'>
+              <v-img  src="https://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1533219057257-4bb9ed5d2cc6.jpeg" height="500" />
+            </v-sheet>
+          </div>
         </v-col>
         <v-col class="section__content" v-html="office.acf.content"></v-col>
       </v-row>
     </v-container>
-    <!-- {{office}} this is A TEST -->
+   <!-- <BaseSidebar/> -->
 
     <v-row no-gutters v-if="profiles.length > 0">
       <v-col class="secondary text-center pa-5 white--text" cols="12">
