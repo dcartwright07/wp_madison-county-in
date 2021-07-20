@@ -89,7 +89,6 @@ export default {
       let array = []
 
       for (let i = 0; i < this.team.length; i++) {
-        console.log(this.$config.apiUrl + "media/" + this.team[i].media_id);
         let image = await fetch(
           this.$config.apiUrl +
             "media/" +
