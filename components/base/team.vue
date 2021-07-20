@@ -8,7 +8,7 @@
 
     <v-row justify="center">
       <!-- picture with hover affect will be -->
-      <v-col v-for="(profile, index) in team" :key="profile.id" sm="3">
+      <v-col v-for="(profile, index) in members" :key="profile.id" sm="3">
         <v-dialog v-model="dialog[index]" width="500">
           <template v-slot:activator="{ on, attrs }">
             <v-avatar v-bind="attrs" v-on="on" size="128">
@@ -66,11 +66,46 @@ export default {
     }
   },
 
+  async fetch() {
+    await this.setProfileImageUrl()
+  },
+
   data() {
     return {
       dialog: [],
-      logo: "https://madisoncounty.in.gov/images/recoloredlogo.png"
+      logo: "https://madisoncounty.in.gov/images/recoloredlogo.png",
+      members: [],
     };
+  },
+
+  methods: {
+    /**
+     * Used this function to get the image from the Wordpress API because
+     * trying to pass the value through a function call was always returning
+     * a promise and we were unable to extract the string from the promise.
+     * Being pressed for time, I resorted to an old fashioned method for loop.
+     */
+    async setProfileImageUrl() {
+      let array = []
+
+      for (let i = 0; i < this.team.length; i++) {
+        console.log(this.$config.apiUrl + "media/" + this.team[i].media_id);
+        let image = await fetch(
+          this.$config.apiUrl +
+            "media/" +
+            this.team[i].image_id
+        )
+          .then(response => response.json())
+          .catch(error => error.response.status)
+        if (!image.data) {
+          this.team[i].media_url = image.guid.rendered
+        } else {
+          this.team[i].media_url = ""
+        }
+        array.push(this.team[i])
+      }
+      this.members = array
+    }
   }
 };
 </script>

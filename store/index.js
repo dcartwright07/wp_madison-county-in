@@ -262,10 +262,7 @@ export const actions = {
             categories,
             content: content.rendered,
             email: acf ? acf.email : "",
-            media_url: getFeaturedMediaURL(
-              state.featuredImages,
-              featured_media
-            ),
+            image_id: featured_media,
             phone: acf ? acf.phone : "",
             tags,
             title: title.rendered,
