@@ -7,7 +7,7 @@
       class="flex-sm-column-reverse ma-0"
       :class="{
         'flex-md-row': index % 2 === 0,
-        'flex-md-row-reverse': index % 2 !== 0,
+        'flex-md-row-reverse ': index % 2 !== 0,
         lightgrey: index % 5 === 0,
         secondary: index % 5 === 1,
         lightgrey: index % 5 === 2,
@@ -36,7 +36,7 @@
               class="section-name mb-10 text-center"
               :class="{
                 'text-md-right ml-md-4': index % 2 === 0,
-                'text-md-left mr-md-4': index % 2 !== 0
+                'text-md-left mr-md-4 lightgrey--text': index % 2 !== 0
               }"
             >
               {{ category.name }}
@@ -45,8 +45,8 @@
 
           <div
             :class="{
-              'text-md-right mr-md-4': index % 2 !== 0,
-              'text-md-left ml-md-4': index % 2 === 0
+              'text-md-left ml-md-4 ': index % 2 === 0,
+              'text-md-right mr-md-4 lightgrey--text': index % 2 !== 0
             }"
             v-html="category.content"
           ></div>
