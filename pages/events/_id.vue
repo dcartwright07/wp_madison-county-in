@@ -1,8 +1,15 @@
 <template>
 	<div class="main-wrapper">
-    <WhatsUpListingHeader :image="event.image" />
-
-    {{ event.name }}
+    <!-- <WhatsUpListingHeader :image="event.image" /> -->
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    Test
+    <!-- {{ event.name }} -->
 
 		<!-- <title-bar :title="event.name" subtitle="Explore New Places">{{ event.name }}</title-bar> -->
 		<!-- Content -->
@@ -71,34 +78,23 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
-  async fetch({ store, $config, $axios, params }) {
-    const token = await store.dispatch("wuapi/setApiToken");
-    const url = $config.wuApiUrl + "/event/" + params.id;
+  // middleware: "bearer-token",
 
-    const event = await $axios
-      .get(url, {
-        headers: {
-          Authorization: "Bearer " + token,
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      })
-      .then(response => {
-        return response.data
-      })
-      .catch(error => {
-        console.log(error)
-      });
-
-    store.commit("wuapi/SET_EVENT", event);
-  },
+  // async fetch({ store, params }) {
+  //   await store.dispatch("wuapi/getEvent", params.id);
+  // },
 
   computed: mapState({
     event: state => state.wuapi.event
-  })
+  }),
 
+  methods: mapActions("wuapi", ["getEvent"]),
+
+  created() {
+    this.getEvent(this.$route.params.id);
+  }
 };
 </script>
