@@ -1,26 +1,40 @@
 <template>
   <v-card>
-    <v-card-title class="indigo white--text text-h5">
+    <v-card-title class="indigo white--text text-h5 mt-15">
       Madison County Directory
     </v-card-title>
     <v-row class="pa-4" justify="space-between">
-      <v-col cols="5">
+      <v-col cols="2">
+        <v-list-item v-for="filter in filters" :key="filter.id" @click="setFilter(filter.id)">
+          <v-list-item-content>
+            <v-list-item-title>{{ filter.name }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-col>
+
+      <v-divider vertical></v-divider>
+
+      <v-col cols="4" class="d-flex">
+        <div
+            v-if="!items"
+            class="text-h6 grey--text text--lighten-1 font-weight-light"
+            style="align-self: center;"
+          >
+            Select a Filter
+        </div>
         <v-treeview
           :active.sync="active"
           :items="items"
-          :load-children="fetchUsers"
+          :load-children="fetchOrganizations"
           :open.sync="open"
           activatable
           color="warning"
           open-on-click
           transition
-        >
-          <template v-slot:prepend="{ item }">
-            <v-icon v-if="!item.children">
-              mdi-account
-            </v-icon>
-          </template>
-        </v-treeview>
+          hoverable
+          dense
+          @update:open="updateOrganizationList"
+        ></v-treeview>
       </v-col>
 
       <v-divider vertical></v-divider>
@@ -42,11 +56,8 @@
             max-width="400"
           >
             <v-card-text>
-              <v-avatar v-if="avatar" size="88">
-                <v-img
-                  :src="`https://avataaars.io/${avatar}`"
-                  class="mb-6"
-                ></v-img>
+              <v-avatar v-if="selected.organization_image" size="100" class="mb-8">
+                <v-img :src="selected.organization_image"></v-img>
               </v-avatar>
               <h3 class="text-h5 mb-2">
                 {{ selected.name }}
@@ -55,23 +66,23 @@
                 {{ selected.email }}
               </div>
               <div class="blue--text subheading font-weight-bold">
-                {{ selected.username }}
+                <!-- {{ selected.username }} -->
               </div>
             </v-card-text>
             <v-divider></v-divider>
             <v-row class="text-left" tag="v-card-text">
               <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                Company:
+                Location:
               </v-col>
-              <v-col>{{ selected.company.name }}</v-col>
-              <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
+              <v-col>{{ selected.location }} {{ selected.city }}, {{ selected.state }} {{ selected.zip }}</v-col>
+              <!-- <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
                 Website:
               </v-col>
               <v-col>
                 <a :href="`//${selected.website}`" target="_blank">{{
                   selected.website
                 }}</a>
-              </v-col>
+              </v-col> -->
               <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
                 Phone:
               </v-col>
@@ -85,23 +96,24 @@
 </template>
 
 <script>
-const avatars = [
-  "?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban",
-  "?accessoriesType=Sunglasses&avatarStyle=Circle&clotheColor=Gray02&clotheType=ShirtScoopNeck&eyeType=EyeRoll&eyebrowType=RaisedExcited&facialHairColor=Red&facialHairType=BeardMagestic&hairColor=Red&hatColor=White&mouthType=Twinkle&skinColor=DarkBrown&topType=LongHairBun",
-  "?accessoriesType=Prescription02&avatarStyle=Circle&clotheColor=Black&clotheType=ShirtVNeck&eyeType=Surprised&eyebrowType=Angry&facialHairColor=Blonde&facialHairType=Blank&hairColor=Blonde&hatColor=PastelOrange&mouthType=Smile&skinColor=Black&topType=LongHairNotTooLong",
-  "?accessoriesType=Round&avatarStyle=Circle&clotheColor=PastelOrange&clotheType=Overall&eyeType=Close&eyebrowType=AngryNatural&facialHairColor=Blonde&facialHairType=Blank&graphicType=Pizza&hairColor=Black&hatColor=PastelBlue&mouthType=Serious&skinColor=Light&topType=LongHairBigHair",
-  "?accessoriesType=Kurt&avatarStyle=Circle&clotheColor=Gray01&clotheType=BlazerShirt&eyeType=Surprised&eyebrowType=Default&facialHairColor=Red&facialHairType=Blank&graphicType=Selena&hairColor=Red&hatColor=Blue02&mouthType=Twinkle&skinColor=Pale&topType=LongHairCurly"
-];
-
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 import { mapState } from "vuex";
 
 export default {
   data: () => ({
     active: [],
-    avatar: null,
     open: [],
-    users: []
+    filters: [
+      {
+        name: "By Category",
+        id: 1,
+      },
+      {
+        name: "By City",
+        id: 2,
+      }
+    ],
+    items: undefined
   }),
 
   async fetch({ store }) {
@@ -113,43 +125,58 @@ export default {
 
   computed: {
     ...mapState({
-      organizations: state => state.wuapi.directory
+      organizationList: state => state.wuapi.directory,
+      categories: state => state.wuapi.directory_categories
     }),
 
-    items() {
-      return [
-        {
-          name: "Users",
-          children: this.users
-        }
-      ];
+    categoryItems() {
+      let array = [];
+
+      this.categories.forEach((element, index) => {
+        let item = {
+          name: element.name,
+          id: index,
+          children: []
+        };
+
+        array.push(item);
+      });
+
+      return array;
     },
+
     selected() {
       if (!this.active.length) return undefined;
-
       const id = this.active[0];
-
-      return this.users.find(user => user.id === id);
+      return this.organizationList.find(organization => organization.id === id);
     }
   },
 
-  watch: {
-    selected: "randomAvatar"
-  },
-
   methods: {
-    async fetchUsers(item) {
+    async fetchOrganizations(item) {
       // Remove in 6 months and say
       // you've made optimizations! :)
       await pause(1500);
 
-      return fetch("https://jsonplaceholder.typicode.com/users")
-        .then(res => res.json())
-        .then(json => item.children.push(...json))
-        .catch(err => console.warn(err));
+      this.organizationList.filter(organization => {
+        organization.categories.forEach(category => {
+          if(category.name === item.name) {
+            item.children.push(organization)
+          }
+        });
+      });
+
+      return item.children;
     },
-    randomAvatar() {
-      this.avatar = avatars[Math.floor(Math.random() * avatars.length)];
+
+    setFilter(id) {
+      if(id === 1) {
+        this.items = this.categoryItems;
+      }
+    },
+
+    updateOrganizationList(array) {
+      this.open = array;
     }
   }
 };
