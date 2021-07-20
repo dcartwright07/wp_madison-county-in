@@ -11,11 +11,16 @@
         <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-for="event in upcomingEventList" :key="event.name">
           <v-card class="card card-lift--hover shadow border-0">
             <v-img height="250" class="img-fluid" :src="event.image" alt=""/>
-            <v-card-title class="font-weight-normal event_name" >{{event.name}}</v-card-title>
+            <v-card-title class="font-weight-normal event_name" >{{ event.name }}</v-card-title>
             <v-card-text class="card-body text-left py-4">
-              <p class="font-weight-medium">{{event.start | formatDate($moment, "DD MMMM YYYY")}}</p>
-              <p class="description mb-4">{{event.desc}}</p>
-              <a class="btn btn-primary" href="javascript:void(0);">Read More</a>
+              <p class="font-weight-medium">{{ event.start | formatDate($moment, "DD MMMM YYYY") }}</p>
+              <p class="description mb-4">{{ event.desc }}</p>
+              <nuxt-link
+                class="btn btn-primary"
+                :to="{ name: 'events-id', params: { id: event.id } }"
+              >
+                Read More
+              </nuxt-link>
             </v-card-text>
           </v-card>
         </v-col>
