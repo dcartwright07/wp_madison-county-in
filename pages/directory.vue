@@ -28,7 +28,7 @@
           :load-children="fetchOrganizations"
           :open.sync="open"
           activatable
-          color="warning"
+          color="primary"
           open-on-click
           transition
           hoverable
@@ -115,6 +115,7 @@ export default {
     ],
     selectedFilter: 0,
     cityList: [],
+    categoryList: [],
     items: undefined
   }),
 
@@ -134,9 +135,9 @@ export default {
     categoryItems() {
       let array = [];
 
-      this.categories.forEach((element, index) => {
+      this.categoryList.forEach((element, index) => {
         let item = {
-          name: element.name,
+          name: element,
           id: index,
           children: []
         };
@@ -209,6 +210,22 @@ export default {
       this.open = array;
     },
 
+    getCategoryList() {
+      let array = [];
+
+      this.organizationList.forEach(organization => {
+        organization.categories.forEach(category => {
+          array.push(category.name);
+        });
+      });
+
+      array.sort((a, b) => {
+        return a.localeCompare(b);
+      });
+
+      this.categoryList = new Set(array);
+    },
+
     getCityList() {
       let array = [];
 
@@ -220,6 +237,10 @@ export default {
         }
       });
 
+      array.sort((a, b) => {
+        return a.localeCompare(b);
+      });
+
       this.cityList = new Set(array);
     },
 
@@ -229,6 +250,7 @@ export default {
   },
 
   created() {
+    this.getCategoryList();
     this.getCityList();
   }
 };
