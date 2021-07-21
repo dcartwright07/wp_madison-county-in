@@ -1,24 +1,21 @@
 <template>
-  <div
-    class="v-sheet theme--light grey lighten-3"
+  <v-sheet
+    class="theme--light grey lighten-3"
     style="height: 20vh; min-height: 600px;"
   >
-  <v-overlay absolute class="justify-start" style="margin:0; z-index:0; ">
-
-  
-    <div class="container fill-height ml-lg-3 pl-lg-15">
-      <div class="row fill-height justify-left align-content-center">
-        <div class="col col-12">
-          <h1 class="display-2 lightgrey--text text-left" v-html="office.name">
-          </h1>
-        </div>
-        <div class="col-sm-12 col-md-6">
-          {{office.acf.description}}
-        </div>
-      </div>
-    </div>
+    <v-overlay absolute style="margin:0; z-index:0; ">
+      <v-container>
+        <v-row class="fill-height justify-left align-content-center">
+          <v-col cols="12">
+            <h1 class="display-2 lightgrey--text text-left" v-html="office.name"></h1>
+          </v-col>
+          <v-col cols="12" md="6">
+            {{ office.acf.description }}
+          </v-col>
+        </v-row>
+      </v-container>
     </v-overlay>
-  </div>
+  </v-sheet>
 </template>
 
 <script>

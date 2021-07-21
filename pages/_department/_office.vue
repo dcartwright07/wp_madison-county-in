@@ -1,48 +1,45 @@
 <template>
-<div>
-
-
+  <div>
     <BaseSubpageheader :office="office" />
-  <section v-for="(row,index) in office.acf.two_column_layout" :key="row.services"
-    :class="{
+
+    <section
+      v-for="(row,index) in office.acf.two_column_layout" :key="row.services"
+      :class="{
         'white blackish--text': index === 0,
         'redish lightgrey--text' : index % 5 === 1,
         'white blackish--text': index % 5 === 2,
       }">
 
-     <v-container
-    >
-    <v-row class="d-flex flex-md-row flex-sm-column-reverse pa-10"
-    :class="{
-        'flex-md-row': index % 2 === 0,
-        'flex-md-row-reverse ': index % 2 !== 0,
-      }"
-    >
-    <!-- {{index === 0}} -->
-  
- 
-
-    
-      <v-col class="mt-3 "
-        :class="{
-          'col-md-12': row.two_col_image === false,
-          'col-md-6': row.two_col_image !== false
+      <v-container>
+        <v-row
+          class="d-flex flex-md-row flex-sm-column-reverse pa-10"
+          :class="{
+            'flex-md-row': index % 2 === 0,
+            'flex-md-row-reverse ': index % 2 !== 0,
           }"
-       >
-       <h2 v-html="row.two_column_header"/>
-       <div class="mt-7" v-html="row.services" />
-       </v-col>
-      <v-col class="col-md-6 col-sm-12" v-if="row.two_col_image">
-        <v-sheet elevation='5'>
-          <v-img :src="row.two_col_image" max-height="700"/>
-        </v-sheet>
-      </v-col>
+        >
 
-    </v-row>
-    </v-container>
-   <!-- <BaseSidebar/> -->
+          <v-col class="mt-3 "
+            :class="{
+              'col-md-12': row.two_col_image === false,
+              'col-md-6': row.two_col_image !== false
+            }"
+          >
+            <h2 v-html="row.two_column_header"/>
+            <div class="mt-7" v-html="row.services" />
+          </v-col>
 
-  </section>
+          <v-col class="col-md-6 col-sm-12" v-if="row.two_col_image">
+            <v-sheet elevation='5'>
+              <v-img :src="row.two_col_image" max-height="700"/>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-container>
+      <!-- <BaseSidebar/> -->
+
+    </section>
+
     <v-row no-gutters v-if="profiles.length > 0">
       <v-col class="lightgrey blackish--text text-center pa-5" cols="12">
         <BaseTeam :team="profiles" />
