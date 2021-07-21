@@ -15,10 +15,7 @@
     >
     <!-- {{index === 0}} -->
       <v-col class="col-md-6 col-sm-12 mt-3 "
-       :class="{
-            'text-md-left': index % 2 === 0,
-            'text-md-right': index % 2 !== 0
-          }"
+       
        >
        <h2 v-html="row.two_column_header"/>
        <div class="mt-7" v-html="row.services" />
@@ -113,5 +110,8 @@ export default {
     bottom: -10px;
     left: 0;
   }
+}
+.rtl{
+  direction:rtl;
 }
 </style>
