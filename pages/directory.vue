@@ -14,11 +14,10 @@
 
       <v-divider vertical></v-divider>
 
-      <v-col cols="4" class="d-flex">
+      <v-col cols="4" class="d-flex" style="overflow: scroll; height: 85vh;">
         <div
             v-if="!items"
             class="text-h6 grey--text text--lighten-1 font-weight-light"
-            style="align-self: center;"
           >
             Select a Filter
         </div>
@@ -44,9 +43,8 @@
           <div
             v-if="!selected"
             class="text-h6 grey--text text--lighten-1 font-weight-light"
-            style="align-self: center;"
           >
-            Select a User
+            Select an Organization
           </div>
           <v-card
             v-else
