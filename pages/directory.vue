@@ -113,6 +113,8 @@ export default {
         id: 2,
       }
     ],
+    selectedFilter: 0,
+    cityList: [],
     items: undefined
   }),
 
@@ -145,6 +147,22 @@ export default {
       return array;
     },
 
+    cityItems() {
+      let array = [];
+
+      this.cityList.forEach((element, index) => {
+        let item = {
+          name: element,
+          id: index,
+          children: []
+        };
+
+        array.push(item);
+      });
+
+      return array;
+    },
+
     selected() {
       if (!this.active.length) return undefined;
       const id = this.active[0];
@@ -158,13 +176,21 @@ export default {
       // you've made optimizations! :)
       await pause(1500);
 
-      this.organizationList.filter(organization => {
-        organization.categories.forEach(category => {
-          if(category.name === item.name) {
-            item.children.push(organization)
+      if(this.selectedFilter == 1) {
+        this.organizationList.filter(organization => {
+          organization.categories.forEach(category => {
+            if(category.name === item.name) {
+              item.children.push(organization);
+            }
+          });
+        });
+      } else if(this.selectedFilter == 2) {
+        this.organizationList.filter(organization => {
+          if(organization.city === item.name) {
+            item.children.push(organization);
           }
         });
-      });
+      }
 
       return item.children;
     },
@@ -172,12 +198,38 @@ export default {
     setFilter(id) {
       if(id === 1) {
         this.items = this.categoryItems;
+      } else if(id === 2) {
+        this.items = this.cityItems;
       }
+
+      this.selectedFilter = id;
     },
 
     updateOrganizationList(array) {
       this.open = array;
+    },
+
+    getCityList() {
+      let array = [];
+
+      this.organizationList.forEach(element => {
+        if(element.city != "") {
+          let city = element.city.toLowerCase();
+          city = this.capitalizeWords(city);
+          array.push(city);
+        }
+      });
+
+      this.cityList = new Set(array);
+    },
+
+    capitalizeWords(string) {
+      return string.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
     }
+  },
+
+  created() {
+    this.getCityList();
   }
 };
 </script>

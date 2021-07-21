@@ -406,7 +406,7 @@ export const actions = {
         this.$config.wuApiUrl +
           "/directory?organization_id=" +
           this.$config.orgId +
-          "&limit=" + options.limit,
+          "&copromotion=1&limit=" + options.limit,
         {
           headers: {
             Authorization: "Bearer " + state.token,
