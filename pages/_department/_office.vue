@@ -4,16 +4,6 @@
 
     <v-container>
       <v-row class=" pa-5 d-flex flex-column">
-        <!-- <v-col class="section__content">
-          <div class="text-center mb-10">
-            <h2 class="h2">About US</h2>
-          </div>
-          <div
-            class="text-center"
-            tag="p"
-            v-html="office.acf.description"
-          ></div>
-        </v-col> -->
         <v-col
           cols="12"
           class="d-flex flex-md-row flex-sm-column-reverse lightgrey pa-10"
