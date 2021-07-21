@@ -1,31 +1,19 @@
 <template>
   <div
     class="v-sheet theme--light grey lighten-3"
-    style="height: 20vh; min-height: 500px;"
+    style="height: 20vh; min-height: 600px;"
   >
-  <v-overlay absolute style="margin:0; z-index:0;">
+  <v-overlay absolute class="justify-start" style="margin:0; z-index:0; ">
 
   
-    <div class="container fill-height">
-      <div class="row fill-height justify-center align-content-center">
+    <div class="container fill-height ml-lg-3 pl-lg-15">
+      <div class="row fill-height justify-left align-content-center">
         <div class="col col-12">
           <h1 class="display-2 lightgrey--text text-left" v-html="office.name">
           </h1>
         </div>
-        <div class="col-12">
+        <div class="col-sm-12 col-md-6">
           {{office.acf.description}}
-          <!-- <div :v-html="office"></div> -->
-        <!-- <ul class="v-breadcrumbs grey--text pb-0 px-3 theme--light">
-          <li>
-            <nuxt-link to="/">
-              <span class="v-breadcrumbs__item"></span>
-            </nuxt-link>
-          </li>
-          <li class="v-breadcrumbs__divider">/</li>
-          <li>
-            <div class="v-breadcrumbs__item" v-html="office.name"></div>
-          </li>
-        </ul> -->
         </div>
       </div>
     </div>
