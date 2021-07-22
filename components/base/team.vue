@@ -11,10 +11,11 @@
       <v-col v-for="(profile, index) in members" :key="profile.id" sm="3" class="mb-10">
         <v-dialog v-model="dialog[index]" width="500">
           <template v-slot:activator="{ on, attrs }">
-            <v-avatar class="profile_av mb-4" v-bind="attrs" v-on="on" size="128">
+            <v-avatar class="profile_av mb-4" v-bind="attrs" v-on="on" size="150">
               <v-img
                 v-if="profile.media_url"
                 cover
+                position="top center"
                 max-height="250"
                 max-width="250"
                 :src="profile.media_url"
