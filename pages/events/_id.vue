@@ -27,31 +27,8 @@
 									<div class="tab-content" id="myTabContent">
 										<div class="tab-pane fade active show" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
 											<p class="description" v-html="event.description"/>
-											<h4 class="mb-4">
-												Contact Info
-											</h4>
-											<div class="row mb-4">
-												<div class="col-lg-4">
-													<div class="detail-list mb-2">
-														<div class="detail-list-label mb-1"><i aria-hidden="true" class="fa fa-phone mr-2"></i>
-															<small class="text-uppercase font-weight-bold">Phone</small>
-														</div>
-														<p class="m-0 text-small text-muted">event.contact_phone</p>
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="detail-list mb-2">
-														<div class="detail-list-label mb-1"><i aria-hidden="true" class="fa fa-email mr-2"></i>
-															<small class="text-uppercase font-weight-bold">For Complaints.</small>
-														</div>
-														<p class="m-0 text-small text-muted">noreply@noreply</p>
-													</div>
-												</div>
-											</div>
 										</div>
-										<div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-											organization.event.listing
-										</div>
+										
 									</div>
 								</v-card-text>
 							</v-card>

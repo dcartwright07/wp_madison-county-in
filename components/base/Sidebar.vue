@@ -13,23 +13,23 @@
               />
 				</v-col>
 				<v-col sm="10" class="d-flex justify-left align-center">
-					<h4 class="text-primary">{{event.contact_name}}</h4>
+					<h4 class="text-primary">{{c_name}}</h4>
 				</v-col>
 			</v-row>
-			<v-row v-if="event.contact_phone">
+			<v-row v-if="phone">
 				<v-col sm="2" class="mb-2">
 					<i class="fa fa-phone"/>
 				</v-col>
 				<v-col sm="10" class="d-flex justify-left align-center">
-					<h4 class="text-primary">{{event.contact_phone}}</h4>
+					<h4 class="text-primary">{{phone}}</h4>
 				</v-col>
 			</v-row>
-				<v-row v-if="event.contact_email">
+				<v-row v-if="email">
 				<v-col sm="2" class="mb-2">
 				<i class="fa fa-envelope-o"/>
 				</v-col>
 				<v-col sm="10" class="d-flex justify-left align-center">
-					<h4 class="text-primary">{{event.contact_email}}</h4>
+					<h4 class="text-primary">{{email}}</h4>
 				</v-col>
 			</v-row>
 			</v-card-text>
@@ -40,14 +40,19 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
-  computed: mapState({
-    event: state => state.wuapi.event
-  }),
-
-  methods: mapActions("wuapi", ["getEvent"]),
-
-  created() {
-    this.getEvent(this.$route.params.id);
+    props: {
+   email: {
+      type: String,
+      default: ""
+    },
+    phone: {
+      type: String,
+      default: ""
+    },
+    c_name: {
+      type: String,
+      default: ""
+    }
   }
 };
 </script>
