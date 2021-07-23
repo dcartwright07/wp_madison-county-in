@@ -1,34 +1,30 @@
+
 <template>
-  <div
-    class="v-sheet theme--light grey lighten-3"
-    style="height: 20vh; min-height: 300px;"
+  <v-card
+    class="theme--light grey lighten-3"
+    style="height: 20vh; min-height: 400px;"
   >
-    <div class="container fill-height">
-      <div class="row fill-height justify-center align-content-center">
-        <div class="col col-12">
-          <!-- <h1 class="display-2 text-center" v-html="office.name">
-          </h1> -->
-        </div>
-        <ul class="v-breadcrumbs grey--text pb-0 px-3 theme--light">
-          <li>
-            <!-- <nuxt-link to="/">
-              <span class="v-breadcrumbs__item"></span>
-            </nuxt-link> -->
-          </li>
-          <li class="v-breadcrumbs__divider">/</li>
-          <!-- <li>
-            <div class="v-breadcrumbs__item" v-html="office.name"></div>
-          </li> -->
-        </ul>
-      </div>
-    </div>
-  </div>
+    <v-img cover max-height="400" :src="image">
+      <!-- <v-card-title>
+        <v-row class="fill-height justify-left align-content-center">
+          <v-col cols="12">
+            <h1 class="display-2 lightgrey--text text-left" v-text="name"></h1>
+          </v-col>
+        </v-row>
+      </v-card-title> -->
+    </v-img>
+  </v-card>
 </template>
+
 
 <script>
 export default {
   props: {
     image: {
+      type: String,
+      default: ""
+    },
+    name: {
       type: String,
       default: ""
     }
