@@ -16,11 +16,8 @@
           lg="4"
         >
           <v-hover v-slot="{ hover }">
-            <a
-              :href="
-                `https://www.whatsup247.com/destinations/detail/${destination.id}`
-              "
-              target="_blank"
+            <nuxt-link
+              :to="{ name: 'destinations-id', params: { id: destination.id } }"
             >
               <v-card class="mx-auto" color="grey lighten-4" max-width="600">
                 <v-img :aspect-ratio="16 / 9" :src="destination.listing_image">
@@ -36,7 +33,7 @@
                   </v-expand-transition>
                 </v-img>
               </v-card>
-            </a>
+            </nuxt-link>
           </v-hover>
         </v-col>
       </v-row>
