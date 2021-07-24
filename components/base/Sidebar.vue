@@ -1,50 +1,58 @@
 <template>
-	<div class="sticky">
-		<!-- Book Now -->
-		<div class="boxed-widget booking-widget">
-			<div>
-				<div class="form-group focused">
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-						</div>
-						<input class="form-control" placeholder="Start date" type="text" value="06/18/2018">
-					</div>
-				</div>
-				<select class="custom-select mb-3">
-					<option selected>Guest</option>
-					<option value="1">One</option>
-					<option value="2">Two</option>
-					<option value="3">Three</option>
-					<option value="4">Four</option>
-				</select>
-			</div>
-			<!-- Book Now -->
-			<router-link to="/pages/booking" class="btn btn-1 btn-primary d-block">Book Now</router-link>
-		</div>
-		<!-- Book Now / End -->
-		<div class="boxed-widget bg-secondary mt-4 text-center p-4">
-			<h4 class="mb-4">Key People</h4>
-			<div class="mb-3">
-				<div class="mb-2">
-					<img class="img-fluid rounded-circle shadow-lg" width="80" height="80" src="/static/images/thumb-1.jpg">
-				</div>
-				<div class="">
-					<h5 class="text-primary">Victoria Benson</h5>
-				</div>
-			</div>
-			<ul class="listing-details-sidebar">
-				<li><i class="fa fa-phone"></i> (123) 123-456</li>
-				<li><i class="fa fa-external-link"></i> http://example.com</li>
-				<li><i class="fa fa-envelope-o"></i>victoria@victoria.com</li>
-			</ul>
-		</div>
-	</div>
+		<v-card elevation="0" class="boxed-widget lightgrey mt-4 text-center p-4">
+			<v-card-title class="mb-4">Contact Information</v-card-title>
+			<v-card-text>
+				<v-row>
+				<v-col sm="2" class="mb-2">
+					<v-img
+                elevation="0"
+                cover
+                max-height="50"
+                max-width="50"
+                :src="require('~/assets/madison_silhouettes_1.png')"
+              />
+				</v-col>
+				<v-col sm="10" class="d-flex justify-left align-center">
+					<h4 class="text-primary">{{c_name}}</h4>
+				</v-col>
+			</v-row>
+			<v-row v-if="phone">
+				<v-col sm="2" class="mb-2">
+					<i class="fa fa-phone"/>
+				</v-col>
+				<v-col sm="10" class="d-flex justify-left align-center">
+					<h4 class="text-primary">{{phone}}</h4>
+				</v-col>
+			</v-row>
+				<v-row v-if="email">
+				<v-col sm="2" class="mb-2">
+				<i class="fa fa-envelope-o"/>
+				</v-col>
+				<v-col sm="10" class="d-flex justify-left align-center">
+					<h4 class="text-primary">{{email}}</h4>
+				</v-col>
+			</v-row>
+			</v-card-text>
+		</v-card>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 
 export default {
-
+    props: {
+   email: {
+      type: String,
+      default: ""
+    },
+    phone: {
+      type: String,
+      default: ""
+    },
+    c_name: {
+      type: String,
+      default: ""
+    }
+  }
 };
 </script>

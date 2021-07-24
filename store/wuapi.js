@@ -21,6 +21,7 @@ export const state = () => ({
   event: {},
   directory: [],
   destinations: [],
+  destination: {},
   event_categories: [
     {
         "name":"Misc",
@@ -325,7 +326,10 @@ export const mutations = {
   },
   UPDATE_DESTINATIONS: (state, array) => {
     state.destinations = array;
-  }
+  },
+  SET_DESTINATION: (state, object) => {
+    state.destination = object;
+  },
 };
 
 export const actions = {
@@ -450,5 +454,29 @@ export const actions = {
         context.error(error);
       });
     commit("UPDATE_DESTINATIONS", destinations);
-  }
+  },
+
+  async getDestination({ state, dispatch, commit }, id) {
+    if (!state.token) {
+      await dispatch("setApiToken");
+    }
+
+    const url = "/wuapi/destination/" + id;
+
+    const destination = await this.$axios
+      .get(url, {
+        headers: {
+          Authorization: "Bearer " + state.token,
+          "Content-Type": "application/json",
+        }
+      })
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        console.log(error)
+      });
+
+    commit("SET_DESTINATION", destination);
+  },
 };
