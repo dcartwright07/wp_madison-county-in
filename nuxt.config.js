@@ -49,13 +49,13 @@ export default {
 
   publicRuntimeConfig: {
     apiUrl: "https://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
-    wuApiUrl: "https://api.whatsup247.com"
+    wuApiUrl: "https://api.whatsup247.com",
+    orgId: "5600aaf5d9ab987a5935c1af3ba840a2"
   },
 
   privateRuntimeConfig: {
     apiClientId: "0ecd0add360dac608301678189b3c614",
     apiClientSecret: "3738877c2b5d766209b3a528c86af893",
-    orgId: "5600aaf5d9ab987a5935c1af3ba840a2"
   },
 
   proxy: {
