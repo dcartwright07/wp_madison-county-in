@@ -46,8 +46,9 @@
                   role="tab"
                   aria-controls="tabs-icons-text-1"
                   aria-selected="true"
-                  ><i class="fa fa-info-circle mr-2"></i>About</v-tab
                 >
+                  <i class="fa fa-info-circle mr-2"></i>About
+                </v-tab>
 
                 <v-tab
                   class="nav-link mb-sm-3 mb-md-0"
@@ -57,23 +58,32 @@
                   role="tab"
                   aria-controls="tabs-icons-text-2"
                   aria-selected="false"
-                  ><i class="fa fa-calendar-alt mr-2"></i>Events</v-tab
                 >
+                  <i class="fa fa-calendar-alt mr-2"></i>Events
+                </v-tab>
               </v-tabs>
             </div>
+
             <v-card class="card shadow">
               <v-card-text class="card-body mt-5">
-                <div class="tab-content" id="myTabContent">
+                <div class="tab-content" id="destinationTabContent">
                   <v-tabs-items v-model="tab">
                     <v-tab-item id="tabs-icons-text-1">
                       <div class="tab-pane fade active show">
                         <p
+                          v-if="!destination.content"
                           class="description"
                           v-html="destination.description"
+                        />
+                        <p
+                          v-else
+                          class="description"
+                          v-html="destination.content"
                         />
                         {{ destination }}
                       </div>
                     </v-tab-item>
+
                     <v-tab-item id="tabs-icons-text-2">
                       <div class="tab-pane fade">
                         organization.event.listing
@@ -102,6 +112,7 @@ export default {
       tab: null,
     }
   },
+
   computed: mapState({
     destination: (state) => state.wuapi.destination,
   }),

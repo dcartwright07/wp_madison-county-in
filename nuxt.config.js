@@ -1,4 +1,4 @@
-import colors from "vuetify/es5/util/colors";
+import colors from "vuetify/es5/util/colors"
 
 export default {
   // target: "static",
@@ -13,14 +13,14 @@ export default {
     titleTemplate: "%s - Madison County, IN",
     title: "Madison County, IN",
     htmlAttrs: {
-      lang: "en"
+      lang: "en",
     },
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" }
+      { hid: "description", name: "description", content: "" },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -36,7 +36,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     "@nuxtjs/vuetify",
-    "@nuxtjs/moment"
+    "@nuxtjs/moment",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -44,38 +44,37 @@ export default {
 
   axios: {
     // baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
-    proxy: true
+    proxy: true,
   },
 
   publicRuntimeConfig: {
     apiUrl: "https://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
     wuApiUrl: "https://api.whatsup247.com",
-    orgId: "5600aaf5d9ab987a5935c1af3ba840a2"
-  },
-
-  privateRuntimeConfig: {
+    orgId: "5600aaf5d9ab987a5935c1af3ba840a2",
     apiClientId: "0ecd0add360dac608301678189b3c614",
     apiClientSecret: "3738877c2b5d766209b3a528c86af893",
   },
+
+  privateRuntimeConfig: {},
 
   proxy: {
     "/api/": {
       target: "https://mcapi.signaturewebcreations.com/wp-json/wp/v2/",
       pathRewrite: { "^/api": "" },
-      changeOrigin: true
+      changeOrigin: true,
     },
     "/wuapi/": {
       target: "https://api.whatsup247.com",
       pathRewrite: { "^/wuapi": "" },
-      changeOrigin: true
-    }
+      changeOrigin: true,
+    },
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ["~/assets/variables.scss"],
     defaultAssets: {
-      icons: "fa"
+      icons: "fa",
     },
     theme: {
       dark: false,
@@ -94,7 +93,7 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: colors.green.accent3,
         },
         light: {
           primary: "#8BC0BF",
@@ -103,16 +102,16 @@ export default {
           blackish: "#413E39",
           redish: "#C95243",
           accent: "#FFE75E",
-          blueish:"#507F88",
+          blueish: "#507F88",
           hyperlink: "#6A8383",
           footer: "#426464",
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        }
+          success: colors.green.accent3,
+        },
       },
-    }
+    },
   },
   /* Color Theme Swatches in Hex */
   // .Mounds-State-park-1-hex { color: #405F73; }
@@ -141,7 +140,7 @@ export default {
       //     fs: 'empty'
       //   }
       // ....
-    }
+    },
   },
-  devtools: true
-};
+  devtools: true,
+}
