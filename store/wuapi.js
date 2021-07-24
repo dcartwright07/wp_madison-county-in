@@ -354,7 +354,6 @@ export const actions = {
         headers: {
           Authorization: "Bearer " + state.token,
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
         }
       })
       .then(response => {
@@ -411,7 +410,6 @@ export const actions = {
           headers: {
             Authorization: "Bearer " + state.token,
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
           }
         }
       )
@@ -441,7 +439,6 @@ export const actions = {
           headers: {
             Authorization: "Bearer " + state.token,
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
           }
         }
       )
