@@ -10,10 +10,20 @@
         <v-row>
           <v-col cols="12" lg="6">
             <h2 class="display-1 mb-8">Madison County Visitor's Bureau</h2>
-            <div class="white--text mt-8 mb-6">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam officiis corporis deleniti tempora atque adipisci minima omnis non asperiores distinctio optio maiores ipsam, alias saepe mollitia aspernatur ipsa, impedit libero!</div>
+            <div class="white--text mt-8 mb-6">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Quibusdam officiis corporis deleniti tempora atque adipisci minima
+              omnis non asperiores distinctio optio maiores ipsam, alias saepe
+              mollitia aspernatur ipsa, impedit libero!
+            </div>
 
-            <v-btn id="visitorsbtn" color="primary" class="ma-2 white--text">
-                Learn More
+            <v-btn
+              id="visitorsbtn"
+              color="primary"
+              class="ma-2 white--text"
+              href="https://visitandersonmadisoncounty.com/"
+            >
+              Learn More
             </v-btn>
           </v-col>
         </v-row>
@@ -22,19 +32,15 @@
   </v-parallax>
 </template>
 
-<script setup>
-
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
-.overlay_parallax{
-    position: absolute;
-    opacity: 0.5 !important;
-    left:0;
-
-
+.overlay_parallax {
+  position: absolute;
+  opacity: 0.5 !important;
+  left: 0;
 }
-#visitorsbtn{
-    width:150px;
+#visitorsbtn {
+  width: 150px;
 }
 </style>
