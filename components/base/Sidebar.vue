@@ -4,7 +4,7 @@
 
     <v-card-text>
       <v-list dense>
-        <v-list-item>
+        <v-list-item v-if="c_name">
           <v-list-item-icon>
             <v-icon dense class="fa-fw">
               fa-user-circle
@@ -15,7 +15,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item>
+        <v-list-item v-if="phone">
           <v-list-item-icon>
             <v-icon dense class="fa-fw">
               fa-phone
@@ -26,7 +26,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item>
+        <v-list-item v-if="email">
           <v-list-item-icon>
             <v-icon dense class="fa-fw">
               fa-envelope
