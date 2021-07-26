@@ -27,6 +27,7 @@
                 class="text-uppercase primary mr-2"
                 v-for="item in event.categories"
                 :key="item.name"
+                small
               >
                 {{ item.name }}
               </v-btn>
