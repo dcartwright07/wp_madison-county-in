@@ -14,6 +14,7 @@
                 class="text-muted"
                 v-html="
                   destination.address +
+                  ' ' +
                   destination.city +
                   ' ' +
                   destination.state +
