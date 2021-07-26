@@ -13,7 +13,7 @@
           </v-col>
           <v-col cols="12" md="6">
             <span v-html="office.acf.description"/>
-          </v-col>∫
+          </v-col>
         </v-row>
       </v-container>
     </v-overlay>
