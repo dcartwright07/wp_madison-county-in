@@ -28,7 +28,26 @@
             <h2 v-html="row.two_column_header"/>
             <div class="mt-7" v-html="row.services" />
           </v-col>
-
+          
+          <v-col class="col-md-6 col-sm-12" v-if="row.resoures">
+            <v-sheet class="blueish" elevation='5'>
+              <v-card-title class="lightgrey--text text-h4">Resources</v-card-title>
+              <v-divider dark/>
+               <v-list >
+      <v-list-item-group
+        v-model="selectedItem"
+        color="primary"
+      >
+              <v-list-item v-for="item in row.resoures" :key="item.id" >
+                <v-list-item-content>
+                  <v-list-item-title><a class=" text-decoration-none" target="_blank" v-html="item.document.title" :href="item.document.url" download></a></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              </v-list-item-group>
+               </v-list>
+            </v-sheet>
+          </v-col>
+          <v-divider v-if="row.resoures" class="d-sm-none" vertical></v-divider>
           <v-col class="col-md-6 col-sm-12" v-if="row.two_col_image">
             <v-sheet elevation='5'>
               <v-img :src="row.two_col_image" max-height="700"/>
