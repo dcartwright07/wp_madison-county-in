@@ -59,7 +59,7 @@
                   aria-controls="tabs-icons-text-2"
                   aria-selected="false"
                 >
-                  <i class="fa fa-calendar-alt mr-2"></i>Events
+                  <i class="fa fa-calendar-alt mr-2"></i>Related Events
                 </v-tab>
               </v-tabs>
             </div>
@@ -158,18 +158,30 @@ export default {
   },
 
   computed: mapState({
+	categories: (state) => state.wuapi.event_categories,
     event: (state) => state.wuapi.event,
     listOfEvents: (state) => state.wuapi.latestEvents,
   }),
 
   methods: mapActions("wuapi", ["getEvent", "getEvents"]),
 
-  created() {
-    this.getEvent(this.$route.params.id)
+  async created() {
+    await this.getEvent(this.$route.params.id)
+	let relatedCategories = ''
+	this.event.categories.forEach( (element, index) =>{
+		relatedCategories += this.categories.find(event => event.name === element.name).key
+		if (index < this.event.categories.length-1){
+			relatedCategories +=  ','
+		}
+
+	
+
+	});
 
     let options = {
       type: "latest",
       limit: "5",
+	  categories: relatedCategories,
     }
     this.getEvents(options)
   },
