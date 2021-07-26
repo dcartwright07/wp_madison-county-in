@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="indigo white--text text-h5 mt-15">
+    <v-card-title class="primary white--text text-h5 mt-15">
       Madison County Directory
     </v-card-title>
     <v-row class="pa-4" justify="space-between">
@@ -19,7 +19,7 @@
             v-if="!items"
             class="text-h6 grey--text text--lighten-1 font-weight-light"
           >
-            Select a Filter
+          Select a Category
         </div>
         <v-treeview
           :active.sync="active"
