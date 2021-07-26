@@ -88,8 +88,8 @@
                             multiple
                           >
                             <template v-for="(item, index) in listOfEvents">
-                              <v-list-item :key="item.id">
-                                <template v-slot:default="{ active }">
+                              <v-list-item :key="item.id" :to="{ name: 'events-id', params: { id: item.id } }"  >
+                                <template v-slot:default="{ active }" >
                                   <v-list-item-content>
                                     <v-list-item-title
                                       v-text="item.title"
@@ -106,9 +106,7 @@
                                   </v-list-item-content>
 
                                   <v-list-item-action>
-                                    <v-list-item-action-text
-                                      v-text="item.description"
-                                    ></v-list-item-action-text>
+                                    <v-list-item-action-text>{{ item.start | formatDate($moment, "MMMM D") }}</v-list-item-action-text>
 
                                     <v-icon
                                       v-if="!active"
