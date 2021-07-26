@@ -6,7 +6,7 @@
     color="transparent"
     class="blur-primary-color"
     :class="barClasses"
-    style="z-index:2;"
+    style="z-index: 2;"
     dark
   >
     <a
@@ -39,60 +39,65 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex"
 
 export default {
   props: {
     location: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
     return {
       drawer: false,
-      barClasses: "home"
-    };
+      barClasses: "home",
+    }
   },
 
   watch: {
     drawer(value) {
-      this.updateDrawer(value);
+      this.updateDrawer(value)
     },
     stateDrawer(value) {
-      this.drawer = value;
+      this.drawer = value
     },
     "$route.path"(value) {
-      this.updateBarClasses();
-    }
+      this.updateBarClasses()
+    },
   },
 
   computed: mapState({
-    stateDrawer: state => state.navigation.drawer
+    stateDrawer: (state) => state.navigation.drawer,
   }),
 
   methods: {
     updateBarClasses() {
       if (this.$route.path == "/") {
-        this.barClasses = "home";
+        this.barClasses = "home"
       } else {
-        this.barClasses = "not-home";
+        this.barClasses = "not-home"
       }
     },
-    ...mapActions("navigation", ["updateDrawer"])
+    ...mapActions("navigation", ["updateDrawer"]),
   },
 
   created() {
-    this.drawer = this.stateDrawer;
-    this.updateBarClasses();
-  }
-};
+    this.drawer = this.stateDrawer
+    this.updateBarClasses()
+  },
+}
 </script>
 
 <style lang="scss" scoped>
 .v-app-bar {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 5) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
   &.v-app-bar--is-scrolled {
     &.blur-primary-color {
       // background-color:rgba(68,100,100,.75) !important;
