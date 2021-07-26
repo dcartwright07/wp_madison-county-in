@@ -31,78 +31,20 @@
                 {{ item.name }}
               </v-btn>
             </div>
-            <div class="nav-wrapper">
-              <v-tabs
-                v-model="tab"
-                class="nav nav-pills nav-fill flex-column flex-md-row"
-                id="tabs-icons-text"
-                role="tablist"
-              >
-                <v-tab
-                  class="nav-link mb-sm-3 mb-md-0 active show"
-                  id="tabs-icons-text-1-tab"
-                  data-toggle="tab"
-                  href="#tabs-icons-text-1"
-                  role="tab"
-                  aria-controls="tabs-icons-text-1"
-                  aria-selected="true"
-                >
-                  <i class="fa fa-info-circle mr-2"></i>About
-                </v-tab>
 
-                <v-tab
-                  class="nav-link mb-sm-3 mb-md-0"
-                  id="tabs-icons-text-2-tab"
-                  data-toggle="tab"
-                  href="#tabs-icons-text-2"
-                  role="tab"
-                  aria-controls="tabs-icons-text-2"
-                  aria-selected="false"
-                >
-                  <i class="fa fa-calendar-alt mr-2"></i>Events
-                </v-tab>
-              </v-tabs>
-            </div>
-
-            <v-card class="card shadow">
-              <v-card-text class="card-body mt-5">
-                <div class="tab-content" id="destinationTabContent">
-                  <v-tabs-items v-model="tab">
-                    <v-tab-item id="tabs-icons-text-1">
-                      <div class="tab-pane fade active show">
-                        <p
-                          v-if="!destination.content"
-                          class="description"
-                          v-html="destination.description"
-                        />
-                        <p
-                          v-else
-                          class="description"
-                          v-html="destination.content"
-                        />
-                        {{ destination }}
-                      </div>
-                    </v-tab-item>
-
-                    <v-tab-item id="tabs-icons-text-2">
-                      <div class="tab-pane fade">
-                        organization.event.listing
-                      </div>
-                    </v-tab-item>
-                  </v-tabs-items>
-                </div>
-              </v-card-text>
-            </v-card>
+            <BaseTabs
+              :navigation="tabs"
+              :item="destination"
+              :listOfEvents="listOfEvents"
+            />
           </div>
         </v-col>
-        <v-col md="3" lg="3" class="pt-md-16 mt-md-16">
-          <div class="pt-md-16 mt-md-3">
-          <BaseSidebar 
-          :email="destination.email"
-          :phone="destination.phone"
-          :c_name="destination.name"
+        <v-col md="3" lg="3" class="pt-md-16">
+          <BaseSidebar
+            :email="destination.email"
+            :phone="destination.phone"
+            :c_name="destination.name"
           />
-          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -115,18 +57,34 @@ import { mapState, mapActions } from "vuex"
 export default {
   data() {
     return {
-      tab: null,
+      tabs: [
+        {
+          name: "About",
+          icon: "fa-info-circle",
+        },
+        {
+          name: "Related Events",
+          icon: "fa-calendar-alt",
+        },
+      ],
     }
   },
 
   computed: mapState({
     destination: (state) => state.wuapi.destination,
+    listOfEvents: (state) => state.wuapi.latestEvents,
   }),
 
-  methods: mapActions("wuapi", ["getDestination","getDirectory"]),
+  methods: mapActions("wuapi", ["getDestination", "getDirectory", "getEvents"]),
 
   created() {
     this.getDestination(this.$route.params.id)
+
+    let options = {
+      type: "latest",
+      limit: "5",
+    }
+    this.getEvents(options)
   },
 }
 </script>
