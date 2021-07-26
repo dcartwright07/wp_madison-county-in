@@ -581,15 +581,13 @@ export const actions = {
     if (!state.token) {
       await dispatch("setApiToken")
     }
-
+    options.categories == undefined ? options.categories = '' : null;
     let url =
       this.$config.wuApiUrl +
       "/event?organization_id=" +
       this.$config.orgId +
-      "&copromotion=1"
-    if (options.type == "featured") {
-      url += "&categories=18,7,11,9,6,3,4,16"
-    }
+      "&copromotion=1&categories="+options.categories;
+      console.log(url);
 
     const events = await this.$axios
       .get(url, {
