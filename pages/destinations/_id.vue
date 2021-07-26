@@ -95,8 +95,14 @@
             </v-card>
           </div>
         </v-col>
-        <v-col md="3" lg="3" class="pt-md-16">
-          <!-- <BaseSidebar/> -->
+        <v-col md="3" lg="3" class="pt-md-16 mt-md-16">
+          <div class="pt-md-16 mt-md-3">
+          <BaseSidebar 
+          :email="destination.email"
+          :phone="destination.phone"
+          :c_name="destination.name"
+          />
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -117,7 +123,7 @@ export default {
     destination: (state) => state.wuapi.destination,
   }),
 
-  methods: mapActions("wuapi", ["getDestination"]),
+  methods: mapActions("wuapi", ["getDestination","getDirectory"]),
 
   created() {
     this.getDestination(this.$route.params.id)
