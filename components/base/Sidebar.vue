@@ -26,10 +26,10 @@
 			</v-row>
 				<v-row v-if="email">
 				<v-col sm="2" class="mb-2">
-				<i class="fa fa-envelope-o"/>
+				<i class="fa fa-envelope"/>
 				</v-col>
 				<v-col sm="10" class="d-flex justify-left align-center">
-					<h4 class="text-primary">{{email}}</h4>
+					<h4 class="text-primary"> <a :href="'mailto:' + email">{{email}}</a></h4>
 				</v-col>
 			</v-row>
 			</v-card-text>
