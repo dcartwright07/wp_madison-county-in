@@ -14,6 +14,7 @@
                 class="text-muted"
                 v-html="
                   destination.address +
+                  ' ' +
                   destination.city +
                   ' ' +
                   destination.state +
@@ -27,6 +28,7 @@
                 class="text-uppercase primary mr-2"
                 v-for="item in destination.categories"
                 :key="item.name"
+                small
               >
                 {{ item.name }}
               </v-btn>

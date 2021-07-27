@@ -54,29 +54,36 @@
                           params: { id: event.id },
                         }"
                       >
-                        <template v-slot:default="{ active }">
+                        <template>
+                          <v-list-item-avatar
+                            v-if="event.image"
+                            size="100"
+                            tile
+                          >
+                            <v-img :src="event.image" />
+                            <!-- <v-img
+                              v-else
+                              src="https://www.whatsup247.com/img/wu-logo-icon.svg"
+                              height="80"
+                            /> -->
+                          </v-list-item-avatar>
                           <v-list-item-content>
-                            <v-list-item-title v-text="event.title" />
-
-                            <v-list-item-subtitle
-                              class="text--primary"
+                            <v-list-item-title
+                              class="font-weight-bold"
                               v-text="event.name"
                             />
-                          </v-list-item-content>
 
-                          <v-list-item-action>
-                            <v-list-item-action-text>
+                            <v-list-item-subtitle class="mt-2 font-italic">
                               {{ event.start | formatDate($moment, "MMMM D") }}
-                            </v-list-item-action-text>
+                              at
+                              {{ event.start | formatDate($moment, "h:mm a") }}
+                            </v-list-item-subtitle>
 
-                            <v-icon v-if="!active" color="grey lighten-1">
-                              mdi-star-outline
-                            </v-icon>
-
-                            <v-icon v-else color="yellow darken-3">
-                              mdi-star
-                            </v-icon>
-                          </v-list-item-action>
+                            <v-list-item-subtitle>
+                              {{ event.city }},
+                              {{ event.state }}
+                            </v-list-item-subtitle>
+                          </v-list-item-content>
                         </template>
                       </v-list-item>
 

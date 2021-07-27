@@ -1,10 +1,14 @@
 <template>
   <div class="main-wrapper">
-    <WhatsUpListingHeader :image="event.image" :name="event.name" />
+    <WhatsUpListingHeader
+      v-if="event.image"
+      :image="event.image"
+      :name="event.name"
+    />
     <!-- Content -->
     <v-container class="container">
       <v-row
-        class="d-flex flex-md-row justify-center flex-sm-column-reverse pa-10"
+        class="d-flex flex-md-row justify-center flex-sm-column-reverse pa-10 pt-15"
       >
         <v-col class="col-md-7 col-lg-7 mb-3">
           <div class="">
@@ -27,6 +31,7 @@
                 class="text-uppercase primary mr-2"
                 v-for="item in event.categories"
                 :key="item.name"
+                small
               >
                 {{ item.name }}
               </v-btn>
