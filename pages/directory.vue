@@ -5,7 +5,11 @@
     </v-card-title>
     <v-row class="pa-4" justify="space-between">
       <v-col cols="2">
-        <v-list-item v-for="filter in filters" :key="filter.id" @click="setFilter(filter.id)">
+        <v-list-item
+          v-for="filter in filters"
+          :key="filter.id"
+          @click="setFilter(filter.id)"
+        >
           <v-list-item-content>
             <v-list-item-title>{{ filter.name }}</v-list-item-title>
           </v-list-item-content>
@@ -16,9 +20,9 @@
 
       <v-col cols="4" class="d-flex" style="overflow: scroll; height: 85vh;">
         <div
-            v-if="!items"
-            class="text-h6 grey--text text--lighten-1 font-weight-light"
-          >
+          v-if="!items"
+          class="text-h6 grey--text text--lighten-1 font-weight-light"
+        >
           Select a Category
         </div>
         <v-treeview
@@ -54,7 +58,11 @@
             max-width="400"
           >
             <v-card-text>
-              <v-avatar v-if="selected.organization_image" size="100" class="mb-8">
+              <v-avatar
+                v-if="selected.organization_image"
+                size="100"
+                class="mb-8"
+              >
                 <v-img :src="selected.organization_image"></v-img>
               </v-avatar>
               <h3 class="text-h5 mb-2">
@@ -67,24 +75,35 @@
                 <!-- {{ selected.username }} -->
               </div>
             </v-card-text>
+
             <v-divider></v-divider>
+
             <v-row class="text-left" tag="v-card-text">
-              <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
+              <v-col class="mr-2 mb-1" tag="strong" cols="5">
                 Location:
               </v-col>
-              <v-col>{{ selected.location }} {{ selected.city }}, {{ selected.state }} {{ selected.zip }}</v-col>
-              <!-- <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                Website:
-              </v-col>
               <v-col>
-                <a :href="`//${selected.website}`" target="_blank">{{
-                  selected.website
-                }}</a>
-              </v-col> -->
-              <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
+                {{ selected.address }} {{ selected.city }},
+                {{ selected.state }} {{ selected.zip }}
+              </v-col>
+            </v-row>
+
+            <v-row v-if="selected.phone" class="text-left" tag="v-card-text">
+              <v-col class="mr-2 mb-1" tag="strong" cols="5">
                 Phone:
               </v-col>
               <v-col>{{ selected.phone }}</v-col>
+            </v-row>
+
+            <v-row v-if="selected.website" class="text-left" tag="v-card-text">
+              <v-col class="mr-2 mb-1" tag="strong" cols="5">
+                Website:
+              </v-col>
+              <v-col>
+                <a :href="`${selected.website}`" target="_blank">
+                  {{ selected.website }}
+                </a>
+              </v-col>
             </v-row>
           </v-card>
         </v-scroll-y-transition>
@@ -94,8 +113,8 @@
 </template>
 
 <script>
-const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
-import { mapState } from "vuex";
+const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+import { mapState } from "vuex"
 
 export default {
   data: () => ({
@@ -109,149 +128,157 @@ export default {
       {
         name: "By City",
         id: 2,
-      }
+      },
     ],
     selectedFilter: 0,
     cityList: [],
     categoryList: [],
-    items: undefined
+    items: undefined,
   }),
 
   async fetch({ store }) {
     let options = {
-      limit: "500"
-    };
-    await store.dispatch("wuapi/getDirectory", options);
+      limit: "500",
+    }
+    await store.dispatch("wuapi/getDirectory", options)
   },
 
   computed: {
     ...mapState({
-      organizationList: state => state.wuapi.directory,
-      categories: state => state.wuapi.directory_categories
+      organizationList: (state) => state.wuapi.directory,
+      categories: (state) => state.wuapi.directory_categories,
     }),
 
     categoryItems() {
-      let array = [];
+      let array = []
 
       this.categoryList.forEach((element, index) => {
         let item = {
           name: element,
           id: index,
-          children: []
-        };
+          children: [],
+        }
 
-        array.push(item);
-      });
+        array.push(item)
+      })
 
-      return array;
+      return array
     },
 
     cityItems() {
-      let array = [];
+      let array = []
 
       this.cityList.forEach((element, index) => {
         let item = {
           name: element,
           id: index,
-          children: []
-        };
+          children: [],
+        }
 
-        array.push(item);
-      });
+        array.push(item)
+      })
 
-      return array;
+      return array
     },
 
     selected() {
-      if (!this.active.length) return undefined;
-      const id = this.active[0];
-      return this.organizationList.find(organization => organization.id === id);
-    }
+      if (!this.active.length) return undefined
+      const id = this.active[0]
+      return this.organizationList.find(
+        (organization) => organization.id === id
+      )
+    },
   },
 
   methods: {
     async fetchOrganizations(item) {
       // Remove in 6 months and say
       // you've made optimizations! :)
-      await pause(1500);
+      await pause(1500)
 
-      if(this.selectedFilter == 1) {
-        this.organizationList.filter(organization => {
-          organization.categories.forEach(category => {
-            if(category.name === item.name) {
-              item.children.push(organization);
+      if (this.selectedFilter == 1) {
+        this.organizationList.filter((organization) => {
+          organization.categories.forEach((category) => {
+            if (category.name === item.name) {
+              item.children.push(organization)
             }
-          });
-        });
-      } else if(this.selectedFilter == 2) {
-        this.organizationList.filter(organization => {
-          if(organization.city === item.name) {
-            item.children.push(organization);
+          })
+        })
+      } else if (this.selectedFilter == 2) {
+        this.organizationList.filter((organization) => {
+          if (organization.city === item.name) {
+            item.children.push(organization)
           }
-        });
+        })
       }
 
-      return item.children;
+      return item.children
     },
 
     setFilter(id) {
-      if(id === 1) {
-        this.items = this.categoryItems;
-      } else if(id === 2) {
-        this.items = this.cityItems;
+      if (id === 1) {
+        this.items = this.categoryItems
+      } else if (id === 2) {
+        this.items = this.cityItems
       }
 
-      this.selectedFilter = id;
+      this.selectedFilter = id
     },
 
     updateOrganizationList(array) {
-      this.open = array;
+      this.open = array
     },
 
     getCategoryList() {
-      let array = [];
+      let array = []
 
-      this.organizationList.forEach(organization => {
-        organization.categories.forEach(category => {
-          array.push(category.name);
-        });
-      });
+      this.organizationList.forEach((organization) => {
+        organization.categories.forEach((category) => {
+          array.push(category.name)
+        })
+      })
 
       array.sort((a, b) => {
-        return a.localeCompare(b);
-      });
+        return a.localeCompare(b)
+      })
 
-      this.categoryList = new Set(array);
+      this.categoryList = new Set(array)
     },
 
     getCityList() {
-      let array = [];
+      let array = []
 
-      this.organizationList.forEach(element => {
-        if(element.city != "") {
-          let city = element.city.toLowerCase();
-          city = this.capitalizeWords(city);
-          array.push(city);
+      this.organizationList.forEach((element) => {
+        if (element.city != "") {
+          let city = element.city.toLowerCase()
+          city = this.capitalizeWords(city)
+          array.push(city)
         }
-      });
+      })
 
       array.sort((a, b) => {
-        return a.localeCompare(b);
-      });
+        return a.localeCompare(b)
+      })
 
-      this.cityList = new Set(array);
+      this.cityList = new Set(array)
     },
 
     capitalizeWords(string) {
-      return string.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
-    }
+      return string.replace(/(?:^|\s)\S/g, function (a) {
+        return a.toUpperCase()
+      })
+    },
   },
 
   created() {
-    this.getCategoryList();
-    this.getCityList();
-  }
-};
+    this.getCategoryList()
+    this.getCityList()
+  },
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-card__text {
+  padding: 10px 16px;
+}
+</style>
