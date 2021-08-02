@@ -28,7 +28,7 @@
               <v-btn
                 disabled
                 rounded
-                class="text-uppercase primary mr-2"
+                class="text-uppercase primary mr-2 mb-2"
                 v-for="item in destination.categories"
                 :key="item.name"
                 small
