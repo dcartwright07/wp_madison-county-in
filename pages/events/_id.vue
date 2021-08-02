@@ -1,9 +1,9 @@
 <template>
   <div class="main-wrapper">
     <WhatsUpListingHeader
-      v-if="event.image"
-      :image="event.image"
+      :image="!event.image ? defaultImage : event.image"
       :name="event.name"
+      :styleHeight="!event.image ? '200' : '500'"
     />
     <!-- Content -->
     <v-container class="container">
@@ -72,6 +72,8 @@ export default {
           icon: "fa-calendar-alt",
         },
       ],
+      defaultImage:
+        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1533219057257-4bb9ed5d2cc6.jpeg",
     }
   },
 
@@ -94,6 +96,9 @@ export default {
         relatedCategories += ","
       }
     })
+
+    if (!this.event.image) {
+    }
 
     let options = {
       type: "latest",

@@ -1,6 +1,9 @@
 <template>
   <div class="main-wrapper">
-    <WhatsUpListingHeader :image="destination.listing_image" />
+    <WhatsUpListingHeader
+      :image="destination.listing_image"
+      :styleHeight="!destination.listing_image ? '200' : '500'"
+    />
     <!-- Content -->
     <v-container class="container">
       <v-row

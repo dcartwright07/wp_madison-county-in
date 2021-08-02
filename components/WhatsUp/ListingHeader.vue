@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="theme--light grey lighten-3"
-    style="height: 25vh; min-height: 500px;"
+    :style="`height: 25vh; min-height: ${styleHeight}px;`"
   >
     <v-img cover style="height: 100%;" :src="image" />
   </v-card>
@@ -17,6 +17,9 @@ export default {
     name: {
       type: String,
       default: "",
+    },
+    styleHeight: {
+      type: String,
     },
   },
 }
